@@ -50,7 +50,7 @@ wspiera w tym programistę dostarczając mechanizmy takie jak klasy,
 enkapsulację, dziedziczenie, polifmorfizm, ale nie narzuca tego podejścia.
 Można w C++ pisać tak jak w C, można pisać funkcyjnie, można wykorzystywać
 elementy programowania generycznego i skomplikowanego metaprogramowania,
-zgodnie powyższymi z założeniami.
+zgodnie z powyższymi założeniami.
 
 > Semestr nauki C++ pozwoli wprowadzić kluczowe elementy, torując drogę
 > do dalszej, samodzielnej praktyki.
@@ -129,7 +129,7 @@ Kompilator czytając plik źródlowy wykonuje w pierwszej kolejności interpreta
 `#include` wkleja treść pliku `iostream` w miejscu dyrektywy. 
 
 [Nagłówki biblioteki standardowej C++](https://en.cppreference.com/w/cpp/header) nie mają rozszerzeń.
-Dla większości standardowych nagłówków języka C dostępny jest odpowiednik w formacie `<c[nagłówek]`>, np. `<cstring>`
+Dla większości standardowych nagłówków języka C dostępny jest odpowiednik w formacie `<c[nagłówek]`>, np. `<cstring>` (zamiast `<string.h>` w C)
 dostarczający podobne funkcje.
 
 Dalej następuje definicja funkcji `main()`:
@@ -459,7 +459,7 @@ class c {}; // klasa o nazwie 'c'
 struct {}; // struktura anonimowa
 ```
 
-Jednostki translacji skłądają się z **deklaracji**.
+Jednostki translacji składają się z **deklaracji**.
 Deklaracje:
 * wprowadzają elementy programu,
 * **mogą** nadać im nazwę,
@@ -480,7 +480,7 @@ struct S {
 ```
 
 ```cpp
-/* przykłądy definicji */
+/* przykłady definicji */
 class P { int x; int y; };
 void foo() {
    std::cout << "Hi!";
@@ -518,8 +518,8 @@ undefined.cpp:(.text+0x9): undefined reference to `foo()'
 
 Druga, nawet istotniejsza zasada znana jako _one definition rule_:
 
-> Jednostka translacji może zawierać co najwyżej jedną definicję danego elementu
-> Program jako całość może zawierać co najwyżej jedną definicję zmiennej lub funkcji
+> Jednostka translacji może zawierać co najwyżej jedną definicję danego elementu.
+> Program jako całość może zawierać co najwyżej jedną definicję zmiennej lub funkcji.
 
 Jej naruszenie również zwykle powoduje błędy linkera:
 
@@ -547,7 +547,7 @@ odr2.cpp:(.text+0x0): multiple definition of `foo(int)'; /tmp/ccxy9LGW.o:odr1.cp
 ```
 
 Klasy i struktury mogą być definiowane raz na jednostkę, ale deklaracje w całym programie muszą być
-spójne (tekstowo identyczne). Inaczej występują ciekawe niezdefiniowane rzeczy:
+spójne (tekstowo identyczne). Inaczej występują ciekawe, niezdefiniowane rzeczy:
 
 ```cpp
 #include <iostream>
@@ -672,7 +672,7 @@ są umieszczone w przestrzeni nazw `std::`.
 
 > Przestrzeń `std::` jest zarezerwowana dla implementacji! Programy nie mogą umieszczać w niej swoich symboli.
 
-Różnorodne biblioteki często w analogii do `std::` umieszczają swoje symbole 
+Różnorodne biblioteki, często w analogii do `std::`, umieszczają swoje symbole 
 w dedykowanej przestrzeni nazw, np. nagłówki biblioteki [libfmt](https://github.com/fmtlib/fmt) opakowują
 wszystko w przestrzeń nazw `fmt::`, dzięki czemu eksponowane funkcje, klasy, zmienne nie będą 
 konfliktować z potencjalnie tak samo nazwanymi elementami konsumującego programu.
@@ -691,7 +691,7 @@ przeszukiwanie korzystając ze składni `using namespace ns;`.
 ### Tryb linkowania
 
 Jednostki translacji mogą korzystać z elementów programu definiowanych w innych jednostkach translacji.
-To podstawowy mechanizm, dzięki możliwa jest jakakolwiek komunikacja pomiędzy niezależnie budowanymi plikami.
+To podstawowy mechanizm, dzięki któremu możliwa jest jakakolwiek komunikacja pomiędzy niezależnie budowanymi plikami.
 Pozwala modularyzować bardziej skomplikowane projekty, unikając pojedynczej, 
 monolitycznej jednostki. Umożliwia również optymalizację procesu budowania - wiele jednostek translacji
 może być przetwarzanych równolegle.
