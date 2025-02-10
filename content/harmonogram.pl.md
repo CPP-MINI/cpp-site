@@ -44,3 +44,4 @@ Piątki, godz. 10:15 - 12:00
 | 23.05.2025 | [L6 - Polimorfizm i Wyjątki (oceniane) ]({{< ref "lab/l6" >}})   |
 | 30.05.2025 | [L7 - Szablony (warsztaty) ]({{< ref "lab/l7" >}})               |
 | 06.06.2025 | [L7 - Szablony (oceniane) ]({{< ref "lab/l7" >}})                |
+| Sesja      | Poprawa                                                          |
