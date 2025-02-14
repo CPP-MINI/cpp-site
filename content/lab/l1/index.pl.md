@@ -15,6 +15,8 @@ W tym zadaniu stworzysz prosty projekt w C++ składający się z:
 Ani podczas tego laboratorium, ani podczas któregokolwiek przyszłego (o ile nie będzie to wprost sprecyzowane), nie używaj standardowej biblioteki C (czyli np. `stdio.h`, `string.h` itd.).
 W pełni dozwolone (o ile nie będzie to wprost zabronione) jest i będzie korzystanie z biblioteki C++ (czyli np. `vector`, `string`).
 
+**Skorzystaj z następującego kodu startowego**: [greeter.cpp](src/greeter.cpp) [program_2.cpp](src/program_2.cpp).
+
 ### Środowisko programistyczne
 Zanim przejdziemy do właściwej treści, musimy wybrać edytor, w którym będziemy pisali kod.
 W poprzednim semestrze było to Visual Studio.
@@ -79,7 +81,7 @@ clean:
     rm -f program_1 ... # dodaj pozostałe pliki wynikowe kompilacji
 ```
 
-UWAGA 1: Upewnij się, że cel `clean` nie usuwa przypadkiem plików z kodem źródłowym -- nie o to nam tutaj w końcu chodzi.
+**UWAGA 1**: Upewnij się, że cel `clean` nie usuwa przypadkiem plików z kodem źródłowym -- nie o to nam tutaj w końcu chodzi.
 
 Linijka `.PHONY: clean` mówi, że `clean` jest celem, który nie produkuje pliku `clean`, a po prostu się tak nazywa. Dzięki temu etap ten nie zostanie pominięty, nawet jeśli z jakiegoś powodu w naszym katalogu znajdzie się plik `clean`.
 
@@ -129,7 +131,7 @@ Biblioteka ta powinna udostępniać w przestrzeni nazw `rome`:
   Ægyptus: Alexandria, Ptolemais.
   ```
 
-UWAGA 2: W C++ definicja i deklaracja zmiennej, której typem jest pewna struktura, następuje jako
+**UWAGA 2**: W C++ definicja i deklaracja zmiennej, której typem jest pewna struktura, następuje jako
 ```
 Province variable;
 ```
@@ -139,7 +141,7 @@ struct Province variable;
 ```
 Nie jest więc potrzebne żadne kombinowanie z `typedef`, jakie mogło się pojawić na Programowaniu 1.
 
-UWAGA 3: Nagłówki funkcji tej biblioteki są bardziej w stylu C, nie C++. Zwykle w C++ unikamy za wszelką cenę czystych wskaźników, ale o tym będzie dopiero na późniejszych zajęciach. Na ten moment musimy się zadowolić tym, co wiemy z poprzedniego semestru.
+**UWAGA 3**: Nagłówki funkcji tej biblioteki są bardziej w stylu C, nie C++. Zwykle w C++ unikamy za wszelką cenę czystych wskaźników, ale o tym będzie dopiero na późniejszych zajęciach. Na ten moment musimy się zadowolić tym, co wiemy z poprzedniego semestru.
 
 
 Dodaj do pliku `Makefile`:
@@ -153,6 +155,8 @@ Dodaj do pliku `Makefile`:
 
 Zbuduj `program_2` i go uruchom.
 Pamiętaj, że przy uruchamianiu programu linkującego bibliotekę dynamiczną, będzie on jej szukał domyślnie w katalogach systemowych. U nas jednak jest ona w obecnym katalogu. Można to zmienić modyfikując zmienną środowiskową `LD_LIBRARY_PATH`, która zawiera listę dodatkowych katalogów do przeszukania w tym celu.
+
+Rozwiązanie: [Makefile](solution/Makefile) [greeter.cpp](solution/greeter.cpp) [greeter.hpp](solution/greeter.hpp) [rome.cpp](solution/rome.cpp) [rome.hpp](solution/rome.hpp) [program_1.cpp](solution/program_1.cpp) [vars.cpp](solution/vars.cpp) [vars.hpp](solution/vars.hpp) [program_2.cpp](solution/program_2.cpp).
 
 ### Git
 Git (z ang. ,,głupek") jest programem, tak zwanym **systemem kontroli wersji**, którego współcześnie używa praktycznie każdy programista.
