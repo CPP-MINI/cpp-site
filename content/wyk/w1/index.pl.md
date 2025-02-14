@@ -7,6 +7,7 @@ weight: 10
 # Wykład 1 - Translacja
 
 Zakres:
+
 * budowanie programów w języku C++
 * jednostki translacji, trajektoria kompilacji
 * elementy programu, definicje i deklaracje
@@ -32,8 +33,9 @@ C++ nadal jest jednym z **najpopularniejszych** języków, trzymając się 2-3 p
 https://www.tiobe.com/tiobe-index/cplusplus/.
 Znajduje bardzo szerokie zastosowanie, zwłaszcza w projektach wymagających najwyższej wydajności.
 
-Ten język jest **wszechobecny**. Cięzko znaleźć platformę sprzętową, na której nie dałoby się go wykorzystać (podobnie do C).
-Od urządzeń bez systemu operacyjnego (_baremetal_), przez aplikacje serwerowe, desktopowe, rozproszone systemy HPC, 
+Ten język jest **wszechobecny**. Cięzko znaleźć platformę sprzętową, na której nie dałoby się go wykorzystać (podobnie
+do C).
+Od urządzeń bez systemu operacyjnego (_baremetal_), przez aplikacje serwerowe, desktopowe, rozproszone systemy HPC,
 aplikacje graficzne i gry komputerowe. Jako jedno z nielicznych tego typu narzędzi
 posiada szereg różnych, niezależnie rozwijanych _implementacji_ - systemów kompilatorów i bibliotek
 umożliwiających uruchamianie oprogramowania napisanego w tym języku.
@@ -42,11 +44,11 @@ Język jest **ekstremalnie trudny** do nauki. Zyskanie biegłości trwa lata.
 Historyczne zawiłości i błędy w projekcie języka wciąż są widoczne.
 Gwałtowny rozwój w ostatnich latach tylko dodaje złożoności (i oczywiście możliwości).
 Twórcy zakładają, że powinien pozwalać na implementację dowolnego przypadku użycia,
-pozwolić na programowanie w różnych stylach, prioretyzując dodawanie użytecznych 
+pozwolić na programowanie w różnych stylach, prioretyzując dodawanie użytecznych
 funkcjonalności nad spójnością i bezpieczeństwem.
 
 C++ **nie jest** językiem obiektowym. Pozwala pisać w sposób obiektowy,
-wspiera w tym programistę dostarczając mechanizmy takie jak klasy, 
+wspiera w tym programistę dostarczając mechanizmy takie jak klasy,
 enkapsulację, dziedziczenie, polifmorfizm, ale nie narzuca tego podejścia.
 Można w C++ pisać tak jak w C, można pisać funkcyjnie, można wykorzystywać
 elementy programowania generycznego i skomplikowanego metaprogramowania,
@@ -56,7 +58,7 @@ zgodnie z powyższymi założeniami.
 > do dalszej, samodzielnej praktyki.
 
 C++ to **nie jest** rozszerzenie języka C. To zupełnie inne, samodzielne, posiadające niezależnie
-rozwijaną specyfikację narzędzie. W pewnym podstawowym zakresie jest do języka C podobny, 
+rozwijaną specyfikację narzędzie. W pewnym podstawowym zakresie jest do języka C podobny,
 z czego będziemy bogato korzystać.
 
 ### Hello World
@@ -72,6 +74,7 @@ int main()
     return 0;
 }
 ```
+
 Source: [hello.cpp](hello.cpp)
 
 Mając treść takiego programu w pliku tekstowym na dysku możemy go zbudować:
@@ -101,9 +104,8 @@ język [w różnym stopniu](https://en.cppreference.com/w/cpp/compiler_support).
 graph LR
     hello.cpp -->|reads| compiler
     compiler -->|writes| hello
-
-    %% Custom coloring for the middle box
-    style compiler fill:#FFD700,stroke:#000,stroke-width:2px
+%% Custom coloring for the middle box
+    style compiler fill: #FFD700, stroke: #000, stroke-width: 2px
 ```
 
 Standard C++ nie mówi nic na temat szczegółów realizacji
@@ -122,8 +124,8 @@ Po wygenerowaniu pliku wyjściowego możemy go uruchomić:
 ```
 
 > W praktyce do programowania w C++, tak jak w przypadku innych języków,
-używamy zintegrowanego środowiska programistycznego (IDE). Wykład celowo demonstruje
-narzędzia od podstaw, mając na celu przybliżenie całego ekosystemu, a nie tylko języka samego w sobie.
+> używamy zintegrowanego środowiska programistycznego (IDE). Wykład celowo demonstruje
+> narzędzia od podstaw, mając na celu przybliżenie całego ekosystemu, a nie tylko języka samego w sobie.
 
 Przeanalizujmy strukturę programu. Rozpoczynamy od **dyrektywy preprocesora**:
 
@@ -132,10 +134,11 @@ Przeanalizujmy strukturę programu. Rozpoczynamy od **dyrektywy preprocesora**:
 ```
 
 Kompilator czytając plik źródlowy wykonuje w pierwszej kolejności interpretacji takich dyrektyw.
-`#include` wkleja treść pliku `iostream` w miejscu dyrektywy. 
+`#include` wkleja treść pliku `iostream` w miejscu dyrektywy.
 
 [Nagłówki biblioteki standardowej C++](https://en.cppreference.com/w/cpp/header) nie mają rozszerzeń.
-Dla większości standardowych nagłówków języka C dostępny jest odpowiednik w formacie `<c[nagłówek]`>, np. `<cstring>` (zamiast `<string.h>` w C)
+Dla większości standardowych nagłówków języka C dostępny jest odpowiednik w formacie `<c[nagłówek]`>, np. `<cstring>` (
+zamiast `<string.h>` w C)
 dostarczający podobne funkcje.
 
 Dalej następuje definicja funkcji `main()`:
@@ -156,8 +159,9 @@ W ciele funkcji znajduje się instrukcja wypisania:
 std::cout << "Hello World!";
 ```
 
-To konstrukcja analogiczna do `printf("Hello World!")"`z języka C. Zamiast funkcji `printf()` do 
-wypisywania na standardowe wejście używamy operatora `<<` zdefiniowanego w bibliotece standardowej dla klasy obiektu `std::cout`.
+To konstrukcja analogiczna do `printf("Hello World!")"`z języka C. Zamiast funkcji `printf()` do
+wypisywania na standardowe wejście używamy operatora `<<` zdefiniowanego w bibliotece standardowej dla klasy obiektu
+`std::cout`.
 
 ### Podstawowe narzędzia
 
@@ -169,7 +173,8 @@ Nagłówek [\<iostream\>](https://en.cppreference.com/w/cpp/header/iostream) dos
 strumienie wejścia/wyjścia: `std::cout`, `std::cin`, `std::cerr`, `std::clog`. Biblioteka C zachowywała się podobnie
 dostarczając globalne `stdin`, `stdout` i `stderr`.
 
-Strumienie wyjściowe definiują operatory `<<` [dla różnych typów podstawowych](https://en.cppreference.com/w/cpp/io/basic_ostream/operator_ltlt)
+Strumienie wyjściowe definiują operatory
+`<<` [dla różnych typów podstawowych](https://en.cppreference.com/w/cpp/io/basic_ostream/operator_ltlt)
 pozwalające w prosty sposób formatować je na wyjście.
 
 ```cpp
@@ -192,8 +197,10 @@ std::cin >> x >> y >> txt;
 
 #### Typ std::string
 
-Nagłówek [\<string\>](https://en.cppreference.com/w/cpp/header/string) dostarcza typ `std::string`. To kontener biblioteki standardowej przechowujący ciągłą, dynamiczną tablicę znaków, 
-idealny do przechowywania tekstu. Sam rośnie w miarę dodawania do niego znaków. Integruje się ze standardowymi strumieniami.
+Nagłówek [\<string\>](https://en.cppreference.com/w/cpp/header/string) dostarcza typ `std::string`. To kontener
+biblioteki standardowej przechowujący ciągłą, dynamiczną tablicę znaków,
+idealny do przechowywania tekstu. Sam rośnie w miarę dodawania do niego znaków. Integruje się ze standardowymi
+strumieniami.
 
 ```
 std::string empty;
@@ -214,8 +221,15 @@ std::cin >> txt;
 
 #### Typ std::vector
 
-Najważniejszy kontener biblioteki standardowej to `vector<T>`, czyli dynamiczna, ciągła tablica obiektów określonego typu.
+Najważniejszy kontener biblioteki standardowej to `vector<T>`, czyli dynamiczna, ciągła tablica obiektów określonego
+typu.
 Definiuje go nagłówek [\<vector\>](https://en.cppreference.com/w/cpp/header/vector).
+
+Sam `std::vector` to nazwa tzw. _szablonu klasy_ - mechanizmu języka C++ do programowania generycznego.
+Dopiero po wskazaniu typu przechowywanych elementów, np. `std::vector<int>`, `std::vector<std::string>`,
+`std::vector<MyStruct>`,
+można go użyć jako typu zmiennej.
+
 Domyślnie utworzony wektor jest pusty. Można go zainicjalizować daną listą elementów. Można go indeksować jak tablicę.
 
 ```cpp
@@ -234,6 +248,12 @@ std::vector<int> empty; // {}
 vec = empty; // {}
 ```
 
+Struktury i klasy w C++ poza polami mogą posiadać także **metody**, czyli funkcje składowe.
+Wywołujemy je na rzecz danego obiektu, tak samo, jak odnosimy się do pól obiektu operatorami wyłuskania: `.`, `->`.
+Przykładowo `vec.push_back(5)` wywołuje metodę `push_back` na rzecz obiektu `vec`, wstawiając na koniec wektora wartość
+`5`.
+`vec.size()` zwróci rozmiar wektora `vec`.
+
 ### Trajektoria kompilacji
 
 Program w języku C++ jest budowany z wielu tekstowych plików wejściowych - tzw. **jednostek translacji**.
@@ -243,26 +263,56 @@ graph LR
     source1.cpp --> buildsystem
     source2.cpp --> buildsystem
     main.cpp --> buildsystem
-
     buildsystem --> prog
-
-    %% Custom coloring for the middle box
-    style buildsystem fill:#FFD700,stroke:#000,stroke-width:2px
+%% Custom coloring for the middle box
+    style buildsystem fill: #FFD700, stroke: #000, stroke-width: 2px
 ```
 
+Każdy plik źródłowy przechodzi
+przez [9 faz tłumaczenia](https://en.cppreference.com/w/cpp/language/translation_phases#Translation_phases):
 
-Każdy plik źródłowy przechodzi przez [9 faz tłumaczenia](https://en.cppreference.com/w/cpp/language/translation_phases#Translation_phases):
+1. Mapowanie znaków źródłowych
 
-1) mapowanie znaków źródłowych
-2) sklejanie linii
-3) lekser
-4) preprocesor
-   - pliki załączane dyrektywą `#include` rekursywnie przechodzą przez fazy 1 - 4
-5) kodowanie znaków
-6) łączenie string'ów
-7) **kompilacja**
-8) instancjonowanie szablonów
-9) **linkowanie**
+Wejście kompilatora jest, znak po znaku, mapowane na zbiór znaków standardowych,
+uspójniając reprezentację tekstową kodu źródłowego pomiędzy systemami operacyjnymi / platformami
+
+2. Sklejanie linii
+
+Linie kończące się '\' są łączone z następnymi,
+
+3. Lekser
+
+Strumień znaków jest zamieniany na strumień tokenów - jednostek składniowych języka: 
+
+`#include` `<iostream>` `int` `main` `(` `)` `{` `char` `txt` `[` `]` `=` `"hello"` `;` `return` `0` `;` `}`
+
+4. Preprocesor
+
+Wykonywane są dyrektywy preprocesora, np. `#ifndef`.
+Pliki załączane dyrektywą `#include` rekursywnie przechodzą przez fazy 1 - 4.
+
+5. Kodowanie znaków
+
+Literały znakowe i ciągi znaków są kodowane do docelowej reprezentacji w pamięci, np. UTF-8, UTF-16. 
+
+6. Łączenie string'ów
+
+Następujące po sobie literały są konkatenowane:
+`"hello, "` `"world"` -> `"hello, world"`
+
+7. Kompilacja
+
+Właściwy etap kompilacji, analizujący ciąg tokenów, sprawdzający poprawność składniową i znaczeniową programu.
+Generacja kodu wynikowego dla danej jednostki translacji.
+
+8. Instancjonowanie szablonów
+
+Generacja kodu dla wykorzystywanychw jednostce translacji _szablonów_: typów generycznych języka C++.
+
+9. Linkowanie
+
+Wszystkie jednostki translacji są łączone razem z zewnętrznymi zależnościami w celu wyprodukowania
+wykonywalnego programu.
 
 Przykładowo dwuplikowy projekt byłby budowany tak:
 
@@ -291,20 +341,20 @@ g++ main.cpp helper.cpp -o prog.exe
 
 ```mermaid
 graph LR
-    source.cpp -->|1-8| source.o
-    other.cpp -->|1-8| other.o
+    source.cpp -->|1 - 8| source.o
+    other.cpp -->|1 - 8| other.o
     source.o --> linker[9 - linker]
     other.o --> linker
     linker --> prog.exe
 ```
 
 Formalnie jednostką translacji nazywa się wejście
-fazy 7 - właściwego kompilatora. Potocznie, 
+fazy 7 - właściwego kompilatora. Potocznie,
 programiści często nazywają jednostkami translacji
 pliki źródłowe.
 
 Jedynie linkowanie jest procesem globalnym.
-Pozostałe mogą być wykonywane niezależnie na każdym pliku wejściowym. 
+Pozostałe mogą być wykonywane niezależnie na każdym pliku wejściowym.
 
 W zależności od typu błędu będzie on
 diagnozowany na różnych etapach tego potoku.
@@ -331,6 +381,7 @@ const char* injectedString =
 #include "middle.hpp"
     "from somewhere else.";
 ```
+
 Source: [splice.cpp](splice.cpp)
 
 ```shell
@@ -340,6 +391,7 @@ g++ splice.cpp -o splice.exe && ./splice.exe
 Kompilatory zwykle pozwalają na selektywne sterowanie
 fazami kompilacji. Przykładowo `gcc` posiada serię flag
 pozwalającą zatrzymywać proces po jednym z 4 etapów:
+
 ```
 > g++ --help
 ...
@@ -375,12 +427,12 @@ Tłumacząc to na wyżej opisane fazy:
 Flaga `-E` spowoduje wykonanie faz 1-6, `-S` fazy 7 i 8 (częściowo),
 `-c` kończy fazę `8`. Wywołanie bez flag wykonuje linker - fazę 9.
 
-Jak widać nie wpisuje się to czysto w model abstrakcyjny, 
+Jak widać nie wpisuje się to czysto w model abstrakcyjny,
 który nie wymusza nawet istnienia asemblera. Standard ponownie
 nic nie może wyspecyfikować na temat tego jak programy wyglądają
 po skompilowaniu, jak się je przechowuje, ani jak je uruchamia.
 
-Typowy system budowania będzie niezależnie tłumaczył każdy z plików 
+Typowy system budowania będzie niezależnie tłumaczył każdy z plików
 źródłowych do tzw. _obiektu_ (_object file_), czyli wymagającego linkowania wyjścia assemblera
 a dopiero po utworzeniu wszystkich obiektów konsolidował je w kompletny program.
 
@@ -395,7 +447,7 @@ g++ main.o helper.o -o prog.exe
 
 Zamiast wydawać polecenia budowania ręcznie w większych projektach
 potrzebny jest _system budowania_. Dzięki niemu programiści chcący zbudować oprogramowanie
-mogą typowo wydać jedno polecenie. System budowania 
+mogą typowo wydać jedno polecenie. System budowania
 w postaci plików/skryptów zawiera flagi kompilacji, zależności projektu, skrypty instalacyjne, generatory kodu, itd.
 
 Najprostrzym systemem z którego będziemy początkowo korzystać jest [Makefile](https://makefiletutorial.com/).
@@ -414,6 +466,7 @@ targets: prerequisites
 `command(s)` to lista poleceń powłoki uruchamiana celem wyprodukowania wyjść z wejść (np. `g++`)
 
 Makefile uruchamia reguły, tylko jeżeli:
+
 * plik wyjściowy nie istnieje
 * (lub) plik wyjściowy jest starszy niż zależności reguły
 
@@ -431,6 +484,7 @@ helper.o: helper.cpp
 prog.exe: main.o helper.o
     g++ main.o helper.o -o prog.exe
 ```
+
 Source: [Makefile](Makefile)
 
 Uruchamiamy poleceniem:
@@ -441,7 +495,9 @@ make
 
 ### Elementy programu
 
-Program w C++ składa się z różnych [elementów](https://en.cppreference.com/w/cpp/language/basic_concepts) (_ang. entities_):
+Program w C++ składa się z różnych [elementów](https://en.cppreference.com/w/cpp/language/basic_concepts) (_ang.
+entities_):
+
 * wartości
 * obiekty
 * referencje
@@ -467,6 +523,7 @@ struct {}; // struktura anonimowa
 
 Jednostki translacji składają się z **deklaracji**.
 Deklaracje:
+
 * wprowadzają elementy programu,
 * **mogą** nadać im nazwę,
 * **mogą** definiować ich właściwości;
@@ -483,6 +540,8 @@ struct S {
 }
 ```
 
+Słowo kluczowe `extern` w przypadku zmiennych zmienia definicję w deklarację.
+
 ```cpp
 /* przykłady definicji */
 class P { int x; int y; };
@@ -490,7 +549,6 @@ void foo() {
    std::cout << "Hi!";
 }
 int x = 3;
-extern int y = 5;
 int S::x;
 ```
 
@@ -571,6 +629,7 @@ int main() {
     return 0;
 }
 ```
+
 Source: [classodr1.cpp](classodr1.cpp)
 
 ```cpp
@@ -585,6 +644,7 @@ int dist(Point p, Point q) {
     return dx * dx + dy * dy;
 }
 ```
+
 Source: [classodr2.cpp](classodr2.cpp)
 
 ```shell
@@ -594,8 +654,8 @@ g++ classodr1.cpp classodr2.cpp -o classodr.exe && ./classodr.exe
 ### Przestrzenie nazw
 
 C++ daje możliwość umieszczania definicji i deklaracji w przestrzeniach nazw.
-Przestrzenie nazw grupują te dwa elementy celem lepszej ogranizacji i czytelności kodu,
-oraz uniknięcia konfliktów nazw. 
+Przestrzenie nazw grupują te dwa elementy celem lepszej ogranizacji i czytelności kodu
+oraz uniknięcia konfliktów nazw.
 
 Do definiowania przestrzeni nazw używamy słowa kluczowego `namespace`:
 
@@ -616,8 +676,10 @@ namespace goo {
 int x = 123;
 ```
 
-W powyższym programie istnieją 3 zmienne `x` - jedna w przestrzeni nazw `foo`, jedna w `goo` i jedna w _globalnej przestrzeni nazw_.
-Wszystkie elementy nieumieszczone w przestrzeni zdefiniowanej przez użytkownika są automatycznie umieszczane w tej globalnej przestrzeni.
+W powyższym programie istnieją 3 zmienne `x` - jedna w przestrzeni nazw `foo`, jedna w `goo` i jedna w _globalnej
+przestrzeni nazw_.
+Wszystkie elementy nieumieszczone w przestrzeni zdefiniowanej przez użytkownika są automatycznie umieszczane w tej
+globalnej przestrzeni.
 
 Przestrzenie nazw można zagnieżdżać naturalnie oddając hierarchiczną strukturę projektu w kodzie:
 
@@ -639,7 +701,7 @@ Kompilator widząc odwołanie do nazwanego elementu, np. `x` musi odnaleźć jeg
 Przeszuka w pierwszej kolejności przestrzeń nazw, w której aktualnie jesteśmy (w której jest to odwołanie).
 Jeżeli tam go nie znajdzie, rekurencyjnie przeszuka przestrzeń zewnętrzną, aż do przestrzeni globalnej.
 
-Można jawnie odwołać się do elementu z konkretnej przestrzeni używając operatora `::`: 
+Można jawnie odwołać się do elementu z konkretnej przestrzeni używając operatora `::`:
 
 ```cpp
 namespace foo
@@ -669,6 +731,7 @@ void fun()
 }
 
 ```
+
 Source: [ns.cpp](ns.cpp)
 
 Wszystkie elementy udostępniane przez bibliotekę standardową języka
@@ -676,9 +739,9 @@ są umieszczone w przestrzeni nazw `std::`.
 
 > Przestrzeń `std::` jest zarezerwowana dla implementacji! Programy nie mogą umieszczać w niej swoich symboli.
 
-Różnorodne biblioteki, często w analogii do `std::`, umieszczają swoje symbole 
+Różnorodne biblioteki, często w analogii do `std::`, umieszczają swoje symbole
 w dedykowanej przestrzeni nazw, np. nagłówki biblioteki [libfmt](https://github.com/fmtlib/fmt) opakowują
-wszystko w przestrzeń nazw `fmt::`, dzięki czemu eksponowane funkcje, klasy, zmienne nie będą 
+wszystko w przestrzeń nazw `fmt::`, dzięki czemu eksponowane funkcje, klasy, zmienne nie będą
 konfliktować z potencjalnie tak samo nazwanymi elementami konsumującego programu.
 
 ```cpp
@@ -696,11 +759,11 @@ przeszukiwanie korzystając ze składni `using namespace ns;`.
 
 Jednostki translacji mogą korzystać z elementów programu definiowanych w innych jednostkach translacji.
 To podstawowy mechanizm, dzięki któremu możliwa jest jakakolwiek komunikacja pomiędzy niezależnie budowanymi plikami.
-Pozwala modularyzować bardziej skomplikowane projekty, unikając pojedynczej, 
+Pozwala modularyzować bardziej skomplikowane projekty, unikając pojedynczej,
 monolitycznej jednostki. Umożliwia również optymalizację procesu budowania - wiele jednostek translacji
 może być przetwarzanych równolegle.
 
-Zdefiniowany element może być deklarowany wielokrotnie! C++ określa, kiedy dana nazwa użyta 
+Zdefiniowany element może być deklarowany wielokrotnie! C++ określa, kiedy dana nazwa użyta
 w różnych jednostkach translacji odnosi się do tego samego elementu.
 
 ```cpp
@@ -717,10 +780,12 @@ void foo() { ... }
 void foo(); // czy to ten sa sama funkcja?
 ```
 
-Odpowiedź brzmi tak, jeżeli deklaracje/definicje są w tej samej jednostce translacji lub mają zewnętrzny [**tryb linkowania**:](https://en.cppreference.com/w/cpp/language/storage_duration#Linkage).
+Odpowiedź brzmi tak, jeżeli deklaracje/definicje są w tej samej jednostce translacji lub mają zewnętrzny [**tryb
+linkowania**:](https://en.cppreference.com/w/cpp/language/storage_duration#Linkage).
 Tryb linkowania może być zewnętrzny lub wewnętrzny (lub brak).
 
 Reguły stosowane do określenia, jaki tryb linkowania ma nazwa, są zawiłe. Zależą od tego:
+
 * w jakim zakresie występuje nazwa (namespace, ciało funkcji, klasa, itp.)
 * jakie kwalifikatory ma deklaracja `const`, `extern`, `static`, `inline`.
 
@@ -740,7 +805,7 @@ namespace foo {
 }
 ```
 
-Słowem kluczowym `extern` wymuszamy tryb zewnętrzny: 
+Słowem kluczowym `extern` poza zamianą definicji w deklarację, można jawnie wymusić tyb zewnętrzny:
 
 ```cpp
 extern const int eci;
@@ -779,11 +844,12 @@ const int ci;
 
 Ciekawy detal różniący języki C i C++:
 
-> Names at the top-level namespace scope (file scope in C) that are const and not extern have external linkage in C, but internal linkage in C++.
+> Names at the top-level namespace scope (file scope in C) that are const and not extern have external linkage in C, but
+> internal linkage in C++.
 
 ### Pliki nagłówkowe
 
-Pliki nagłówkowe są starym, sprawdzonym i odchodzącym powoli do lamusa sposobem na deduplikację 
+Pliki nagłówkowe są starym, sprawdzonym i odchodzącym powoli do lamusa sposobem na deduplikację
 deklaracji i definicji pomiędzy jednostkami translacji. Chcąc korzystać w całym programie
 z jakiegoś elementu (funkcji, zmiennej, klasy), każda jednostka translacji musi go
 przynajmniej zadeklarować. Deklaracje te muszą być spójne w całym programie.
@@ -804,6 +870,7 @@ extern int factor;
 
 #endif
 ```
+
 Source: [point.hpp](point.hpp)
 
 Nagłówki zwykle zawierają definicje typów
@@ -821,6 +888,7 @@ int dist(Point p, Point q) {
     return factor * (dx * dx + dy * dy);
 }
 ```
+
 Source: [point.cpp](point.cpp)
 
 Bariery kompilacji (`#ifndef POINT_HPP`) blokują wielokrotne załączenie tego pliku,
@@ -829,10 +897,10 @@ a przez to nie dopuszczają do wielokrotnego definiowania, np. `Point`.
 ### Biblioteki
 
 Modularyzacja na poziomie jednostek translacji jest w przypadku większych projektów
-niewystarczająca. Często w miarę wzrostu złożoności programiści wydzielają całe 
+niewystarczająca. Często w miarę wzrostu złożoności programiści wydzielają całe
 komponenty stanowiące spójną całość, posiadające dobrze opisany interfejs,
-składające się z wielu jednostek translacji. Taki kod często jest re-używalny. 
-Zawiera ogólne definicje, funkcje pomocnicze, narzędzia do wykorzystania w wielu projektach. 
+składające się z wielu jednostek translacji. Taki kod często jest re-używalny.
+Zawiera ogólne definicje, funkcje pomocnicze, narzędzia do wykorzystania w wielu projektach.
 
 Dystrybucja takiego oprogramowania może przebiegać w drodze udostępnienia wszystkich plików źródłowych.
 Konsument jest zmuszony wtedy budować nie tylko swój kod, ale i wszystkie zależności.
@@ -841,11 +909,11 @@ spakowany do postaci pojedynczego pliku.
 
 ```mermaid
 graph TD
-   A[main.cpp] -->|Compiler| O1[main.o]
-   B[helper.cpp] -->|Compiler| O2[helper.o]
-   O1 -->|Linker| EXE[Executable]
-   O2 -->|Linker| EXE
-   L1[external_library.a / .so] -->|Linker| EXE
+    A[main.cpp] -->|Compiler| O1[main.o]
+    B[helper.cpp] -->|Compiler| O2[helper.o]
+    O1 -->|Linker| EXE[Executable]
+    O2 -->|Linker| EXE
+    L1[external_library.a / .so] -->|Linker| EXE
 ```
 
 #### Biblioteki statyczne
@@ -865,20 +933,20 @@ g++ main.o helper.o -L. -lexternal_library -o my_executable
 
 ```mermaid
 graph TD
-   subgraph Project Build
-      A[main.cpp] -->|Compiler| O1[main.o]
-      B[helper.cpp] -->|Compiler| O2[helper.o]
-      O1 -->|Linker| EXE[Executable]
-      O2 -->|Linker| EXE
-      L1[external_library.a] -->|Linker| EXE
-   end
+    subgraph Project Build
+        A[main.cpp] -->|Compiler| O1[main.o]
+        B[helper.cpp] -->|Compiler| O2[helper.o]
+        O1 -->|Linker| EXE[Executable]
+        O2 -->|Linker| EXE
+        L1[external_library.a] -->|Linker| EXE
+    end
 
-   subgraph External Library Build
-      L2[file1.cpp] -->|Compiler| LO1[file1.o]
-      L3[file2.cpp] -->|Compiler| LO2[file2.o]
-      LO1 -->|Archiver| L1
-      LO2 -->|Archiver| L1
-   end
+    subgraph External Library Build
+        L2[file1.cpp] -->|Compiler| LO1[file1.o]
+        L3[file2.cpp] -->|Compiler| LO2[file2.o]
+        LO1 -->|Archiver| L1
+        LO2 -->|Archiver| L1
+    end
 ```
 
 System budowania opisujący całość takiego projektu wyglądałby następująco:
@@ -904,8 +972,9 @@ file1.o: file1.cpp
 file2.o: file2.cpp
 	g++ -c file2.cpp -o file2.o
 ```
-Sources: [Makefile](libraries/static/Makefile) 
-[main.cpp](libraries/static/main.cpp) 
+
+Sources: [Makefile](libraries/static/Makefile)
+[main.cpp](libraries/static/main.cpp)
 [helper.cpp](libraries/static/helper.cpp)
 [helper.hpp](libraries/static/helper.hpp)
 [file1.cpp](libraries/static/file1.cpp)
@@ -933,20 +1002,23 @@ g++ object1.o object2.o -llib1.a -llib2.a object3.o -llib3.a
 ```
 
 Linker utrzymuje 2 tablice symboli:
-- symbole zdefiniowane - takie, które już pojawiły się w przeanalizowanych elementach 
+
+- symbole zdefiniowane - takie, które już pojawiły się w przeanalizowanych elementach
 - symbole poszukiwane - takie, do których są odniesienia w przeanalizowanych elementach
 
 **Obiekty i biblioteki są traktowane inaczej!**
 
 Linker napotykając na **obiekt**:
+
 - dodaje obiekt do programu wyjściowego
-- bezwarunkowo dodaje definiowane przez niego symbole do tablicy symboli zdefiniowanych, 
-usuwając je z tablicy symboli poszukiwanych, jeżeli tam są.
-Jeżeli dany symbol już był zdefiniowany z błędem podwójnej definicji (_one definition rule_)!
+- bezwarunkowo dodaje definiowane przez niego symbole do tablicy symboli zdefiniowanych,
+  usuwając je z tablicy symboli poszukiwanych, jeżeli tam są.
+  Jeżeli dany symbol już był zdefiniowany z błędem podwójnej definicji (_one definition rule_)!
 - dodaje symbole potrzebne obiektowi do listy symboli poszukiwanych
 
 Kiedy linker napotyka **bibliotekę** dzieje się coś ciekawszego.
 Linker przechodzi przez wszystkie obiekty w bibliotece. Dla każdego:
+
 - dodaje obiekt do programu wyjściowego, tylko jeżeli obiekt zawiera definicję, która jest obecnie poszukiwana
 - tylko jeśli obiekt został dodany to symbole mu potrzebne są dodawane do poszukiwanych
 
@@ -956,46 +1028,44 @@ Następnie, jeżeli którykolwiek obiekt z biblioteki został włączony to bibl
 flowchart TB
 
 %% Top-level flow
-   Start[Iterate over elements] --> Decision[Object or library?]
-   Decision --> Object
-   Decision --> Library
-   Object --> MoreElements[More elements?]
-   Library --> MoreElements
+    Start[Iterate over elements] --> Decision[Object or library?]
+    Decision --> Object
+    Decision --> Library
+    Object --> MoreElements[More elements?]
+    Library --> MoreElements
 %%  
 
 %% Object subgraph
-   subgraph Object
-      direction TB
-      A1[Add defined symbols]
-      A2[Add required symbols]
-
-      A1 --> A2
-   end
+    subgraph Object
+        direction TB
+        A1[Add defined symbols]
+        A2[Add required symbols]
+        A1 --> A2
+    end
 
 %% Library subgraph
-   subgraph Library
-      direction TB
-      B0[Scan library]
-      B1[Process library object]
-      B2[Does object resolve symbol?]
-      B3[Add defined symbols]
-      B4[Add required symbols]
-      B5[More objects?]
-      B6[Anything included?]
-      
-      B0 --> B1
-      B1 --> B2
-      B2 -->|Yes| B3 --> B4
-      B2 -->|No| B5
-      B4 --> B5
-      B5 -->|Yes|B1
-      B5 -->|No|B6
-      B6 -->|Yes|B0
-      B6 -->|No|Finish
-   end
+    subgraph Library
+        direction TB
+        B0[Scan library]
+        B1[Process library object]
+        B2[Does object resolve symbol?]
+        B3[Add defined symbols]
+        B4[Add required symbols]
+        B5[More objects?]
+        B6[Anything included?]
+        B0 --> B1
+        B1 --> B2
+        B2 -->|Yes| B3 --> B4
+        B2 -->|No| B5
+        B4 --> B5
+        B5 -->|Yes| B1
+        B5 -->|No| B6
+        B6 -->|Yes| B0
+        B6 -->|No| Finish
+    end
 
-   MoreElements --> |Yes| Next[Next object/library]
-   MoreElements -->|No| End[Finish]
+    MoreElements -->|Yes| Next[Next object/library]
+    MoreElements -->|No| End[Finish]
 ```
 
 Dzięki re-skanowaniu całej biblioteki nie ma znaczenia kolejność
@@ -1014,6 +1084,7 @@ g++ main.o -L. -l1 -l2 -o my.exe # ok
 # g++ -L. -l1 -l2 main.o -o my.exe # undefined, l1 i l2 odrzucone
 # g++ main.o -L. -l2 -l1 -o my.exe # undefined, l1 potrzebuje l2 później 
 ```
+
 Source:
 [Makefile](libraries/order/Makefile)
 [lib1.cpp](libraries/order/lib1.cpp)
@@ -1021,6 +1092,15 @@ Source:
 [lib2.cpp](libraries/order/lib2.cpp)
 [lib2.hpp](libraries/order/lib2.hpp)
 [main.cpp](libraries/order/main.cpp)
+
+Zdarzają się projekty, w których występują zależności cykliczne pomiędzy bibliotekami statycznymi.
+Mamy do czynienia z taką sytuacją, jeżeli biblioteka A wykorzystuje symoble z biblioteki B i na odwrót.
+O ile nie jest to zalecana praktyka, to technicznie można sobie z taką sytuacją poradzić,
+linkując biblioteki wielokrotnie:
+
+```shell
+g++ main.o -L. -lA -lB -lA -lB -o my.exe 
+```
 
 Więcej szczegółów w [artykule](https://eli.thegreenplace.net/2013/07/09/library-order-in-static-linking).
 
@@ -1075,10 +1155,12 @@ zawierający skompilowane funkcje z przestrzeni nazw `std::`.
 
 ### Moduły
 
-> Ten rozdział jest w ramach ciekawostki, praktyka dla chętnych 
+> Ten rozdział jest w ramach ciekawostki, praktyka dla chętnych
 
 C++20 wprowadza nowy sposób modularyzacji w odpowiedzi na wady podejścia opartego o pliki nagłówkowe:
-1. Tekstowe wklejanie kodu za pomocą `#include` niepotrzebnie powiększa jednostki translacji, nagłówki są analizowane wielokrotnie
+
+1. Tekstowe wklejanie kodu za pomocą `#include` niepotrzebnie powiększa jednostki translacji, nagłówki są analizowane
+   wielokrotnie
 2. Bariery kompilacji `#ifndef` są niewygodne, nieczytelne
 3. Globalne zmienne i funkcje definiowane w różnych jednostkach translacji mogą ze sobą łatwo konfliktować
 
@@ -1101,6 +1183,7 @@ double internal_multiply(double a, double b) {
 ```
 
 Eksportowane symbole są prekompilowane do małych plików opisujących interfejs modułu:
+
 ```makefile
 math.pcm: math.cppm
 	clang++ -std=c++20 --precompile math.cppm -o math.pcm

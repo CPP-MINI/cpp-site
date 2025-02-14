@@ -1,3 +1,5 @@
+baseURL: "http://cpp.mini.pw.edu.pl/"
+title: "Programowanie 2 - Obiektowe"
 theme: hugo-book
 
 disableKinds:
@@ -6,7 +8,7 @@ disableKinds:
   - RSS
   - sitemap
 
-buildFuture: true
+disablePathToLower: true
 defaultContentLanguage: pl
 #defaultContentLanguageInSubdir: true
 enableGitInfo: true
@@ -20,6 +22,16 @@ languages:
 params:
   BookTheme: "auto"
   BookSection: "*"
+  BookRepo: https://github.com/CPP-MINI/cpp-site
+  BookEditPath: edit/master
+  BookCommitPath: commit
+  BookDateFormat: '2 January 2006'
+
+menu:
+  after:
+    - name: "Github"
+      url: https://github.com/CPP-MINI/cpp-site
+      weight: 10
 
 markup:
   goldmark:

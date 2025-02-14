@@ -1,13 +1,18 @@
 # Strona przedmiotu Programowanie 2 - Obiektowe
-aka ceplusplus
+##### Also known as C++
 
 -----
 
+### Info
+
+Strona zawiera materiały wykładowe i laboratoryjne. Jest publicznie hostowana pod adresem http://cpp.mini.pw.edu.pl.
+
+### Development
+
 Strona używa generatora Hugo.
 
-Żeby zbudować stronę do katalogu public/ wystarczy odpalić `hugo` bez argumentów. 
+Żeby zbudować stronę do katalogu public/ wystarczy uruchomić `hugo` bez argumentów. 
 
-Z użyciem `hugo server` można uruchomić serwer dostarczający stronę.
+Z użyciem `hugo server` można uruchomić lokalny serwer prezentujący stronę pod adresem http://localhost:1313
 
-`hugo deploy` na razie nie jest skonfigurowany. Docelowo pewnie będzie to jakiś `rsync` na serwer mini.
 
