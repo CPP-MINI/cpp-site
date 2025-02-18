@@ -777,7 +777,7 @@ Operator `delete` też jest silnie typowany. Jest wywoływany na wskaźniku, typ
 `delete` również robi 2 rzeczy:
 
 * niszczy obiekt typu `T` we wskazywanej pamięci
-    * dla typów prostych fizycznie nie robi nic, dla klas będzie tu wywoływany konstruktor (o tym będzie następny
+    * dla typów prostych fizycznie nie robi nic, dla klas będzie tu wywoływany destruktor (o tym będzie następny
       wykład)
 * dealokuje pamięć rozmiaru `sizeof(T)`, wskazywaną przez operand
 
@@ -877,6 +877,9 @@ Fizycznie pamięc obiektów dynamicznych jest pozyskiwana ze **sterty**, czyli o
 segmentu (lub segmentów) pamięci pozyskanej od systemu operacyjnego, rosnącego z przybywającymi alokacjami,
 malejącego z dealokacjami. Biblioteka standardowa implementuje algorytm zarządzania stertą, który układa
 na niej obiekty, oznacza je jako zwolnione, pozyskuje i oddaje pamięć do systemu operacyjnego.
+Takie algorytmy poza właściwymi obiektami przechowują na stercie metadane, zwykle w postaci małego nagłówka
+poprzedzającego każdą alokację. Znajdują się tam informacje takie jak rozmiar alokacji, czy blok jest wolny, czy zajęty,
+wskaźniki na następny/poprzedni blok itp. 
 
 ![heap.gif](heap.gif)
 
