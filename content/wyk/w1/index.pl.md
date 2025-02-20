@@ -779,7 +779,7 @@ int x; // czy to ten sam x?
 // a.cpp
 void foo() { ... }
 // b.cpp
-void foo(); // czy to ten sa sama funkcja?
+void foo(); // czy to ta sama funkcja?
 ```
 
 Odpowiedź brzmi tak, jeżeli deklaracje/definicje są w tej samej jednostce translacji lub mają zewnętrzny [**tryb
@@ -823,7 +823,7 @@ Wiele jednostek może definiować tę samą nazwę, bo odnoszą się one do inny
 
 Słowem kluczowym `static` wymuszamy tryb wewnętrzny:
 
-```
+```cpp
 static int sf();
 namespace foo {
   static int si;
