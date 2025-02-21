@@ -25,7 +25,7 @@ Programy obiektowe manipulują zbiorem obiektów, które mogą
 się ze sobą komunikować. Obiekty łączą w sobie stan i zachowanie,
 to definiująca je cecha.
 Stan to najczęściej dane przechowywane w pamięci obiektu, czyli pola.
-Zachowanie modelujemy za pomocą funkcji obiektem, czyli metod.
+Zachowanie modelujemy za pomocą funkcji związanych z obiektem, czyli metod.
 
 > Nie należy łączyć tak samo brzmiących pojęć: _obiekt_ języka C++
 > i _obiekt_ w paradygmacie programowania obiektowego.
@@ -119,7 +119,7 @@ float vector2f_length(const struct Vector2f* this) {
 Niewygodne, ale można.
 
 Może wydawać się, że dziedziczenie i polimorfizm nie są w C do zrealizowania, ale to nieprawda!
-Do reazliacji dziedziczenia wystarczy zagnieżdżać struktury bazowe w pochodnych:
+Do realizacji dziedziczenia wystarczy zagnieżdżać struktury bazowe w pochodnych:
 
 ```c
 struct Shape { char name[10]; }
@@ -234,8 +234,8 @@ Jeżeli wiadomości stałyby się ogromne i miały być przechowywane w postaci 
 zamiast string'ów w pamięci, to z punktu widzenia użytkownika klasy nic się nie zmienia!
 
 W programie powołujemy do życia **obiekt klasy** `Mailbox`. Program może oczywiście tworzyć wiele obiektów
-tego samego typu. Definicja pełni więc rolę wzorca, na podstawie którego powstają obiekty, czasem nazywane **instancjami
-**.
+tego samego typu. Definicja pełni więc rolę wzorca, na podstawie którego powstają obiekty, 
+czasem nazywane **instancjami**.
 
 ## Metody
 
@@ -352,7 +352,7 @@ std::size_t size() const {
 }
 ```
 
-To tak zwane metody stałe, które zobowiązują się, nie zmieniać stanu obiektu.
+To tak zwane metody stałe, które zobowiązują się nie zmieniać stanu obiektu.
 Można z ich implementacji tylko odczytywać pola i wołać inne metody oznaczone jako `const`.
 
 Po co coś takiego? Po pierwsze jest czytelniej i bezpieczniej. Programista, oznaczając metodę jako stałą,
@@ -581,7 +581,8 @@ write("foo() returns", Severity::DEBUG);
 ```
 
 Domyślna wartość danego parametru może pojawić się co najwyżej raz, bez znaczenia czy w definicji czy w deklaracji.
-Nie można re-definiować argumentu domyślnego, nawet z tą samą wartością:
+Nie można re-definiować argumentu domyślnego, nawet z tą samą wartością.
+To szczególnie istotne, jeśli definicja jest w innej jednostce translacji.
 
 ```cpp
 void write(const std::string& msg, Severity sev = Severity::INFO);
@@ -641,7 +642,8 @@ class Counter {
 }
 ```
 
-Struktur konwencjonalnie zwykle używamy do małych prostych agregatów. Nie jest to obowiązkiem.
+Struktur konwencjonalnie używamy do małych prostych agregatów: typów jedynie grupujących kilka pól.
+Nie jest to obowiązkiem.
 
 ## Konstruktory
 
@@ -1365,6 +1367,15 @@ T&& move(T& val) {
 }
 ```
 
+Typowe zastosowanie to przeniesienie argumentu do funkcji, unikając głębokiej kopii: 
+
+```cpp
+std::vector<std::string> v;
+std::string str = "hey!";
+v.push_back(str); // wywołuje push_back(const T& value) - wewnętrznie wektor kopiuje string 
+v.push_back(std::move(str)); // string jest przenoszony do wektora, nie następuje alokacja i kopia znaków 
+```
+
 ## Konstruktory i operatory generowane niejawnie
 
 Dla prostych klas niedefiniujących żadnych z powyższych funkcji specjalnych kompilator sam je wygeneruje.
@@ -1413,7 +1424,7 @@ public:
 }
 ```
 
-Obiekty takiej klasa będą przenoszalne, ale niekopiowalne!
+Obiekty takiej klasy będą przenoszalne, ale niekopiowalne!
 
 Zdefiniowanie lub usunięcie jednej z tych składowych wpływa na generację reszty przez kompilator.
 
