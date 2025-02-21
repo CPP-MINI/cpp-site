@@ -619,14 +619,13 @@ spójne (tekstowo identyczne). Inaczej występują ciekawe, niezdefiniowane rzec
 struct Point {
     int x;
     int y;
-    int z;
 };
 
 int dist(Point p, Point q);
 
 int main() {
-    Point p = {1, 1, 1};
-    Point q = {0, 0, 0};
+    Point p = {1, 1};
+    Point q = {0, 0};
     std::cout << dist(p, q) << std::endl;
     return 0;
 }
@@ -638,20 +637,26 @@ Source: [classodr1.cpp](classodr1.cpp)
 struct Point {
     int x;
     int y;
+    int z;
 };
 
 int dist(Point p, Point q) {
     int dx = p.x - q.x;
     int dy = p.y - q.y;
-    return dx * dx + dy * dy;
+    int dz = p.z - q.z;
+    return dx * dx + dy * dy + dz * dz;
 }
 ```
 
 Source: [classodr2.cpp](classodr2.cpp)
 
 ```shell
-g++ classodr1.cpp classodr2.cpp -o classodr.exe && ./classodr.exe
+g++ classodr1.cpp classodr2.cpp -o classodr.exe -O2 && ./classodr.exe
 ```
+
+Taki program zwraca losowe wyniki (a nie spodziewaną wartość `2`).
+Technicznie kod wygenerowany dla funkcji `dist`, oczekujący dłuższych argumentów niż przekazane,
+wykracza poza przekazany bufor i czyta niezainicjalizowaną pamięć stosu.
 
 ## Przestrzenie nazw
 
