@@ -582,7 +582,6 @@ write("foo() returns", Severity::DEBUG);
 
 Domyślna wartość danego parametru może pojawić się co najwyżej raz, bez znaczenia czy w definicji czy w deklaracji.
 Nie można re-definiować argumentu domyślnego, nawet z tą samą wartością.
-To szczególnie istotne, jeśli definicja jest w innej jednostce translacji.
 
 ```cpp
 void write(const std::string& msg, Severity sev = Severity::INFO);
@@ -590,6 +589,11 @@ void write(const std::string& msg, Severity sev = Severity::INFO) {
   // ...
 } // !
 ```
+
+Wartości domyślne argumentów są stosowane automatycznie do każdego wywołania funkcji.
+Muszą być zatem zdefiniowane wcześniej, przed wywołaniem. Jeżeli funkcja jest deklarowana w pliku nagłówkowym
+a definiowana w dedykowanym pliku `*.cpp` to wartości domyślne powinny być umieszczone w deklaracji w nagłówku.
+Umieszczone w definicji nie będą widoczne w jednostkach załączających plik nagłówkowy.
 
 ## Widoczność
 
