@@ -184,14 +184,14 @@ To działanie jest wymagane tylko raz.
 
 #### 2. Repozytoria
 Każdy projekt związany jest z repozytorium -- to w nim przechowywany jest kod i jego historia.
-Repozytoria możemy tworzyć, lub **klonować** z serwera.
-W przypadku tych zajęć, repozytoria będą klonowane przez każdego studenta.
+Repozytoria możemy tworzyć lub **klonować** z serwera.
+W przypadku tych zajęć repozytoria będą klonowane przez każdego studenta.
 
 #### 3. Podstawowe operacje
 Załóż konto w serwisie [Github](github.com).
 Utwórz nowe repozytorium i spróbuj wykonać na nim poniższe operacje.
 
-Aby sklonować repozytorium używamy polecenia
+Aby sklonować repozytorium, używamy polecenia
 ```sh
 git clone <adres repozytorium>
 ```
