@@ -20,7 +20,7 @@ W pełni dozwolone (o ile nie będzie to wprost zabronione) jest i będzie korzy
 ### Środowisko programistyczne
 Zanim przejdziemy do właściwej treści, musimy wybrać edytor, w którym będziemy pisali kod.
 W poprzednim semestrze było to Visual Studio.
-Nie ma ono swojej wersji na Linuxa (wielu programistów powiedziało by: i bardzo dobrze, nie chcemy go).
+Nie ma ono swojej wersji na Linuxa (wielu programistów powiedziałoby: i bardzo dobrze, nie chcemy go).
 W naszym laboratorium dostępne jest:
 - Visual Studio Code -- niemające wiele wspólnego z Visual Studio środowisko (też wydawane przez Microsoft). Ma mniejszą funkcjonalność, ale dzięki temu jest znacznie szybsze i lżejsze.
 - CLion -- cięższe środowisko mające bardziej rozbudowaną funkcjonalność, bardziej przypominające Visual Studio.
@@ -41,7 +41,7 @@ W pliku `vars.cpp` utwórz dwie zmienne globalne typu `int` o nazwach `global_ex
 Pierwsza z nich jest zwykłą zmienną, a druga statyczną.
 Obie zainicjuj wartością 0.
 Utwórz też w tym pliku dwie funkcje.
-- `void inc_vars()`, które wypisuje na ekran ,,Increasing...", a potem zwiększa wartość obu zmiennych o 1.
+- `void inc_vars()`, które wypisuje na ekran „Increasing...”, a potem zwiększa wartość obu zmiennych o 1.
 - `void print_vars()`, które wypisuje wartości obu zmiennych w następującym formacie:
   ```
   global_extern: <global_extern>
@@ -71,10 +71,10 @@ W kolejnych etapach podobnie pliki `.cpp` najpierw kompiluj do plików `.o`,
 W prawdziwych projektach pozwala to na przyśpieszenie procesu kompilacji -- jeśli zmienił się tylko jeden plik `.cpp`, to tylko on będzie musiał być kompilowany.
 U nas jest to oczywiście bez znaczenia, bo projekt jest mikroskopijny.
 
-Dodatkowo w pliku zdefiniujemy dwa cele ,,oszukańcze", tzn. takie, które nie odnoszą się do żadnego pliku.
+Dodatkowo w pliku zdefiniujemy dwa cele „oszukańcze”, tzn. takie, które nie odnoszą się do żadnego pliku.
 Pierwszym z nich będzie `clean`.
 Pozwoli on nam na szybkie usuwanie wszystkich plików wynikowych kompilacji poleceniem `make clean`.
-Aby zdefiniować ten cel dodajemy do naszego `Makefile`:
+Aby zdefiniować ten cel, dodajemy do naszego `Makefile`:
 ```
 .PHONY: clean
 clean:
@@ -97,7 +97,7 @@ Utwórz odpowiedni plik `greeter.hpp`, który udostępnia funkcje zdefiniowane w
 Nie zmieniaj pliku `greeter.cpp`.
 Pliki te składać się będą na bibliotekę statyczną (static library) `libgreeter.a`.
 Zmodyfikuj `program_1.cpp` tak, aby przed dotychczasową funkcjonalnością na konsolę wypisywany był output wszystkich trzech funkcji z `librgreeter.a`.
-Dodaj do pliku `Makefile` instrukcje budujące tę bibliotekę,
+Dodaj do pliku `Makefile` instrukcje budujące tę bibliotekę
 oraz zmodyfikuj budowanie `program_1` tak, aby była ona do niego linkowana.
 Zaktualizuj także cel `clean`.
 
@@ -126,7 +126,7 @@ Biblioteka ta powinna udostępniać w przestrzeni nazw `rome`:
   <province>: <city_1>, <city_2>, ..., <city_n>.
   ```
   Zwróć uwagę na kropki i przecinki w formacie.
-  Czyli dla prowincji ,,Ægyptus" z miastami ,,Alexanria" i ,,Ptolemais" poprawnym wynikiem jest
+  Czyli dla prowincji „Ægyptus” z miastami „Alexanria” i „Ptolemais” poprawnym wynikiem jest
   ```
   Ægyptus: Alexandria, Ptolemais.
   ```
@@ -159,7 +159,7 @@ Pamiętaj, że przy uruchamianiu programu linkującego bibliotekę dynamiczną, 
 Rozwiązanie: [Makefile](solution/Makefile) [greeter.cpp](solution/greeter.cpp) [greeter.hpp](solution/greeter.hpp) [rome.cpp](solution/rome.cpp) [rome.hpp](solution/rome.hpp) [program_1.cpp](solution/program_1.cpp) [vars.cpp](solution/vars.cpp) [vars.hpp](solution/vars.hpp) [program_2.cpp](solution/program_2.cpp).
 
 ### Git
-Git (z ang. ,,głupek") jest programem, tak zwanym **systemem kontroli wersji**, którego współcześnie używa praktycznie każdy programista.
+Git (z ang. „głupek”) jest programem, tak zwanym **systemem kontroli wersji**, którego współcześnie używa praktycznie każdy programista.
 Pozwala on na udostępnianie kodu źródłowego między programistami i modyfikowanie go (zamiast np. wysyłania sobie ręcznie mailem plików z kodem).
 W połączeniu z serwerem (często github.com) pozwala na przechowywanie kodu w chmurze (czyli na cudzym komputerze).
 W przypadku naszych laboratoriów Git posłuży nam do współdzielenia kodu między studentami a prowadzącymi.
@@ -168,7 +168,7 @@ Umiejętność korzystania z Gita jest obowiązkowa na wszystkich laboratoriach 
 Tylko kod znajdujący się w repozytorium na koniec zajęć podlega ocenie!
 
 Poniżej znajduje się prosta instrukcja korzystania z Gita.
-Osoby zainteresowane zachęcam do głębszego rozeznania w temacie, w szczególności dzięki oficjalnej [książce](https://git-scm.com/book/en/v2).
+Osoby zainteresowane zachęcam do głębszego zapoznania z tematem, w szczególności dzięki oficjalnej [książce](https://git-scm.com/book/en/v2).
 
 #### 1. Konfiguracja Gita
 Przed pierwszym użyciem należy skonfigurować swoją tożsamość:
