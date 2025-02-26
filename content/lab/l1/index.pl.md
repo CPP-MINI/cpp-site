@@ -224,5 +224,11 @@ git push origin main
 ```
 
 #### 4. Połączenie z systemem wydziałowym
-Aby połączyć się z naszym systemem udostępniającym repozytoria, z sieci wydziałowej wejdź na stronę [ghlabs](ghlabs.mini.pw.edu.pl) i połącz swoje konto na Githubie z kontem USOS.
+Aby połączyć się z naszym systemem udostępniającym repozytoria, z sieci wydziałowej wejdź na stronę [ghlabs](https://ghlabs.mini.pw.edu.pl/) i połącz swoje konto GitHub z kontem USOS.
 Dzięki temu w trakcie laboratoriów ocenianych uzyskasz dostęp do repozytorium na Twoje rozwiązanie.
+
+Aby uzyskać dostęp do systemu spoza sieci wydziałowej, najprostszym sposobem jest dodać do pliku `/etc/hosts` (na Windowsie: `%systemroot%\System32\Drivers\etc\hosts`) poniższy wpis:
+```
+194.29.178.38 ghlabs.mini.pw.edu.pl
+```
+Po dodaniu takiego wpisu, wyżej wspomniana strona powinna się normalnie otwierać.
