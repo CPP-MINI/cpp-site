@@ -5,3 +5,4 @@ weight: 20
 ---
 
 # Laboratorium 2
+## Pamięć
