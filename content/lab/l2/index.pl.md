@@ -25,7 +25,7 @@ W trzech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, 
 Dwie z tych funkcji to tzw. *konstruktory*, o których mowa będzie na kolejnych laboratoriach.
 Twoim zadaniem jest ustawić w nich wartości `x`, `y` oraz `z` pola `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
 Funkcja `length` służy do wyliczenia długości euklidesowej wektora.
-Do tego celu wykorzystaj możliwość dostępu do `v` z perspektywy tablicy typu `double` (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `math`).
+Do tego celu wykorzystaj możliwość dostępu do `v` z perspektywy tablicy typu `double` (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `cmath`).
 
 Po skończeniu implementacji struktury `Vector3` przejdź do funkcji `main` w pliku `main.cpp`. Stwórz automatyczny obiekt typu `Vector3` oraz wypisz jego długość na standardowe wyjście (**Podpowiedź**: `= {x,y,z}` zainicjalizuje wektor wartościami w klamrach).
 

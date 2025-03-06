@@ -6,8 +6,9 @@ class Vector3{
 private:
     static constexpr int VECTOR_LENGTH = 3;
 
-    union vector{
-        struct {
+    using vector = union{
+        struct
+        {
             double x,y,z;
         };
         double buffer[VECTOR_LENGTH];
@@ -22,4 +23,4 @@ public:
     double length() const ;
 };
 
-}
+} // namespace l2

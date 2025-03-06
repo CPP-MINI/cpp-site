@@ -5,12 +5,15 @@
 namespace l2 {
 
     struct HoleyString{
+        
         using holey_char = struct alignas(uint16_t) { char c;};
-        holey_char string[16];
+
+        static constexpr int capacity = 16;
+        holey_char string[capacity];
 
         void assign(const std::string val);
         void hide(const std::string val);
         void print();
     };
 
-}
+} // namespace l2

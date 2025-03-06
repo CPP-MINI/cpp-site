@@ -7,7 +7,7 @@ namespace l2 {
 void HoleyString::assign(const std::string val)
 {
     size_t i = 0;
-    for (; i < 15 && i < val.size(); ++i)
+    for (; i < capacity - 1 && i < val.size(); ++i)
         string[i].c = val[i];
     string[i].c = 0x00;
 }
@@ -20,15 +20,15 @@ void HoleyString::hide(const std::string val)
      *
      * Classic: It works on my machine!
      */
-    for (size_t i = 0; i < 16 && i < val.size(); ++i)
+    for (size_t i = 0; i < capacity && i < val.size(); ++i)
         *((&string[i].c) + 1) = val[i];
 
 }
 
 void HoleyString::print()
 {
-    for (int i = 0; i < 16 and string[i].c != 0; ++i)
+    for (int i = 0; i < capacity and string[i].c != 0; ++i)
         std::cout << string[i].c;
 }
 
-}
+} // namespace l2

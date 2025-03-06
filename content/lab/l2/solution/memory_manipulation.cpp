@@ -21,7 +21,7 @@ std::byte* memmove(std::byte* dst, const std::byte* src, size_t size)
     if (dst > src)
     {
         // Buffers are disjoint => trivial memcpy
-        if ((size_t)(dst - src) >= size)
+        if (static_cast<size_t>(dst - src) >= size)
             return memcpy(dst, src, size);
 
         // Copying overlaping part first (the end of src is at the begining of dst)
@@ -35,7 +35,7 @@ std::byte* memmove(std::byte* dst, const std::byte* src, size_t size)
     }
     else {
         // Buffers are disjoint => trivial memcpy
-        if ((size_t)(src - dst) >= size)
+        if (static_cast<size_t>(src - dst) >= size)
             return memcpy(dst, src, size);
 
         // Copy overlaping part first (the begining of src is the end of dst)
@@ -49,4 +49,4 @@ std::byte* memmove(std::byte* dst, const std::byte* src, size_t size)
     }
 }
 
-}
+} // namespace l2
