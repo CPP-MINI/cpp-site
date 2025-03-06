@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <vector>
 #include "vector3.h"
+#include "holey_string.h"
+#include "memory_manipulation.h"
 
 using namespace l2;
 
@@ -88,6 +90,31 @@ int main()
 
         dump_memory((std::byte*)vectors_vector.data(), vectors_vector.size() * sizeof(Vector3));
     }
+
+    //ETAP 3
     
+    HoleyString hello;
+    hello.assign("hello");
+
+    hello.print();
+    std::cout << std::endl;
+    dump_memory((std::byte*)&hello, sizeof(HoleyString));
+
+    hello.hide("world");
+    
+    hello.print();
+    std::cout << std::endl;
+    dump_memory((std::byte*)&hello, sizeof(HoleyString));
+    
+    //ETAP 4
+    
+    std::string sentence = "Hello world!";
+    memcpy(reinterpret_cast<std::byte*>(sentence.data() + 6), reinterpret_cast<std::byte*>(sentence.data()), 5);
+    std::cout << sentence << std::endl;
+
+    std::string sentence2 = "Hello world once again!";
+    memmove(reinterpret_cast<std::byte*>(sentence2.data() + 6), reinterpret_cast<std::byte*>(sentence2.data() + 12), 12);
+    std::cout << sentence2 << std::endl;
+
     return 0;
 }
