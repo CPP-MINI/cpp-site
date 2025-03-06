@@ -39,6 +39,7 @@ void dump_memory(std::byte* start, size_t count)
 
 int main()
 {
+    std::cout << "STAGE 1" << std::endl;
     // ETAP 1
     Vector3 v1{1, 2, 3};
     Vector3 v2;
@@ -48,6 +49,7 @@ int main()
 
     dump_memory((std::byte*)&v1, sizeof(Vector3));
     
+    std::cout << "STAGE 2 and 3" << std::endl;
     // ETAP 2
 
     // Stack
@@ -91,6 +93,7 @@ int main()
         dump_memory((std::byte*)vectors_vector.data(), vectors_vector.size() * sizeof(Vector3));
     }
 
+    std::cout << "STAGE 4" << std::endl;
     //ETAP 3
     
     HoleyString hello;
@@ -106,11 +109,14 @@ int main()
     std::cout << std::endl;
     dump_memory((std::byte*)&hello, sizeof(HoleyString));
     
+    std::cout << "STAGE 5" << std::endl;
     //ETAP 4
     
     std::string sentence = "Hello world!";
+    dump_memory((std::byte*)sentence.data(), sentence.size());
     memcpy(reinterpret_cast<std::byte*>(sentence.data() + 6), reinterpret_cast<std::byte*>(sentence.data()), 5);
     std::cout << sentence << std::endl;
+
 
     std::string sentence2 = "Hello world once again!";
     memmove(reinterpret_cast<std::byte*>(sentence2.data() + 12), reinterpret_cast<std::byte*>(sentence2.data() + 6), 10);
