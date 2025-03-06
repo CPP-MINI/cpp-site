@@ -113,7 +113,7 @@ int main()
     std::cout << sentence << std::endl;
 
     std::string sentence2 = "Hello world once again!";
-    memmove(reinterpret_cast<std::byte*>(sentence2.data() + 6), reinterpret_cast<std::byte*>(sentence2.data() + 12), 12);
+    memmove(reinterpret_cast<std::byte*>(sentence2.data() + 12), reinterpret_cast<std::byte*>(sentence2.data() + 6), 10);
     std::cout << sentence2 << std::endl;
 
     return 0;
