@@ -17,7 +17,7 @@ Vector3::Vector3(double x, double y, double z)
 double Vector3::length() const
 {
     double res = 0.0;
-    for (int i = 0; i < VECTOR_LENGTH; ++i)
+    for (int i = 0; i < VECTOR_SIZE; ++i)
         res += v.buffer[i] * v.buffer[i];
     return sqrt(res);
 }

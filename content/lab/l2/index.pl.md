@@ -66,7 +66,7 @@ Po wykonaniu implementacji wypisz na ekran pamięć zajmowaną przez każdą tab
 W pliku `holey_string.h` zdefiniowana jest struktura reprezentująca 16 elementowy ciąg znaków.
 Znaki w tym tej strukturze są specjalne, pomimo wykorzystania typu `char` każdy znak zajmuje 2 bajty.
 
-Twoim zadaniem jest zdefiniować ten specjalny typ znaku i zaimplementować trzy funkcje:
+Twoim zadaniem jest zdefiniować ten specjalny typ znaku `holey_char` (**Podpowiedź**: `alignas`) i zaimplementować trzy funkcje:
 * `print` - ta funkcja wypisuje taki specjalnie przygotowany ciąg znaków na standardowe wyjście (długość ciągu znaków ustal na podstawie terminującego zera - jak w języku C),
 * `assign` - ta funkcja przypisuje otrzymany `std::string` do specjalnego ciągu znaków (zaterminuj string w stylu C - ustawiając ostatni bajt na zero),
 * `hide` - ta funkcja przypisuje otrzymany `std::string` do dziur powstałych pomiędzy znakami.
@@ -80,7 +80,7 @@ Po zaimplementowaniu powyższych funkcji przejdz do pliku `main.cpp` oraz stworz
 W standardowej bibliotece C znajdują się dwie bardzo przydatne funkcje: `memcpy` oraz `memmove`.
 Obydwie służą do przekopiowania bloku pamięci ze wskazanego adresu do docelowego.
 Różni je jednak bardzo subtelny szczegół: fakt nachodzenia się bloków źródłowego oraz docelowego.
-Funkcja `memcpy` zakłada, że podane bloki nie nachodzą na siebie, a `memmove` dopuszcza część wspólną przekazanych bloków.
+Funkcja `memcpy` zakłada, że podane bloki nie nachodzą na siebie, a `memmove` dopuszcza aby bloki nachodziły na siebie.
 Zachęcam do przeczytania instrukcji dla standardowej biblioteki, aby zapoznać się z funkcjami (`man 3p memcpy` oraz `mam 3p memmove`).
 
 Twoim zadaniem jest zaimplementować obydwie funkcje w pliku `memory_manipulation.cpp`.
@@ -88,4 +88,4 @@ W celu sprawdzenia implementacji w pliku `main.cpp` wykonaj następujące przeks
 * `Hello world!` -> `Hello Hello!`
 * `Hello world once again!` -> `Hello world world once!`
 
-Zabronione jest użycie funkcji z przestrzeni nazw `std` w implementacjach oraz przykładzie użycia!
+Zabronione jest użycie funkcji `std::memcpy` oraz `std::memmove` w implementacjach oraz przykładzie użycia!

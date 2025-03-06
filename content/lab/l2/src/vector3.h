@@ -6,13 +6,7 @@ class Vector3{
 private:
     static constexpr int VECTOR_SIZE = 3;
 
-    using vector = union{
-        struct
-        {
-            double x,y,z;
-        };
-        double buffer[VECTOR_SIZE];
-    };
+    using vector = int; // STAGE 1: Define me!
 
 public:
     vector v;
