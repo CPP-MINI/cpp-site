@@ -8,6 +8,8 @@ private:
 
     using vector = int; // STAGE 1: Define me!
 
+    static_assert(sizeof(vector) == sizeof(double) * 3, "Your vector structure has to be properly sized!");
+
 public:
     vector v;
 

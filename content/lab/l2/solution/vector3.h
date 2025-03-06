@@ -6,6 +6,8 @@ class Vector3{
 private:
     static constexpr int VECTOR_SIZE = 3;
 
+
+
     using vector = union{
         struct
         {
@@ -13,6 +15,8 @@ private:
         };
         double buffer[VECTOR_SIZE];
     };
+
+    static_assert(sizeof(vector) == sizeof(double) * 3, "Your vector structure has to be properly sized!");
 
 public:
     vector v;
