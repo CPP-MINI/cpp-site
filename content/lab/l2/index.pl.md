@@ -11,8 +11,17 @@ Na tym laboratorium twoim zadaniem jest stworzenie niestandardowego typu danych 
 Tym razem zadanie podzielone jest na cztery etapy.
 W kodzie znajdują się wskazówki, gdzie należy umieścić rozwiązania poszczególnych etapów (szukaj komentarzy zawierających `STAGE N`).
 
-Skorzystaj z kodu startowego oraz dołączonego do niego pliku `MakeFile`.
-TODO: tutaj wstawić linki do plików.
+Skorzystaj z kodu startowego oraz dołączonego do niego pliku `Makefile`.
+
+[Makefile](src/Makefile)
+
+[main.cpp](src/main.cpp)
+
+[vector3.h](src/vector3.h) [vector3.cpp](src/vector3.cpp) 
+
+[holey_string.h](src/holey_string.h) [holey_string.cpp](src/holey_string.cpp) 
+
+[memory_manipulation.h](src/memory_manipulation.h) [memory_manipulation.cpp](src/memory_manipulation.cpp)
 
 ### Etap 1: Trójwymiarowy wektor
 W pliku `vector3.h` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
