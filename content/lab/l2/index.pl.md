@@ -11,7 +11,8 @@ Na tym laboratorium twoim zadaniem jest stworzenie niestandardowego typu danych 
 Tym razem zadanie podzielone jest na cztery etapy.
 W kodzie znajdują się wskazówki, gdzie należy umieścić rozwiązania poszczególnych etapów (szukaj komentarzy zawierających `STAGE N`).
 
-Skorzystaj z kodu startowego oraz dołączonego do niego pliku `Makefile`.
+Skorzystaj z kodu startowego oraz dołączonego do niego pliku `Makefile`. Można w nim znaleźć dwie zmienne: `CXXFLAGS` oraz `LDFLAGS`. Pierwsza z nim powinna być używania przy tworzeniu obiektów.
+Druga natomiast jest przewidziany przy linkowaniu obiektów do gotowych plików wykonywalnych lub bibliotek.
 
 [Makefile](src/Makefile)
 
@@ -25,11 +26,12 @@ Skorzystaj z kodu startowego oraz dołączonego do niego pliku `Makefile`.
 
 ### Etap 1: Trójwymiarowy wektor
 W pliku `vector3.h` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
-Twoim zadaniem jest stworzyć definicję struktury w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
+Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
+Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
 Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)`.
 
-Struktura `Vector3` ma zdefiniowane pole `v` stworzonego przez ciebie typu.
-W trzech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostepna.
+Struktura `Vector3` ma zdefiniowane pole `v` stworzonego przez ciebie typu `internal_representation`.
+W trzech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
 
 Dwie z tych funkcji to tzw. *konstruktory*, o których mowa będzie na kolejnych laboratoriach.
 Twoim zadaniem jest ustawić w nich wartości `x`, `y` oraz `z` pola `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
@@ -40,20 +42,21 @@ Po skończeniu implementacji struktury `Vector3` przejdź do funkcji `main` w pl
 
 ### Etap 2: Tablice wektorów
 
-Kiedy typ `Vector3` działa jak trzeba, możemy przejść do deklarowania tablic. Twoim zadaniem jest zadeklarować trzy rodzaje tablic:
+Kiedy typ `Vector3` działa jak trzeba, możemy przejść do deklarowania tablic w funkcji `main`.
+Twoim zadaniem jest zadeklarować trzy rodzaje tablic:
 * automatyczna (na stosie),
 * dynamiczną (na stercie) - oznacza to wykonanie wszystkich akcji związanych z obsługą otrzymanej pamięci,
 * używając `std::vector` (używając obiektu, który zarządza pamięcią wewnętrznie).
 
 Do każdej tablicy wstaw 10 obiektów typu `Vector3` o wartościach `{i,i,i}`, gdzie `i` - numer wstawianego wektora.
-Przy każdym wstawieniu pobierz adres pierwszego elementu oraz wypisz go na standardowe wyjście.
+Przy każdym wstawieniu pobierz adres pierwszego elementu oraz wypisz go na standardowe wyjście (czy w każdym wypadku te adresy będą identyczne w każdym obrocie pętli?).
 Po zakończeniu wstawiania przejdź po tablicy ponownie oraz wypisz długość wektora na standardowe wyjście.
 
 ### Etap 3: Memory dumper (*pol. drukarz pamięci*)
 
 W tym etapie twoim celem jest napisanie funkcji, która przyjmie dowolny wskaźnik oraz ilość bajtów do wypisania na standardowe wyjście.
 W każdej linii wypisz 8 bajtów na dwa sposoby: jako liczbę heksadecymalną oraz znak ASCII (jeśli jest to możliwe).
-Aby dopełnić obraz wypisanych bajtów, na początku linii wypisz adres pierwszego bajtu (**Podpowiedź**: `std::hex` służy do formatowania jako liczby heksadecymalne).
+Aby dopełnić obraz wypisanych bajtów, na początku linii wypisz adres pierwszego bajtu (**Podpowiedź**: [`std::hex`](https://en.cppreference.com/w/cpp/io/manip/hex) służy do formatowania jako liczby heksadecymalne).
 
 Przykładowo funkcja dla pamięci zajmowanej przez `Vector3{1,2,3}` wypisze na standardowe wyjście
 ```
