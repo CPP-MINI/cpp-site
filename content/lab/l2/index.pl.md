@@ -7,11 +7,11 @@ weight: 20
 # Laboratorium 2
 ## Pamięć
 
-Na tym laboratorium twoim zadaniem jest stworzenie niestandardowego typu danych oraz eksperymentowanie z jego czasem życia.
-Tym razem zadanie podzielone jest na cztery etapy.
+Na tym laboratorium twoim zadaniem jest stworzenie niestandardowych typu danych oraz eksperymentowanie z jego czasem życia.
+Tym razem zadanie podzielone jest na sześć etapów.
 W kodzie znajdują się wskazówki, gdzie należy umieścić rozwiązania poszczególnych etapów (szukaj komentarzy zawierających `STAGE N`).
 
-Skorzystaj z kodu startowego oraz dołączonego do niego pliku `Makefile`. Można w nim znaleźć dwie zmienne: `CXXFLAGS` oraz `LDFLAGS`. Pierwsza z nim powinna być używania przy tworzeniu obiektów.
+Skorzystaj z kodu startowego oraz dołączonego do niego pliku `Makefile`. Można w nim znaleźć dwie zmienne: `CXXFLAGS` oraz `LDFLAGS`. Pierwsza z nich powinna być używania przy tworzeniu obiektów.
 Druga natomiast jest przewidziany przy linkowaniu obiektów do gotowych plików wykonywalnych lub bibliotek.
 
 [Makefile](src/Makefile)
@@ -24,6 +24,26 @@ Druga natomiast jest przewidziany przy linkowaniu obiektów do gotowych plików 
 
 [memory_manipulation.h](src/memory_manipulation.h) [memory_manipulation.cpp](src/memory_manipulation.cpp)
 
+### Etap 0: Deklaracji enumeracji w duchu C++
+
+Na rozgrzewkę twoim zadaniem będzie utworzenie dwóch enumeracji opisujących kolory oraz typy owoców.
+W tym celu utwórz plik `fruit.h` i zadeklaruj dwie enumeracje: `Color` oraz `FruitType`.
+Pierwsza z nich dopuszcza 4 kolory:
+* `Red`
+* `Orange`
+* `Green`
+* `Violet`.
+
+Druga natomiast opisuje trzy rodzaje owoców:
+* `Apple`
+* `Orange`
+* `Plum`
+
+Następnie zdefiniuj strukturę `Fruit` składającą się z tych dwóch enumeracji.
+Na końcu pliku `fruit.h` zdefiniuj 6 statycznych wyrażeń statycznych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
+
+Zwróć uwagę, że przy dojrzałej pomarańczy enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać użyty w trakcie tworzenia instancji owoców.
+
 ### Etap 1: Trójwymiarowy wektor
 W pliku `vector3.h` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
 Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
@@ -31,14 +51,26 @@ Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w t
 Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)`.
 
 Struktura `Vector3` ma zdefiniowane pole `v` stworzonego przez ciebie typu `internal_representation`.
-W trzech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
+W czterech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
 
 Dwie z tych funkcji to tzw. *konstruktory*, o których mowa będzie na kolejnych laboratoriach.
 Twoim zadaniem jest ustawić w nich wartości `x`, `y` oraz `z` pola `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
-Funkcja `length` służy do wyliczenia długości euklidesowej wektora.
-Do tego celu wykorzystaj możliwość dostępu do `v` z perspektywy tablicy typu `double` (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `cmath`).
+Funkcja `length` służy do wyliczenia długości euklidesowej wektora (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `cmath`).
+Funkcja `mul` służy do pomnożenia wektora przez liczbę.
+Do zaimplementowania funkcji `length` oraz `mul` użyj możliwości dostępu do `v` z perspektywy tablicy typu `double`.
 
-Po skończeniu implementacji struktury `Vector3` przejdź do funkcji `main` w pliku `main.cpp`. Stwórz automatyczny obiekt typu `Vector3` oraz wypisz jego długość na standardowe wyjście (**Podpowiedź**: `= {x,y,z}` zainicjalizuje wektor wartościami w klamrach).
+Jak rozszerzenie klasy `Vector3` zadeklaruj dwie wolne funkcje w pliku `vector3.h`:
+* `vector3_add` - funkcja wykonuje dodawanie wektorów oraz przyjmuje dwie stałe referencje na typ `Vector3` reprezentujące lewą i prawą stronę operatora dodawania. Funkcja powinna zwracać nowy `Vector3` przechowujący wynik dodawania.
+* `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście.
+
+Ciała funkcji powinny zostać zaimplementowane w pliku `vector3.cpp`.
+
+Po skończeniu implementacji struktury `Vector3` przejdź do funkcji `main` w pliku `main.cpp`. 
+Mając już wszystkie konieczne operacje na wektorach, możemy wyrazić wektor `[3,5,7]` jako kombinację liniową wektorów bazowych pomnożonych przez pewne stałe.
+Zdefiniuj trzy wektory bazowe jako zmienne automatyczne i wykorzystując funkcje `mul` oraz `vector3_add` oblicz wynikowy wektor. Na koniec wypisz wynik na standardowe wyjście przy pomocy funkcji `vector3_print`.
+
+
+W ramach przypomnienia: wektory z bazy kanonicznej to `[1,0,0]`, `[0,1,0]` oraz `[0,0,1]` (**Podpowiedź**: `= {x,y,z}` zainicjalizuje wektor wartościami podanymi w klamrach).
 
 ### Etap 2: Tablice wektorów
 
@@ -84,7 +116,7 @@ Twoim zadaniem jest zdefiniować ten specjalny typ znaku `holey_char` (**Podpowi
 * `hide` - ta funkcja przypisuje otrzymany `std::string` do dziur powstałych pomiędzy znakami.
 W przypadku ostatniej funkcji wykonanie funkcji `hide` nie powinno wpłynąć na zawartość ciągu znaków oraz kolejne wywołania funkcji `print`. *Po laboratoriuum zastanów się, czy ta funkcja przypadkiem nie łamie jakichś zasad* 🤔
 
-Po zaimplementowaniu powyższych funkcji przejdz do pliku `main.cpp` oraz stworz automatyczny obiekt typu `HoleyString`. Wykonaj na nim funkcję `assign` ze stringiem `"hello"` oraz hide z `"world"`. PO wykonaniu każdej z tych dwóch operacji wykonaj funkcję `print` oraz wypisz pamięć zajmowaną przez obiekt funkcją `dump_memory`.
+Po zaimplementowaniu powyższych funkcji przejdz do pliku `main.cpp` oraz stwórz automatyczny obiekt typu `HoleyString`. Wykonaj na nim funkcję `assign` ze stringiem `"hello"` oraz hide z `"world"`. Po wykonaniu każdej z tych dwóch operacji wykonaj funkcję `print` oraz wypisz pamięć zajmowaną przez obiekt funkcją `dump_memory`.
 
 
 ### Etap 5: Manipulacja pamięcią
@@ -92,7 +124,7 @@ Po zaimplementowaniu powyższych funkcji przejdz do pliku `main.cpp` oraz stworz
 W standardowej bibliotece C znajdują się dwie bardzo przydatne funkcje: `memcpy` oraz `memmove`.
 Obydwie służą do przekopiowania bloku pamięci ze wskazanego adresu do docelowego.
 Różni je jednak bardzo subtelny szczegół: fakt nachodzenia się bloków źródłowego oraz docelowego.
-Funkcja `memcpy` zakłada, że podane bloki nie nachodzą na siebie, a `memmove` dopuszcza aby bloki nachodziły na siebie.
+Funkcja `memcpy` zakłada, że podane bloki nie nachodzą na siebie, a `memmove` dopuszcza, aby bloki nachodziły na siebie.
 Zachęcam do przeczytania instrukcji dla standardowej biblioteki, aby zapoznać się z funkcjami (`man 3p memcpy` oraz `mam 3p memmove`).
 
 Twoim zadaniem jest zaimplementować obydwie funkcje w pliku `memory_manipulation.cpp`.
@@ -100,4 +132,4 @@ W celu sprawdzenia implementacji w pliku `main.cpp` wykonaj następujące przeks
 * `Hello world!` -> `Hello Hello!`
 * `Hello world once again!` -> `Hello world world once!`
 
-Zabronione jest użycie funkcji `std::memcpy` oraz `std::memmove` w implementacjach oraz przykładzie użycia!
+Zabronione jest użycie funkcji `std::memcpy` oraz `std::memmove` w implementacjach i przykładzie użycia!
