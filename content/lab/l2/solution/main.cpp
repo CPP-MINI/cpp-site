@@ -40,14 +40,22 @@ void dump_memory(std::byte* start, size_t count)
 
 int main()
 {
-    std::cout << "STAGE 1" << std::endl;
+    std::cout << "STAGE 2" << std::endl;
     // ETAP 1
-    Vector3 v1{1, 2, 3};
+    Vector3 v1 = BaseVector1;
+    Vector3 v2 = BaseVector2;
+    Vector3 v3 = BaseVector3;
 
-    std::cout << v1.length() << std::endl;
+    v1.mul(3);
+    v2.mul(5);
+    v3.mul(7);
+
+    Vector3 result_vector = vector3_add(v1, vector3_add(v2, v3));
+    vector3_print(result_vector);
+
     dump_memory(reinterpret_cast<std::byte*>(&v1), sizeof(Vector3));
     
-    std::cout << "STAGE 2 and 3" << std::endl;
+    std::cout << "STAGE 3 and 4" << std::endl;
 
     const int array_size = 10;
     // Stack
@@ -99,7 +107,7 @@ int main()
         dump_memory(reinterpret_cast<std::byte*>(vectors_vector.data()), vectors_vector.size() * sizeof(Vector3));
     }
 
-    std::cout << "STAGE 4" << std::endl;
+    std::cout << "STAGE 5" << std::endl;
     
     HoleyString hello;
     hello.assign("hello");
@@ -114,7 +122,7 @@ int main()
     std::cout << std::endl;
     dump_memory(reinterpret_cast<std::byte*>(&hello), sizeof(HoleyString));
     
-    std::cout << "STAGE 5" << std::endl;
+    std::cout << "STAGE 6" << std::endl;
     
     std::string sentence = "Hello world!";
     memcpy(reinterpret_cast<std::byte*>(sentence.data() + 6), reinterpret_cast<std::byte*>(sentence.data()), 5);

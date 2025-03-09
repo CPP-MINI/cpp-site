@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS=-Wall -fsanitize=address,leak
 LDFLAGS=-fsanitize=address,leak
 
-PHONY: all clean
+.PHONY: all clean
 
 all: l2
 
