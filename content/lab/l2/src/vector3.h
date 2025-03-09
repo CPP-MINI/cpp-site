@@ -17,6 +17,9 @@ public:
     Vector3(double x, double y, double z);
 
     double length() const ;
+    void mul(double a);
 };
+
+
 
 } // namespace l2

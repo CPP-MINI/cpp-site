@@ -18,4 +18,9 @@ double Vector3::length() const
     // STAGE 1: Implement me!
 }
 
+void Vector3::mul(double a)
+{
+    // STAGE 1: Implement me!
+}
+
 }  // namespace l2
