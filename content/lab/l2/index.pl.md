@@ -136,3 +136,15 @@ W celu sprawdzenia implementacji w pliku `main.cpp` wykonaj następujące przeks
 * `Hello world once again!` -> `Hello world world once!`
 
 Zabronione jest użycie funkcji `std::memcpy` oraz `std::memmove` w implementacjach i przykładzie użycia!
+
+## Rozwiązanie
+
+[Makefile](solution/Makefile)
+
+[main.cpp](solution/main.cpp) [fruit.h](solution/fruit.h)
+
+[vector3.h](solution/vector3.h) [vector3.cpp](solution/vector3.cpp) 
+
+[holey_string.h](solution/holey_string.h) [holey_string.cpp](solution/holey_string.cpp) 
+
+[memory_manipulation.h](solution/memory_manipulation.h) [memory_manipulation.cpp](solution/memory_manipulation.cpp)
