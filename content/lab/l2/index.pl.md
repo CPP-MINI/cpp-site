@@ -32,7 +32,7 @@ Pierwsza z nich dopuszcza 4 kolory:
 * `Red`
 * `Orange`
 * `Green`
-* `Violet`.
+* `Violet`
 
 Druga natomiast opisuje trzy rodzaje owoców:
 * `Apple`
