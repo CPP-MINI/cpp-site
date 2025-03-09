@@ -48,7 +48,10 @@ Zwróć uwagę, że przy dojrzałej pomarańczy enumerację w stylu C++ wprost w
 W pliku `vector3.h` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
 Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
 Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
-Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)`.
+Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jako typ double.
+Proszę zwrócić uwagę na dwie linie zawierające `static_asert`.
+Jest to sposób na upewnienie się, że zdefiniowany przez ciebie typ będzie traktowany jak blok trzech liczb.
+Zastanów się, dlaczego akurat tak wyglądają sprawdzenia poprawności.
 
 Struktura `Vector3` ma zdefiniowane pole `v` stworzonego przez ciebie typu `internal_representation`.
 W czterech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
