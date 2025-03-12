@@ -40,7 +40,7 @@ Druga natomiast opisuje trzy rodzaje owoców:
 * `Plum`
 
 Następnie zdefiniuj strukturę `Fruit` składającą się z tych dwóch enumeracji.
-Na końcu pliku `fruit.h` zdefiniuj 6 statycznych wyrażeń statycznych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
+Na końcu pliku `fruit.h` zdefiniuj 6 statycznych wyrażeń stałych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
 
 Zwróć uwagę, że przy dojrzałej pomarańczy enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać użyty w trakcie tworzenia instancji owoców.
 
