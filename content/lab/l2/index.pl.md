@@ -18,16 +18,16 @@ Druga natomiast jest przewidziany przy linkowaniu obiektów do gotowych plików 
 
 [main.cpp](src/main.cpp)
 
-[vector3.h](src/vector3.h) [vector3.cpp](src/vector3.cpp) 
+[vector3.hpp](src/vector3.hpp) [vector3.cpp](src/vector3.cpp) 
 
-[holey_string.h](src/holey_string.h) [holey_string.cpp](src/holey_string.cpp) 
+[holey_string.hpp](src/holey_string.hpp) [holey_string.cpp](src/holey_string.cpp) 
 
-[memory_manipulation.h](src/memory_manipulation.h) [memory_manipulation.cpp](src/memory_manipulation.cpp)
+[memory_manipulation.hpp](src/memory_manipulation.hpp) [memory_manipulation.cpp](src/memory_manipulation.cpp)
 
 ### Etap 0: Deklaracji enumeracji w duchu C++
 
 Na rozgrzewkę twoim zadaniem będzie utworzenie dwóch enumeracji opisujących kolory oraz typy owoców.
-W tym celu utwórz plik `fruit.h` i zadeklaruj dwie enumeracje: `Color` oraz `FruitType`.
+W tym celu utwórz plik `fruit.hpp` i zadeklaruj dwie enumeracje: `Color` oraz `FruitType`.
 Pierwsza z nich dopuszcza 4 kolory:
 * `Red`
 * `Orange`
@@ -40,12 +40,12 @@ Druga natomiast opisuje trzy rodzaje owoców:
 * `Plum`
 
 Następnie zdefiniuj strukturę `Fruit` składającą się z tych dwóch enumeracji.
-Na końcu pliku `fruit.h` zdefiniuj 6 statycznych wyrażeń stałych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
+Na końcu pliku `fruit.hpp` zdefiniuj 6 statycznych wyrażeń stałych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
 
 Zwróć uwagę, że przy dojrzałej pomarańczy enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać użyty w trakcie tworzenia instancji owoców.
 
 ### Etap 1: Trójwymiarowy wektor
-W pliku `vector3.h` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
+W pliku `vector3.hpp` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
 Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
 Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
 Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jako typ double.
@@ -62,7 +62,7 @@ Funkcja `length` służy do wyliczenia długości euklidesowej wektora (**Podpow
 Funkcja `mul` służy do pomnożenia wektora przez liczbę.
 Do zaimplementowania funkcji `length` oraz `mul` użyj możliwości dostępu do `v` z perspektywy tablicy typu `double`.
 
-Jak rozszerzenie klasy `Vector3` zadeklaruj dwie wolne funkcje w pliku `vector3.h`:
+Jak rozszerzenie klasy `Vector3` zadeklaruj dwie wolne funkcje w pliku `vector3.hpp`:
 * `vector3_add` - funkcja wykonuje dodawanie wektorów oraz przyjmuje dwie stałe referencje na typ `Vector3` reprezentujące lewą i prawą stronę operatora dodawania. Funkcja powinna zwracać nowy `Vector3` przechowujący wynik dodawania.
 * `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście.
 
@@ -110,7 +110,7 @@ Po wykonaniu implementacji wypisz na ekran pamięć zajmowaną przez każdą tab
 
 ### Etap 4: Dziurawy ciąg znaków
 
-W pliku `holey_string.h` zdefiniowana jest struktura reprezentująca 16 elementowy ciąg znaków.
+W pliku `holey_string.hpp` zdefiniowana jest struktura reprezentująca 16 elementowy ciąg znaków.
 Znaki w tym tej strukturze są specjalne, pomimo wykorzystania typu `char` każdy znak zajmuje 2 bajty.
 
 Twoim zadaniem jest zdefiniować ten specjalny typ znaku `holey_char` (**Podpowiedź**: `alignas`) i zaimplementować trzy funkcje:
@@ -141,10 +141,10 @@ Zabronione jest użycie funkcji `std::memcpy` oraz `std::memmove` w implementacj
 
 [Makefile](solution/Makefile)
 
-[main.cpp](solution/main.cpp) [fruit.h](solution/fruit.h)
+[main.cpp](solution/main.cpp) [fruit.hpp](solution/fruit.hpp)
 
-[vector3.h](solution/vector3.h) [vector3.cpp](solution/vector3.cpp) 
+[vector3.hpp](solution/vector3.hpp) [vector3.cpp](solution/vector3.cpp) 
 
-[holey_string.h](solution/holey_string.h) [holey_string.cpp](solution/holey_string.cpp) 
+[holey_string.hpp](solution/holey_string.hpp) [holey_string.cpp](solution/holey_string.cpp) 
 
-[memory_manipulation.h](solution/memory_manipulation.h) [memory_manipulation.cpp](solution/memory_manipulation.cpp)
+[memory_manipulation.hpp](solution/memory_manipulation.hpp) [memory_manipulation.cpp](solution/memory_manipulation.cpp)

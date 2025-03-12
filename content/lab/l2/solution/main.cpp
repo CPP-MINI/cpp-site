@@ -5,9 +5,9 @@
 #include <algorithm>
 #include <vector>
 
-#include "vector3.h"
-#include "holey_string.h"
-#include "memory_manipulation.h"
+#include "vector3.hpp"
+#include "holey_string.hpp"
+#include "memory_manipulation.hpp"
 
 using namespace l2;
 
