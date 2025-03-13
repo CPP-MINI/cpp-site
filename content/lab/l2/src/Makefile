@@ -7,7 +7,7 @@ LDFLAGS=-fsanitize=address,leak
 all: l2
 
 l2: 
-	echo "Define how to build am executable here"
+	echo "Define how to build an executable here"
 
 clean:
 	rm -f l2
