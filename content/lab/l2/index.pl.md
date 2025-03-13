@@ -43,7 +43,7 @@ Następnie zdefiniuj strukturę `Fruit` składającą się z tych dwóch enumera
 Na końcu pliku `fruit.hpp` zdefiniuj 6 statycznych wyrażeń stałych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
 
 Wyrażenie stałe może być użyte do wykonania obliczeń jeszcze w trakcie kompilacji.
-Na warsztatach użyjemy tego jako ułatwienie definiowania statycznej.
+Na warsztatach użyjemy tego jako ułatwienie definiowania zmiennej statycznej.
 Wyrażenia stałe mogą być definiowane w całości w plikach nagłówkowych.
 Na dalszych wykładach szerzej zostanie poruszony temat obliczeń w trakcie kompilacji.
 
@@ -54,7 +54,7 @@ Enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać uży
 W pliku `vector3.hpp` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
 Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
 Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
-Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jako typ double.
+Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jak typ double.
 Proszę zwrócić uwagę na dwie linie zawierające `static_assert`.
 Jest to sposób na upewnienie się, że zdefiniowany przez ciebie typ będzie traktowany jako blok trzech liczb.
 Zastanów się, dlaczego akurat tak wyglądają sprawdzenia poprawności.
@@ -68,7 +68,7 @@ Funkcja `length` służy do wyliczenia długości euklidesowej wektora (**Podpow
 Funkcja `mul` służy do pomnożenia wektora przez liczbę.
 Do zaimplementowania funkcji `length` oraz `mul` użyj możliwości dostępu do `v` z perspektywy tablicy typu `double`.
 
-Jak rozszerzenie klasy `Vector3` zadeklaruj dwie wolne funkcje w pliku `vector3.hpp`:
+Jako rozszerzenie klasy `Vector3` zadeklaruj dwie wolne funkcje w pliku `vector3.hpp`:
 * `vector3_add` - funkcja wykonuje dodawanie wektorów oraz przyjmuje dwie stałe referencje na typ `Vector3` reprezentujące lewą i prawą stronę operatora dodawania. Funkcja powinna zwracać nowy `Vector3` przechowujący wynik dodawania.
 * `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście.
 
@@ -97,7 +97,7 @@ Po zakończeniu wstawiania przejdź po tablicy ponownie oraz wypisz długość w
 
 W tym etapie twoim celem jest napisanie funkcji, która przyjmie dowolny wskaźnik oraz ilość bajtów do wypisania na standardowe wyjście.
 W każdej linii wypisz 8 bajtów na dwa sposoby: jako liczbę heksadecymalną oraz znak ASCII (jeśli jest to możliwe).
-Aby dopełnić obraz wypisanych bajtów, na początku linii wypisz adres pierwszego bajta (**Podpowiedź**: [`std::hex`](https://en.cppreference.com/w/cpp/io/manip/hex) służy do formatowania jako liczby heksadecymalne).
+Aby dopełnić obraz wypisanych bajtów, na początku linii wypisz adres pierwszego bajta (**Podpowiedź**: [`std::hex`](https://en.cppreference.com/w/cpp/io/manip/hex) służy do formatowania wartości jako liczby heksadecymalnej).
 
 Przykładowo funkcja dla pamięci zajmowanej przez `Vector3{1,2,3}` wypisze na standardowe wyjście
 ```
