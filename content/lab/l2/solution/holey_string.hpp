@@ -11,9 +11,9 @@ namespace l2 {
         static constexpr int capacity = 16;
         holey_char string[capacity];
 
-        void assign(const std::string val);
-        void hide(const std::string val);
-        void print();
+        void assign(const std::string& val);
+        void hide(const std::string& val);
+        void print() const;
     };
 
 } // namespace l2

@@ -3,7 +3,7 @@
 
 void print_readable_character(std::byte byte)
 {
-    if (byte >= std::byte{0x20} and byte <= std::byte{0x7E})
+    if (byte >= std::byte{0x20} && byte <= std::byte{0x7E})
         std::cout << static_cast<char>(byte);
     else
         std::cout << ".";  // Non readable character cannot be shown in the console

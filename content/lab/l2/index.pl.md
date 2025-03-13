@@ -7,12 +7,12 @@ weight: 20
 # Laboratorium 2
 ## Pamięć
 
-Na tym laboratorium twoim zadaniem jest stworzenie niestandardowych typu danych oraz eksperymentowanie z jego czasem życia.
+Na tym laboratorium twoim zadaniem jest stworzenie niestandardowych typów danych oraz eksperymentowanie z ich czasem życia.
 Tym razem zadanie podzielone jest na sześć etapów.
 W kodzie znajdują się wskazówki, gdzie należy umieścić rozwiązania poszczególnych etapów (szukaj komentarzy zawierających `STAGE N`).
 
-Skorzystaj z kodu startowego oraz dołączonego do niego pliku `Makefile`. Można w nim znaleźć dwie zmienne: `CXXFLAGS` oraz `LDFLAGS`. Pierwsza z nich powinna być używania przy tworzeniu obiektów.
-Druga natomiast jest przewidziany przy linkowaniu obiektów do gotowych plików wykonywalnych lub bibliotek.
+Skorzystaj z kodu startowego oraz dołączonego do niego pliku `Makefile`. Można w nim znaleźć dwie zmienne: `CXXFLAGS` oraz `LDFLAGS`. Pierwsza powinna być używana przy tworzeniu obiektów.
+Druga natomiast jest przekazana przy linkowaniu obiektów do plików wykonywalnych lub bibliotek.
 
 [Makefile](src/Makefile)
 
@@ -24,7 +24,7 @@ Druga natomiast jest przewidziany przy linkowaniu obiektów do gotowych plików 
 
 [memory_manipulation.hpp](src/memory_manipulation.hpp) [memory_manipulation.cpp](src/memory_manipulation.cpp)
 
-### Etap 0: Deklaracji enumeracji w duchu C++
+### Etap 0: Deklaracja enumeracji w stylu C++
 
 Na rozgrzewkę twoim zadaniem będzie utworzenie dwóch enumeracji opisujących kolory oraz typy owoców.
 W tym celu utwórz plik `fruit.hpp` i zadeklaruj dwie enumeracje: `Color` oraz `FruitType`.
@@ -42,15 +42,21 @@ Druga natomiast opisuje trzy rodzaje owoców:
 Następnie zdefiniuj strukturę `Fruit` składającą się z tych dwóch enumeracji.
 Na końcu pliku `fruit.hpp` zdefiniuj 6 statycznych wyrażeń stałych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
 
-Zwróć uwagę, że przy dojrzałej pomarańczy enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać użyty w trakcie tworzenia instancji owoców.
+Wyrażenie stałe może być użyte do wykonania obliczeń jeszcze w trakcie kompilacji.
+Na warsztatach użyjemy tego jako ułatwienie definiowania statycznej.
+Wyrażenia stałe mogą być definiowane w całości w plikach nagłówkowych.
+Na dalszych wykładach szerzej zostanie poruszony temat obliczeń w trakcie kompilacji.
+
+Zwróć uwagę, że przy instancjonowaniu dojrzałej pomarańczy przekazujemy dwa razy enumerację o symbolu `Orange`.
+Enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać użyty w trakcie tworzenia instancji owoców przy pomocy nazwy klasy poprzedzającej wartość enumeracji.
 
 ### Etap 1: Trójwymiarowy wektor
 W pliku `vector3.hpp` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
 Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
 Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
 Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jako typ double.
-Proszę zwrócić uwagę na dwie linie zawierające `static_asert`.
-Jest to sposób na upewnienie się, że zdefiniowany przez ciebie typ będzie traktowany jak blok trzech liczb.
+Proszę zwrócić uwagę na dwie linie zawierające `static_assert`.
+Jest to sposób na upewnienie się, że zdefiniowany przez ciebie typ będzie traktowany jako blok trzech liczb.
 Zastanów się, dlaczego akurat tak wyglądają sprawdzenia poprawności.
 
 Struktura `Vector3` ma zdefiniowane pole `v` stworzonego przez ciebie typu `internal_representation`.
@@ -84,14 +90,14 @@ Twoim zadaniem jest zadeklarować trzy rodzaje tablic:
 * używając `std::vector` (używając obiektu, który zarządza pamięcią wewnętrznie).
 
 Do każdej tablicy wstaw 10 obiektów typu `Vector3` o wartościach `{i,i,i}`, gdzie `i` - numer wstawianego wektora.
-Przy każdym wstawieniu pobierz adres pierwszego elementu oraz wypisz go na standardowe wyjście (czy w każdym wypadku te adresy będą identyczne w każdym obrocie pętli?).
+Przy każdym wstawieniu pobierz adres pierwszego elementu oraz wypisz go na standardowe wyjście. Czy w każdym wypadku te adresy będą identyczne w czasie kolejnych iteracji pętli?
 Po zakończeniu wstawiania przejdź po tablicy ponownie oraz wypisz długość wektora na standardowe wyjście.
 
 ### Etap 3: Memory dumper (*pol. drukarz pamięci*)
 
 W tym etapie twoim celem jest napisanie funkcji, która przyjmie dowolny wskaźnik oraz ilość bajtów do wypisania na standardowe wyjście.
 W każdej linii wypisz 8 bajtów na dwa sposoby: jako liczbę heksadecymalną oraz znak ASCII (jeśli jest to możliwe).
-Aby dopełnić obraz wypisanych bajtów, na początku linii wypisz adres pierwszego bajtu (**Podpowiedź**: [`std::hex`](https://en.cppreference.com/w/cpp/io/manip/hex) służy do formatowania jako liczby heksadecymalne).
+Aby dopełnić obraz wypisanych bajtów, na początku linii wypisz adres pierwszego bajta (**Podpowiedź**: [`std::hex`](https://en.cppreference.com/w/cpp/io/manip/hex) służy do formatowania jako liczby heksadecymalne).
 
 Przykładowo funkcja dla pamięci zajmowanej przez `Vector3{1,2,3}` wypisze na standardowe wyjście
 ```
@@ -111,13 +117,13 @@ Po wykonaniu implementacji wypisz na ekran pamięć zajmowaną przez każdą tab
 ### Etap 4: Dziurawy ciąg znaków
 
 W pliku `holey_string.hpp` zdefiniowana jest struktura reprezentująca 16 elementowy ciąg znaków.
-Znaki w tym tej strukturze są specjalne, pomimo wykorzystania typu `char` każdy znak zajmuje 2 bajty.
+Znaki w tej strukturze są specjalne, pomimo wykorzystania typu `char` każdy znak zajmuje 2 bajty.
 
 Twoim zadaniem jest zdefiniować ten specjalny typ znaku `holey_char` (**Podpowiedź**: `alignas`) i zaimplementować trzy funkcje:
 * `print` - ta funkcja wypisuje taki specjalnie przygotowany ciąg znaków na standardowe wyjście (długość ciągu znaków ustal na podstawie terminującego zera - jak w języku C),
 * `assign` - ta funkcja przypisuje otrzymany `std::string` do specjalnego ciągu znaków (zaterminuj string w stylu C - ustawiając ostatni bajt na zero),
 * `hide` - ta funkcja przypisuje otrzymany `std::string` do dziur powstałych pomiędzy znakami.
-W przypadku ostatniej funkcji wykonanie funkcji `hide` nie powinno wpłynąć na zawartość ciągu znaków oraz kolejne wywołania funkcji `print`. *Po laboratoriuum zastanów się, czy ta funkcja przypadkiem nie łamie jakichś zasad* 🤔
+W przypadku ostatniej funkcji wykonanie funkcji `hide` nie powinno wpłynąć na zawartość ciągu znaków oraz kolejne wywołania funkcji `print`. *Po laboratorium zastanów się, czy ta funkcja przypadkiem nie łamie jakichś zasad* 🤔
 
 Po zaimplementowaniu powyższych funkcji przejdz do pliku `main.cpp` oraz stwórz automatyczny obiekt typu `HoleyString`. Wykonaj na nim funkcję `assign` ze stringiem `"hello"` oraz hide z `"world"`. Po wykonaniu każdej z tych dwóch operacji wykonaj funkcję `print` oraz wypisz pamięć zajmowaną przez obiekt funkcją `dump_memory`.
 

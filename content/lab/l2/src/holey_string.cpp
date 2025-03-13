@@ -1,4 +1,4 @@
-#include "holey_string.h"
+#include "holey_string.hpp"
 
 namespace l2 {
 
@@ -12,7 +12,7 @@ void HoleyString::hide(const std::string val)
     // STAGE 4: Implement me!
 }
 
-void HoleyString::print()
+void HoleyString::print() const
 {
     // STAGE 4: Implement me!
 }

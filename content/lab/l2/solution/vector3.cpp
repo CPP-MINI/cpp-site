@@ -1,4 +1,4 @@
-#include "vector3.h"
+#include "vector3.hpp"
 #include <cmath>
 #include <cstring>
 #include <iostream>

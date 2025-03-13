@@ -1,10 +1,10 @@
-#include "holey_string.h"
+#include "holey_string.hpp"
 
 #include <iostream>
 
 namespace l2 {
 
-void HoleyString::assign(const std::string val)
+void HoleyString::assign(const std::string& val)
 {
     size_t i = 0;
     for (; i < capacity - 1 && i < val.size(); ++i)
@@ -12,7 +12,7 @@ void HoleyString::assign(const std::string val)
     string[i].c = 0x00;
 }
 
-void HoleyString::hide(const std::string val)
+void HoleyString::hide(const std::string& val)
 {
     /**
      * This code works - but only because I guessed the hole is one byte after the char.
@@ -25,9 +25,9 @@ void HoleyString::hide(const std::string val)
 
 }
 
-void HoleyString::print()
+void HoleyString::print() const
 {
-    for (int i = 0; i < capacity and string[i].c != 0; ++i)
+    for (int i = 0; i < capacity && string[i].c != 0; ++i)
         std::cout << string[i].c;
 }
 
