@@ -1,13 +1,13 @@
+#include <algorithm>
 #include <iomanip>
 #include <ios>
 #include <iostream>
 #include <ostream>
-#include <algorithm>
 #include <vector>
 
-#include "vector3.hpp"
 #include "holey_string.hpp"
 #include "memory_manipulation.hpp"
+#include "vector3.hpp"
 
 using namespace l2;
 
@@ -30,7 +30,8 @@ void dump_memory(std::byte* start, size_t count)
         int max_idx = std::min(finish_addr - addr, window_width);
         std::cout << std::hex << addr << ": ";
         for (int idx = 0; idx < max_idx; ++idx)
-            std::cout << std::setfill('0') << std::setw(2) << std::hex << static_cast<unsigned int>(*(addr + idx)) << " ";
+            std::cout << std::setfill('0') << std::setw(2) << std::hex << static_cast<unsigned int>(*(addr + idx))
+                      << " ";
         std::cout << "| ";
         for (int idx = 0; idx < max_idx; ++idx)
             print_readable_character(*(addr + idx));
@@ -54,7 +55,7 @@ int main()
     vector3_print(result_vector);
 
     dump_memory(reinterpret_cast<std::byte*>(&v1), sizeof(Vector3));
-    
+
     std::cout << "STAGE 2 and 3" << std::endl;
 
     const int array_size = 10;
@@ -108,7 +109,7 @@ int main()
     }
 
     std::cout << "STAGE 4" << std::endl;
-    
+
     HoleyString hello;
     hello.assign("hello");
 
@@ -117,19 +118,20 @@ int main()
     dump_memory(reinterpret_cast<std::byte*>(&hello), sizeof(HoleyString));
 
     hello.hide("world");
-    
+
     hello.print();
     std::cout << std::endl;
     dump_memory(reinterpret_cast<std::byte*>(&hello), sizeof(HoleyString));
-    
+
     std::cout << "STAGE 5" << std::endl;
-    
+
     std::string sentence = "Hello world!";
     memcpy(reinterpret_cast<std::byte*>(sentence.data() + 6), reinterpret_cast<std::byte*>(sentence.data()), 5);
     std::cout << sentence << std::endl;
 
     std::string sentence2 = "Hello world once again!";
-    memmove(reinterpret_cast<std::byte*>(sentence2.data() + 12), reinterpret_cast<std::byte*>(sentence2.data() + 6), 10);
+    memmove(reinterpret_cast<std::byte*>(sentence2.data() + 12), reinterpret_cast<std::byte*>(sentence2.data() + 6),
+            10);
     std::cout << sentence2 << std::endl;
 
     return 0;

@@ -23,12 +23,14 @@ double Vector3::length() const
     return sqrt(res);
 }
 
-void Vector3::mul(double a){
+void Vector3::mul(double a)
+{
     for (int i = 0; i < VECTOR_SIZE; ++i)
         v.buffer[i] *= a;
 }
 
-Vector3 vector3_add(const Vector3& lhs, const Vector3& rhs){
+Vector3 vector3_add(const Vector3& lhs, const Vector3& rhs)
+{
     return Vector3{
         lhs.v.x + rhs.v.x,
         lhs.v.y + rhs.v.y,
@@ -36,7 +38,8 @@ Vector3 vector3_add(const Vector3& lhs, const Vector3& rhs){
     };
 }
 
-void vector3_print(const Vector3& v){
+void vector3_print(const Vector3& v)
+{
     std::cout << "[" << v.v.x << "," << v.v.y << "," << v.v.z << "] " << v.length() << std::endl;
 }
 

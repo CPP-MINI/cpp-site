@@ -2,7 +2,8 @@
 
 #include <iostream>
 
-namespace l2 {
+namespace l2
+{
 
 void HoleyString::assign(const std::string& val)
 {
@@ -22,7 +23,6 @@ void HoleyString::hide(const std::string& val)
      */
     for (size_t i = 0; i < capacity && i < val.size(); ++i)
         *((&string[i].c) + 1) = val[i];
-
 }
 
 void HoleyString::print() const
@@ -31,4 +31,4 @@ void HoleyString::print() const
         std::cout << string[i].c;
 }
 
-} // namespace l2
+}  // namespace l2

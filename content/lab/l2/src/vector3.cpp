@@ -4,7 +4,7 @@ namespace l2
 {
 
 Vector3::Vector3()
-{ 
+{
     // STAGE 1: Implement me!
 }
 
