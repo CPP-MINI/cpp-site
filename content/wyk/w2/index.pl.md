@@ -264,7 +264,7 @@ char txt = "hello\nworld!";
 ```
 
 Czasem, w przypadku długich, sformatowanych tekstów nie jest to wygodne ani czytelne. Nowszy standard C++ pomaga
-dostarczając nową składnię `R(<string>)` niewymagającą escapowania:
+dostarczając nową składnię `R"(<string>)"` niewymagającą escapowania:
 
 ```cpp
 const char* prog = R"(
