@@ -1,7 +1,7 @@
 #include "Song.hpp"
 #include <iostream>
 
-int Song::count_songs = 0;
+unsigned int Song::count_songs = 0;
 
 Song::Song() : title("Untitled"), artist("Unknown"), duration(0, 0) {
     Song::count_songs++;
@@ -21,7 +21,7 @@ Song::~Song() {
     Song::count_songs--;
 }
 
-int Song::get_total_songs() { return Song::count_songs; }
+unsigned int Song::get_total_songs() { return Song::count_songs; }
 
 void Song::print() const {
     std::cout << title << ", Artist: " << artist << " [" << duration.get_formatted() << "]" << std::endl;

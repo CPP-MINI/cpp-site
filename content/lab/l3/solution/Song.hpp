@@ -10,7 +10,7 @@ private:
     SongDuration duration;
 
 public:
-    static int count_songs;
+    static unsigned int count_songs;
 
     Song();
     Song(const std::string& title, const SongDuration& duration, const std::string& artist = "Unknown");
@@ -27,5 +27,5 @@ public:
 
     void print() const;
 
-    static int get_total_songs();
+    static unsigned int get_total_songs();
 };

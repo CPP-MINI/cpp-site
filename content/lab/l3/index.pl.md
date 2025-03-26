@@ -64,7 +64,7 @@ Klasa powinna zawierać następujące elementy:
 - gettery i settery do pól prywatnych (getter i setter do `duration` powinien przyjmować i zwracać tylko sumaryczną liczbę sekund)
 
 **Statyczne pole i metodę**:
-- Pole statyczne `int count_songs` powinno przechowywać aktualną liczbę stworzonych obiektów typu `Song`.
+- Pole statyczne `unsigned int count_songs` powinno przechowywać aktualną liczbę stworzonych obiektów typu `Song`.
 - Metoda statyczna `get_total_songs()` zwraca liczbę aktualnie istniejących obiektów typu `Song`.
 
 **Uwaga**: Żeby powyższy licznik działał poprawnie, musisz uwzględnić tę funkcjonalność w konstruktorach i zdefiniować odpowiedni destruktor.
