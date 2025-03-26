@@ -63,6 +63,10 @@ Klasa powinna zawierać następujące elementy:
   ```
 - gettery i settery do pól prywatnych (getter i setter do `duration` powinien przyjmować i zwracać tylko sumaryczną liczbę sekund)
 
+**Przypomnienie z wykładu**: Gettery i settery to proste funkcje dostarczające kontrolowany dostęp do prywatnego stanu obiektu.
+Często są to jedno linijkowe funkcje zwracające bądź ustawiające wartość prywatnego pola.
+W przypadku pojawienia się dodatkowych wymagań dotyczących stanu obiektu, w łatwy sposób pozwala nam to kontrolować czy stan cały czas będzie poprawny poprzez dodatkową walidację w odpowiednich setterach.
+
 **Statyczne pole i metodę**:
 - Pole statyczne `unsigned int count_songs` powinno przechowywać aktualną liczbę stworzonych obiektów typu `Song`.
 - Metoda statyczna `get_total_songs()` zwraca liczbę aktualnie istniejących obiektów typu `Song`.
