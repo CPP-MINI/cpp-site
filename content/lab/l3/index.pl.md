@@ -49,7 +49,7 @@ Klasa powinna zawierać następujące elementy:
 - `std::string artist` – wykonawca utworu.
 - `SongDuration duration` – czas trwania utworu.
 
-**Konstruktory i destruktor**:
+**Konstruktory**:
 - Konstruktor bezargumentowy inicjalizuje tytuł jako `"Untitled"`, wykonawcę jako `"Unknown"`, a czas trwania jako 0 sekund.
 - Konstruktor przyjmujący tytuł, czas trwania (`SongDuration`) oraz wykonawcę (wykonawca powinien mieć domyślną wartość `"Unknown"`).
 - Konstruktor przyjmujący tytuł, czas trwania (w minutach i sekundach) oraz wykonawcę (sekundy powinny mieć domyślną wartość 0, a wykonawca `"Unknown"`).
