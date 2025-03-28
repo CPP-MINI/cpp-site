@@ -91,7 +91,7 @@ int main()
 
     std::cout << "sizeof(c) = " << sizeof(c) << ", alignof(char) = " << alignof(char) << ", &c = " << (void*)&c << '\n';
     std::cout << "sizeof(x) = " << sizeof(x) << ", alignof(int) = " << alignof(int) << ", &x = " << &x << '\n';
-    std::cout << "sizeof(vec) = " << sizeof(x) << ", alignof(vector<int>) = " << alignof(int) << ", &vec = " << &vec <<'\n';
+    std::cout << "sizeof(vec) = " << sizeof(vec) << ", alignof(vector<int>) = " << alignof(std::vector<int>) << ", &vec = " << &vec <<'\n';
 
     Point p = {1, 2};
 
