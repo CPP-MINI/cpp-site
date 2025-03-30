@@ -12,6 +12,8 @@ namespace l4::base32 {
         std::string _encoded_string;
         std::size_t _idx;
 
+        std::vector<std::byte> decodeBytestream();
+
     public:
         // Rule of 5 - non copiable object
 
@@ -29,13 +31,13 @@ namespace l4::base32 {
          *
          * @return
          */
-        std::size_t byteStreamsCount() const;
+        bool isEmpty() const;
 
         /**
          *
          * @return
          */
-        std::vector<std::byte> pullBytestream() const;
+        std::vector<std::byte> pullBytestream();
     };
 
 }

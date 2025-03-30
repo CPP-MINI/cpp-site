@@ -12,6 +12,7 @@ enable_testing()
 add_executable(
         base32_test
         encoder_test.cpp
+        decoder_test.cpp
 )
 target_link_libraries(
         base32_test
