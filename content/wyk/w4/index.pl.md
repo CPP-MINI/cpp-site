@@ -16,12 +16,11 @@ Zakres:
   * gdb
   * coredumps
   * sanitizers
-  * protectors
-  * valgrind
-  * profiling
+* Testowanie
+* Profiling
 * Zarządzanie zależnościami:
   * conan
-  * vcpkg 
+  * vcpkg
 
 ## Git
 
