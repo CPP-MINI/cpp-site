@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "src/base32/decoder.hpp"
+#include "lib/base32/decoder.hpp"
 
 namespace l4::base32::test
 {

@@ -1,5 +1,4 @@
 
-add_subdirectory(base32)
 
 # Define an executable which depends on the shared base32 library
 add_executable(l4_base32)
