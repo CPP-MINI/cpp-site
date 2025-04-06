@@ -1149,11 +1149,38 @@ Słowa te wpływają na to, które z własności `LINK_LIBRARIES` i `INTERFACE_L
 > Biblioteka, która w swoich publicznych nagłówkach zawiera dyrektywy `#include ""` załączająca 
 > nagłówki jej zależności, musi deklarować tę zależność jako PUBLIC!
 
+## GDB
+
+Podstawowym narzędziem do diagnozowania błędów w oprogramowaniu podczas jego tworzenia (i nie tylko) jest **debugger**.
+To program, który pozwala kontrolować wykonanie innego programu, poruszać się po instrukcjach
+krokowo lub skokowo w trakcie jego wykonania, podglądać i interaktywnie modyfikować stan programu, zmiennych, pamięci.
+
+`gdb` jest takim właśnie debuggerem. Dostarcza potężny interfejs tekstowy, wymagający nauki do uzyskania biegłości,
+ale praktycznie każde środowisko programistyczne da się z nim zintegrować, udostępniając interfejs graficzny.
+
+Debugger zwykle potrzebuje do pracy dodatkowych informacji opisujących wykonywany kod binarny. To tzw. symbole debugera
+opisujące zmienne, funkcje, konkretne linijki kodu, pozwalą tłumaczyć adres wykonywanej instrukcji lub adres zmiennej
+na ich umiejscowienie w kodzie źródłowym. Bez tych informacji wyjście debugera będzie nieczytelne. 
+
+Kompilator generuje te informacje w procesie translacji i może je opcjonalnie umieścić w pliku wynikowym.
+Przykładowo, w `gcc` i `clang` służy do tego przełącznik `-g`. Niektóre kompilatory umieszczają symbole w osobnym pliku.
+
+```shell
+g++ gdb/main.cpp -o main.out && ll -h main.cout
+g++ -g gdb/main.cpp -o main.out && ll -h main.cout
+file main.out
+```
+
+Symbole można wydzielić do osobnego pliku za pomocą narzędzia `objcopy`:
+
+```shell
+objcopy --only-keep-debug main.out main.debug
+strip -g main.out
+```
+
+
+
 ## Testowanie
-
-
-
-## Debugging
 
 ## Profiling
 
