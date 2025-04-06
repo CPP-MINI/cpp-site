@@ -65,11 +65,82 @@ Proszę pamiętać, że błąd w naszym projekcie może być oczekiwaną własno
 
 ### Projekt CMake
 
+W tym etapie zadanie chcemy skorzystać z bibiloteki `base32`.
+Twórca biblioteki poza dwoma klasami dostarcza plik Makefile opisujący zbudowanie przykłądowego programu.
+Zawiera on dodatkowo plik `main.cpp`, który symuluje program `basenc` z paramaterem `--base32hex`.
+
+**Proszę potraktować otrzymany kod w pliku main.cpp jako czarną skrzynkę. Wewnątrz znajdują się funkcje wychodzące poza zakres tego przedmiotu i nie będziemy ich omawiać.**
+
+Twoim zadaniem jest stworzenie projektu `CMake` i powielenie procesu budowania już w nowym systemie.
+Stwórz następującą strukturę katalogów:
+```
+ - src/
+ |  - main.cpp
+ |  - CMakeLists.txt
+ - lib/
+ |  - base32/
+ |  |  - base32_def.hpp
+ |  |  - CMakeLists.txt
+ |  |  - decoder.cpp
+ |  |  - decoder.hpp
+ |  |  - encoder.cpp
+ |  |  - encoder.hpp
+ |  - CMakeLists.txt
+ - tests/ # No cpp files for now
+ |  - CMakeLists.txt
+ - CMakeLists.txt
+```
+
+W folderze `lib/base32` należy zdefiniować target `base32`, który reprezentuje budowanie **shared object** zawierający kod biblioteki.
+Wszystkie pięć plików `.hpp` oraz `.cpp` należy załączyć jako źródła targetu `base32`.
+
+W folderze `src` należy zdefiniować target reprezentujący budowanie **pliku wykonywalnego** `l4_base32`.
+Powinien polegać prywatnie na targecie `base32`.
+
+Wspólne ustawienia flag kompilacji powinny być ustawione w głównym pliku `CMakeLists.txt`.
+
+Aby sprawdzić, czy skompilowany program działa prawidłowo, wykonaj następujące kroki:
+1. Skonfiguruj projekt cmake i wykonaj budowanie targetu `l4_base32`.
+2. Wykonaj polecenie `echo "foobar" | path/to/built/executable/l4_base32`.
+3. Wykonaj polecenie `echo "foobar" | basenc --base32hex`.
+4. Wyjścia kroków 2. oraz 3. powinny być identyczne (konkretnie `CPNMUOJ1E850====`).
+
 ### Uruchomienie debuggera
+
+W świecie GNU Linux standardem stał się debugger `gdb` (GNU debugger).
+Debugger pozwala nam śledzić i modyfikować proces wykonania dowolnego programu.
+W przypadku dzisiejszego laboratorium będziemy uzywać go do znalezienia błędu w trakcie używania biblioteki `base32`.
+Najpierw jednak należy przygotować swoj program oraz środowisko programistyczne do używania debuggera.
+
+Pierwszym krokiem jest upewnienie się, że każda jednostka translacji (plik `.o`) składający się na nasz program został zbudowany z flagą `-g`.
+Flaga ta dodaje do wynikowego pliku wykonywalnego niezbędne wskazówki, aby odnaleźć miejsce w kodzie źródłowym związane z aktualnym miejscem w kodzie maszynowym.
+Dodatkowo da nam także możliwość połączenia zawartości rejestrów procesora ze zmiennymi zdefiniowanymi w kodzie źródłowym.
 
 #### Tryb konsolowy
 
+Zacznijmy od najprostszego sposobu użycia `gdb` - trybu konsolowego.
+Można go użyć, nie posiadając skonfigurowanego środowiska programistycznego.
+Aby uruchomić nasz program pod kontrolą debuggera, należy wydać polecenie `gdb path/to/built/executable/l4_base32`.
+
+W tym momencie debugger powinien dać działać programowi i ładować wszystkie potrzebne symbole.
+Program powinien się zatrzymać w wejściu do funkcji `main`.
+Teraz możemy pozwolić mu działać dalej poleceniem `run` lub wykonać pewne akcje (np. stawianie breakpointów poleceniem `break nazwa_pliku:nr_linii`).
+
+Ten tryb działania debugger jest bardzo potężny i elastyczny, jednak nie należy do prostych w użyciu.
+Aby odkryć pewną funkcję debuggera, należy się o niej dowiedzieć z [dokumentacji użytkownika](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) i wprowadzić odpowiednie polecenie.
+Nie jest to najszybszy sposób na zapoznanie się z podstawowymi funkcjonalnościami tego narzędzia.
+
+Jeśli jednak jest to nasze jedyne wyjście (np. trzeba wykonać debuggowanie na komputerze bez środowiska graficznego), to istnieją w internecie tzw. *cheat-sheety* przygotowane przez bardziej doświadczonych użytkowników.
+Ułatwiają one znalezienie potrzebnej akcji do wykonania w trakcie użytkowania (przykładowy [cheat-sheet](https://users.ece.utexas.edu/~adnan/gdb-refcard.pdf)).
+
+**Proszę nie zapominać, że nie zastąpią one [dokumentacji użytkownika](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) oraz polecenia `help`.**
+
 #### Tryb graficzny
+
+Używanie `gdb` w środowisku graficznym pozwala nam uprościć użytkowanie debuggera.
+Mamy do dyspozycji integrację z naszym środowiskiem graficznym albo niezależne programy.
+Na laboratorium zachęcamy do korzystania do integracji z ze swoim IDE, ponieważ projekt CMake umożliwia takie podejście.
+Jeśli jednak nasze IDE nie wspiera integracji lub nie skonfigurowaliśmy go do odpowiedniego poziomu, można posłużyć się bardzo dobrym projektem [`gdbgui`](https://github.com/cs01/gdbgui/), który jest niezależnym webowym interfejsem graficznym.
 
 ### Użycie biblioteki GTest oraz przygotowanie testów jednostkowych
 
