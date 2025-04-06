@@ -40,13 +40,14 @@ std::vector<std::byte> l4::base32::Decoder::decodeBytestream()
 
     while (_idx < _encoded_string.size() && _encoded_string[_idx] != k_base32hex_pad_char && _encoded_string[_idx] != k_base32hex_separator_char)
     {
+
         int value = _encoded_string[_idx] - '0';
         if (_encoded_string[_idx] >= 'A')
             value = _encoded_string[_idx] - 'A' + 10;
 
 
         if (value < 0 || value > 32)
-            return {}; // wrong value
+            break; // wrong value
         buffer <<= 5;
         buffer += value;
 
@@ -88,7 +89,8 @@ std::vector<std::byte> l4::base32::Decoder::decodeBytestream()
         buffer = 0;
     }
 
-    while (_idx < _encoded_string.size() && _encoded_string[_idx] == k_base32hex_pad_char && _encoded_string[_idx] != k_base32hex_separator_char)
+    // Here iterating only over `=` is too much - trigger a problem with empty last line on the input
+    while (_idx < _encoded_string.size() && _encoded_string[_idx] != k_base32hex_separator_char)
         ++_idx;
 
     if (_encoded_string[_idx] == k_base32hex_separator_char)
