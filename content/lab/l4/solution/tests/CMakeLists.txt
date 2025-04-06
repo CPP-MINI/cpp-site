@@ -1,5 +1,5 @@
 
-# Download a cmake code during the configure phase
+# Download a cmake library during the configure phase
 include(FetchContent)
 FetchContent_Declare(
         googletest
