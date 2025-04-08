@@ -11,13 +11,12 @@ Zakres:
 * przeładowywanie operatorów
 * konwersje
 * konstruktory konwertujące
-* `auto`
-* ranged for loop
-* lambdas
-* literały zdefiniowane przez użytkownika
+* funkcje lambda
 * szablony
 * STL
 * iteratory
+* `auto`
+* ranged for loop
 * algorytmy STL
 * ranges
 
@@ -42,7 +41,51 @@ konkatenację ciągów znakowych:
 string& operator+=( const string& str );
 ```
 
-Przykład
+Bardziej złożony przykład klasy `vector3d` implementującej operacje arytmetyczne na wektorach jako operatory:
+
+```cpp
+class vector3d {
+    float _x, _y, _z;
+public:
+    /* ... */
+    
+    vector3d& operator+=(const vector3d& other) {
+        _x += other._x;
+        _y += other._y;
+        _z += other._z;
+        return *this;
+    }
+
+    vector3d operator+(const vector3d& other) const {
+        vector3d result = *this;
+        result += other;
+        return result;
+    }
+
+    /* ... */
+};
+```
+
+Operatory można implementować jako funkcje składowe klasy lub jako funkcje swobodne, np.:
+
+```cpp
+vector3d operator*(float value, const vector3d& other) {
+    vector3d result = other;
+    result *= value;
+    return result;
+}
+```
+
+Typowym przykładem jest przeładowanie operatora `<<` dla strumieni wyjściowych:
+
+```cpp
+std::ostream& operator<<(std::ostream& os, const vector3d& v) {
+    os << "vector3d(" << v.x() << ", " << v.y() << ", " << v.z() << ")";
+    return os;
+}
+/* ... */
+std::cout << vector3d(1, 2, 3) << std::endl;
+```
 
 W C++ można przeładowywać [mnóstwo operatorów](https://en.cppreference.com/w/cpp/language/operators).
 W rzeczywistości jedynymi, których nie można przeładowywać to operator zakresowy `::`, operatory wyłuskania `.`, `.*` i
@@ -68,5 +111,113 @@ a->x      // ((a).operator->())->x
 ++a       // (a).operator++()
 a++       // (a).operator++(0)
 ```
+
+> Jeżeli operator jest przeładowany jako funkcja swobodna, to teoretyczna składnia była inna, np.: `operator+(a, b)`.
+
+Przeładowywanie typowych, dwuargumentowych operatorów jest analogiczne.
+Rozważmy ciekawsze przypadki.
+
+### Operatory unarne
+
+Wyrażenia `+a` i `-a` wykorzystują operatory _unary plus_ i _unary minus_.
+Implementowane jako składowe klasy nie mają argumentów:
+
+```cpp
+class Int {
+  int value;
+public:
+    /* ... */
+    Int operator+() { return *this; }
+    Int operator-() { return Int(-value); }
+    /* ... */
+};
+```
+Source: [overloading_arithmetic.cpp](overloading_arithmetic.cpp)
+
+### Pre- i post- inkrementacje
+
+Jak rozróżnić między wyrażeniami `++a` i `a++`?
+Post inkrementacje/dekrementacje posiadają dodatkowy parametr
+typu `int`, którego pre- operatory nie posiadają:
+
+```cpp
+Int& operator++() {
+    ++value;
+    return *this;
+}
+
+Int operator++(int) {
+    Int tmp = *this;
+    ++value;
+    return tmp;
+}
+```
+
+> Operator preinkrementacji może zmodyfikować `this` i zwrócić
+referencję. Post inkrementacja nie może tego zrobić.
+
+### Operator wywołania
+
+Klasy mogą przeładować operator `(...)` z dowolną liczbą argumentów
+powodując, że ich obiekty zachowują się jak funkcje.
+
+```cpp
+class LessThanFunc {
+    int value;
+public:
+    /* ... */
+    bool operator()(int x) {
+        return x < value;
+    }
+    /* ... */
+};
+```
+Source: [overloading_call.cpp](overloading_call.cpp)
+
+Takie obiekty często nazywamy _funktorami_.
+
+### Operator indeksowania
+
+Można przeciążać operator `[]` dzięki czemu obiekty 
+wyglądają jakby były indeksowalnymi kontenerami.
+
+```cpp
+class FakeArray {
+public:
+    /* ... */
+    int operator[](std::size_t i) {
+        return i + 1;
+    }
+};
+```
+Source: [overloading_index.cpp](overloading_index.cpp)
+
+### Operator wyłuskania
+
+Na potrzeby implementacji typów których obiekty zachowują
+się tak jakby były wskaźnikami można przeładować operator `->`.
+Taki operator musi zwrócić wskaźnik (lub inny obiekt który)
+ma przeładowany operator `->`).
+
+```cpp
+class Ptr
+{
+    Point* _ptr;
+public:
+    Ptr(Point* ptr) : _ptr(ptr) {}
+    ~Ptr() { delete _ptr; }
+    Point* operator->() { return _ptr; }
+    Point& operator*() { return *_ptr; }
+};
+```
+
+Przeciążamy również operator dereferencji `*` aby móc dobierać się 
+do wskazywanego obiektu, a nie tylko do jego składowych.
+
+## Konwersje
+
+Implementując konstruktory dostarczamy metody konstrukcji obiektów naszego typu.
+Konstruktory jednoargumentowe są szczególne bo pozwalają zamienić obiekt pewnego typu
+na inny typ. To tak zwane **konstruktory konwertujące**.
 
 
