@@ -1,6 +1,6 @@
 CXX=g++
-CXXFLAGS=-Wall -fsanitize=address,leak -g
-LDFLAGS=-fsanitize=address,leak
+CXXFLAGS=-Wall -g
+LDFLAGS=
 AR=ar
 ARFLAGS=rcs
 
@@ -8,12 +8,9 @@ ARFLAGS=rcs
 
 all: l4_base32
 
-# $^ - this variable holds all dependencies of given target
 l4_base32: main.o libbase32.a
 	${CXX} ${LDFLAGS} $^ -o l4_base32
 
-# $< - this variable holds only first dependency of given target
-# $@ - this variables holds the target itself
 main.o: main.cpp
 	${CXX} ${CXXFLAGS} -c $< -o $@
 
@@ -28,4 +25,4 @@ decoder.o: decoder.cpp
 
 
 clean:
-	rm -f *.o *.a l2
+	rm -f *.o *.a l4_base32
