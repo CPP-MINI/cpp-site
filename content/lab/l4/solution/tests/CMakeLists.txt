@@ -19,6 +19,6 @@ target_link_libraries(
         base32_test
         PRIVATE
         GTest::gtest_main
-        base32_static
+        base32
 )
 gtest_discover_tests(base32_test)
