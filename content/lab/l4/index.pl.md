@@ -91,7 +91,7 @@ Stwórz następującą strukturę katalogów:
  - CMakeLists.txt
 ```
 
-W folderze `lib/base32` należy zdefiniować target `base32`, który reprezentuje budowanie **shared object** zawierający kod biblioteki.
+W folderze `lib/base32` należy zdefiniować target `base32`, który reprezentuje budowanie **biblioteki statysczne** z kodem biblioteki.
 Wszystkie pięć plików `.hpp` oraz `.cpp` należy załączyć jako źródła targetu `base32`.
 
 W folderze `src` należy zdefiniować target reprezentujący budowanie **pliku wykonywalnego** `l4_base32`.
@@ -110,7 +110,7 @@ Aby sprawdzić, czy skompilowany program działa prawidłowo, wykonaj następuj�
 W świecie GNU Linux standardem stał się debugger `gdb` (GNU debugger).
 Debugger pozwala nam śledzić i modyfikować proces wykonania dowolnego programu.
 W przypadku dzisiejszego laboratorium będziemy uzywać go do znalezienia błędu w trakcie używania biblioteki `base32`.
-Najpierw jednak należy przygotować swoj program oraz środowisko programistyczne do używania debuggera.
+Najpierw jednak należy przygotować swój program oraz środowisko programistyczne do używania debuggera.
 
 Pierwszym krokiem jest upewnienie się, że każda jednostka translacji (plik `.o`) składający się na nasz program został zbudowany z flagą `-g`.
 Flaga ta dodaje do wynikowego pliku wykonywalnego niezbędne wskazówki, aby odnaleźć miejsce w kodzie źródłowym związane z aktualnym miejscem w kodzie maszynowym.
@@ -186,9 +186,9 @@ Obydwa zawierają wszystkie funkcjonalności biblioteki, ale drugi zawiera przy 
 Aby przygotować program testujący dwie dostarczone funkcje, przygotuj dwa nowe pliki: `tests/encoder.cpp` oraz `tests/decoder.cpp`.
 Program testujący jest zwykłym plikiem wykonywalnym. Przygotuj nową definicję takiego pliku o nazwie `base32_test`, który zawiera dwa pliki `.cpp` znajdujące się w folderze `tests`.
 
-Aby skorzystać z klas `Encoder` oraz `Decoder` w testach, zdefiniuj statycznie linkowaną bibliotekę o nazwie `base32_static`, która będzie prywatną zależnością targetu `base32_test`.
+Aby skorzystać z klas `Encoder` oraz `Decoder` w testach, target `base32_test` powinien posiadać prywatną zaleźnośc do `base32`.
 Drugą prywatną zależnością programu powinien zostać `GTest::gtest_main`, który zapewni wszystkie funkcjonalności dostarczone przez bibliotekę GoogleTest.
-Dodatkowo definiuje on funkcję main, która jest konieczna do wykonania programu testowego.
+Dodatkowo definiuje on funkcję `main`, która jest konieczna do wykonania programu testowego.
 
 Ostatnim elementem jest zawołanie funkcji `gtest_discover_tests(base32_test)` na końcu pliku `tests/CMakeLists.txt`.
 Dzięki niej CMake jest świadomy, jakie funkcje znajdują się we wnętrzu pliku wykonywalnego.
