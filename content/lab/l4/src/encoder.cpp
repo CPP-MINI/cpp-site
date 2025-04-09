@@ -88,7 +88,7 @@ namespace l4::base32
         while (bit_idx < 8)
         {
             _buff.push_back(encodePlace(bit_idx, current_byte, next_byte));
-            bit_idx = bit_idx + 5; // Was bug here: adding the modulo 8 make the loop infinite
+            bit_idx = (bit_idx + 5) % 8;
         }
 
         // Insert as much padding as it is required

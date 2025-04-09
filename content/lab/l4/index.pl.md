@@ -65,9 +65,9 @@ Proszę pamiętać, że błąd w naszym projekcie może być oczekiwaną własno
 
 ### Projekt CMake
 
-W tym etapie zadanie chcemy skorzystać z bibiloteki `base32`.
-Twórca biblioteki poza dwoma klasami dostarcza plik Makefile opisujący zbudowanie przykłądowego programu.
-Zawiera on dodatkowo plik `main.cpp`, który symuluje program `basenc` z paramaterem `--base32hex`.
+W tym etapie zadanie chcemy skorzystać z biblioteki `base32`.
+Twórca biblioteki poza dwoma klasami dostarcza plik Makefile opisujący zbudowanie przykładowego programu.
+Zawiera on dodatkowo plik `main.cpp`, który symuluje program `basenc` z parametrem `--base32hex`.
 
 **Proszę potraktować otrzymany kod w pliku main.cpp jako czarną skrzynkę. Wewnątrz znajdują się funkcje wychodzące poza zakres tego przedmiotu i nie będziemy ich omawiać.**
 
@@ -91,7 +91,7 @@ Stwórz następującą strukturę katalogów:
  - CMakeLists.txt
 ```
 
-W folderze `lib/base32` należy zdefiniować target `base32`, który reprezentuje budowanie **biblioteki statysczne** z kodem biblioteki.
+W folderze `lib/base32` należy zdefiniować target `base32`, który reprezentuje budowanie **biblioteki statyczne** z kodem biblioteki.
 Wszystkie pięć plików `.hpp` oraz `.cpp` należy załączyć jako źródła targetu `base32`.
 
 W folderze `src` należy zdefiniować target reprezentujący budowanie **pliku wykonywalnego** `l4_base32`.
@@ -100,7 +100,7 @@ Powinien polegać prywatnie na targecie `base32`.
 Wspólne ustawienia flag kompilacji powinny być ustawione w głównym pliku `CMakeLists.txt`.
 
 Aby sprawdzić, czy skompilowany program działa prawidłowo, wykonaj następujące kroki:
-1. Skonfiguruj projekt cmake i wykonaj budowanie targetu `l4_base32`.
+1. Skonfiguruj projekt CMake i wykonaj budowanie targetu `l4_base32`.
 2. Wykonaj polecenie `echo "foobar" | path/to/built/executable/l4_base32`.
 3. Wykonaj polecenie `echo "foobar" | basenc --base32hex`.
 4. Wyjścia kroków 2. oraz 3. powinny być identyczne (konkretnie `CPNMUOJ1E850====`).
@@ -109,7 +109,7 @@ Aby sprawdzić, czy skompilowany program działa prawidłowo, wykonaj następuj�
 
 W świecie GNU Linux standardem stał się debugger `gdb` (GNU debugger).
 Debugger pozwala nam śledzić i modyfikować proces wykonania dowolnego programu.
-W przypadku dzisiejszego laboratorium będziemy uzywać go do znalezienia błędu w trakcie używania biblioteki `base32`.
+W przypadku dzisiejszego laboratorium będziemy używać go do znalezienia błędu w trakcie używania biblioteki `base32`.
 Najpierw jednak należy przygotować swój program oraz środowisko programistyczne do używania debuggera.
 
 Pierwszym krokiem jest upewnienie się, że każda jednostka translacji (plik `.o`) składający się na nasz program został zbudowany z flagą `-g`.
@@ -165,7 +165,7 @@ W tym celu dołączymy kolejną bibliotekę do naszego projektu: `GTest`.
 #### Integracja GTest z CMake
 
 Idąc za przykładem z [dokumnetcji GTesta](https://google.github.io/googletest/quickstart-cmake.html) wykorzystamy mechanizm `FetchContent` do pobrania kodu źródłowego biblioteki.
-W tym calu należy edytować plik `tests/CMakeLists.txt` i dodac do niego następujące linijki:
+W tym celu należy edytować plik `tests/CMakeLists.txt` i dodać do niego następujące linijki:
 
 ```
 # Download a cmake library during the configure phase
