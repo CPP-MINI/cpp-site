@@ -1,67 +1,51 @@
- #include <string>
+#include <string>
 #include <iostream>
 
-class vector3d {
-    float _x, _y, _z;
-public:
-    vector3d(float x, float y, float z) : _x(x), _y(y), _z(z) {
-        std::cout << "constructed vector3d(" << _x << ", " << _y << ", " << _z << ")" << std::endl;
+#include <cstring>
+
+class str {
+    char* _data;
+   public:
+    /*explicit*/ str(const char* str) : _data{new char[std::strlen(str) + 1]} {
+        std::memcpy(_data, str, std::strlen(str) + 1);
+        std::cout << "str(\"" << _data << "\")\n";
     }
 
-    vector3d(const vector3d& other) : _x(other._x), _y(other._y), _z(other._z) {
-        std::cout << "copied vector3d(" << _x << ", " << _y << ", " << _z << ")" << std::endl;
+    str(const str& other) = delete;
+    str& operator=(const str& other) = delete;
+
+    ~str() {
+        std::cout << "~str(\"" << _data << "\")\n";
+        delete _data;
     }
 
-    float x() const { return _x; }
-    float y() const { return _y; }
-    float z() const { return _z; }
+    const char* data() const { return _data; }
 
-    vector3d& operator+=(const vector3d& other) {
-        _x += other._x;
-        _y += other._y;
-        _z += other._z;
-        return *this;
+    void append(const str& other) {
+        std::size_t len = std::strlen(_data) + std::strlen(other._data) + 1;
+        char* buffer = new char[len];
+        std::memcpy(buffer, _data, std::strlen(_data));
+        std::memcpy(buffer + std::strlen(_data), other._data, std::strlen(other._data));
+        buffer[len - 1] = 0;
+        delete _data;
+        _data = buffer;
     }
 
-    vector3d operator+(const vector3d& other) const {
-        vector3d result = *this;
-        result += other;
-        return result;
-    }
-
-    vector3d& operator*=(float value) {
-        _x *= value;
-        _y *= value;
-        _z *= value;
-        return *this;
-    }
-
-    vector3d operator*(float value) const {
-        vector3d result = *this;
-        result *= value;
-        return result;
+    /*explicit*/ operator std::string() {
+        return std::string(_data);
     }
 };
 
-vector3d operator*(float value, const vector3d& other) {
-    vector3d result = other;
-    result *= value;
-    return result;
-}
-
-std::ostream& operator<<(std::ostream& os, const vector3d& v) {
-    os << "(" << v.x() << ", " << v.y() << ", " << v.z() << ")";
-    return os;
+void foo(str s) {
+    std::cout << "foo(\"" << s.data() << "\")\n";
 }
 
 int main() {
-    std::string str = "Hello";
-    str += " World";
+    str s("hello");     // constructor converts const char* to str
+    foo("hi");          // implicitly constructs temporary str("hi")
+    s.append("world");  // implicitly constructs temporary str("world")
 
-    vector3d v1(1, 2, 3);
-    v1 += 2 * vector3d(1, 0, 2);
-    v1 *= 2;
-    std::cout << v1 << std::endl;
+    std::string str = s;
 
     return 0;
 }

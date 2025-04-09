@@ -216,8 +216,55 @@ do wskazywanego obiektu, a nie tylko do jego składowych.
 
 ## Konwersje
 
-Implementując konstruktory dostarczamy metody konstrukcji obiektów naszego typu.
-Konstruktory jednoargumentowe są szczególne bo pozwalają zamienić obiekt pewnego typu
-na inny typ. To tak zwane **konstruktory konwertujące**.
+Implementując konstruktory, dostarczamy metody konstrukcji obiektów naszego typu.
+Konstruktory jednoargumentowe są szczególne, bo pozwalają zamienić obiekt pewnego typu
+na inny typ. To tak zwane **konstruktory konwertujące**. Taki konstruktor może zostać użyty niejawnie.
 
+```cpp
+class A {
+public:
+    A(int x);
+};
 
+void foo(A a);
+void goo(const A& a);
+
+foo(3); // ok!
+goo(4)  // ok!
+```
+
+Kompilator automatycznie będzie stosował konwersje przy przekazywaniu zmiennych
+Takie niejawne konwersje mogą być trudne do zauważenia i niepożądane.
+Jeżeli tak jest to jednoargumentowe konstruktory powinny być oznaczone słowem kluczowym `explicit`
+blokującym niejawne konwersje.
+
+```cpp
+class A {
+public:
+    explicit A(int x);
+};
+
+void foo(A a);
+
+// foo(3);               // błąd!
+foo(A(3));               // ok!
+foo(static_cast<A>(3));  // ok!
+```
+
+Konwersje można definiować również w formie **operatorów konwertujących**.
+Klasa `T` może zdefiniować operator rzutowania na dowolny inny typ `U` (również wbudowany)
+korzystając ze składni:
+
+```cpp
+class T {
+operator U() { ... }
+};
+
+T t;
+U u = static_cast<U>(t);
+```
+
+Typ zwracany takiego operatora to jego nazwa, więc nie jest powtarzana przed słowem kluczowym `operator`.
+Operatory rzutowania podobnie do konstruktorów pozwalają na konwersje niejawne. Blokujemy je słowem kluczowym `explicit`.
+
+Przykłady rzutowań: [conversion.cpp](conversion.cpp)
