@@ -5,16 +5,13 @@
 
 namespace l4::base32
 {
-
-
     /**
-     *
+     * The class represents a process of encoding arbitrary bytestream into base32hex encoded string.
+     * It can encode multiple bytestreams and separate it by the ; character.
      */
     class Encoder
     {
     private:
-
-
         // Buffer of already encoded data. Will expand during the pushBytes function.
         std::vector<char> _buff;
 
@@ -25,9 +22,9 @@ namespace l4::base32
 
     public:
         // Rule of 5 - non copiable object
-        
+
         /**
-         * 
+         * Creates empty encoder object
          */
         Encoder() = default;
         Encoder(const Encoder&) = delete;
@@ -36,14 +33,16 @@ namespace l4::base32
         Encoder& operator=(Encoder&&) = default;
 
         /**
-         * 
-         * @param bytestream 
-         * @param size 
+         * It takes a bytestream and encodes it into base32hex encoding.
+         * To aquire encoded string use encodedString method.
+         * @param bytestream The pointer to the block containing bytestream.
+         * @param size Length in bytes of the block
          */
         void pushBytes(const std::byte *bytestream, std::size_t size);
+
         /**
-         * 
-         * @return 
+         * It returns encoded string containing data from consecutive calls of pushBytes method
+         * @return Returns encoded string containing multiple encoded bytestreams separated by the ; charater.
          */
         [[nodiscard]] std::string encodedString() const;
     };
