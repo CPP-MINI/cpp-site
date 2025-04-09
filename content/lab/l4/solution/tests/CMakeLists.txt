@@ -7,8 +7,9 @@ FetchContent_Declare(
         GIT_TAG        v1.16.0
 )
 FetchContent_MakeAvailable(googletest)
-
 enable_testing()
+include(GoogleTest)
+
 add_executable(
         base32_test
         encoder_test.cpp
@@ -20,6 +21,4 @@ target_link_libraries(
         GTest::gtest_main
         base32_static
 )
-
-include(GoogleTest)
 gtest_discover_tests(base32_test)
