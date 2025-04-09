@@ -116,24 +116,26 @@ Pierwszym krokiem jest upewnienie się, że każda jednostka translacji (plik `.
 Flaga ta dodaje do wynikowego pliku wykonywalnego niezbędne wskazówki, aby odnaleźć miejsce w kodzie źródłowym związane z aktualnym miejscem w kodzie maszynowym.
 Dodatkowo da nam także możliwość połączenia zawartości rejestrów procesora ze zmiennymi zdefiniowanymi w kodzie źródłowym.
 
+Aby przekonać się, jakie flagi używane są w fazie budowania, podaj przy konfigurowaniu CMake flagę `-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON`.
+
 #### Tryb konsolowy
 
 Zacznijmy od najprostszego sposobu użycia `gdb` - trybu konsolowego.
 Można go użyć, nie posiadając skonfigurowanego środowiska programistycznego.
 Aby uruchomić nasz program pod kontrolą debuggera, należy wydać polecenie `gdb path/to/built/executable/l4_base32`.
 
-W tym momencie debugger powinien dać działać programowi i ładować wszystkie potrzebne symbole.
-Program powinien się zatrzymać w wejściu do funkcji `main`.
-Teraz możemy pozwolić mu działać dalej poleceniem `run` lub wykonać pewne akcje (np. stawianie breakpointów poleceniem `break nazwa_pliku:nr_linii`).
+W tym momencie debugger powinien załadować wszystkie symbole związane z kodem wykonywalnym.
+Gdy wszystko będzie gotowe, debugger będzie oczekiwać na polecenie `run`, które uruchomi program.
+Warto przed uruchomieniem programu stworzyć potrzebne breakpointy lub wykonać różne akcje instrumentujące.
 
-Ten tryb działania debugger jest bardzo potężny i elastyczny, jednak nie należy do prostych w użyciu.
+Ten tryb działania debuggera jest bardzo potężny i elastyczny, jednak nie należy do prostych w użyciu.
 Aby odkryć pewną funkcję debuggera, należy się o niej dowiedzieć z [dokumentacji użytkownika](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) i wprowadzić odpowiednie polecenie.
 Nie jest to najszybszy sposób na zapoznanie się z podstawowymi funkcjonalnościami tego narzędzia.
 
 Jeśli jednak jest to nasze jedyne wyjście (np. trzeba wykonać debuggowanie na komputerze bez środowiska graficznego), to istnieją w internecie tzw. *cheat-sheety* przygotowane przez bardziej doświadczonych użytkowników.
 Ułatwiają one znalezienie potrzebnej akcji do wykonania w trakcie użytkowania (przykładowy [cheat-sheet](https://users.ece.utexas.edu/~adnan/gdb-refcard.pdf)).
 
-**Proszę nie zapominać, że nie zastąpią one [dokumentacji użytkownika](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) oraz polecenia `help`.**
+**Proszę pamiętać, że cheat-sheet nie zastąpi [dokumentacji użytkownika](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) oraz polecenia `help`.**
 
 #### Tryb graficzny
 
@@ -142,7 +144,106 @@ Mamy do dyspozycji integrację z naszym środowiskiem graficznym albo niezależn
 Na laboratorium zachęcamy do korzystania do integracji z ze swoim IDE, ponieważ projekt CMake umożliwia takie podejście.
 Jeśli jednak nasze IDE nie wspiera integracji lub nie skonfigurowaliśmy go do odpowiedniego poziomu, można posłużyć się bardzo dobrym projektem [`gdbgui`](https://github.com/cs01/gdbgui/), który jest niezależnym webowym interfejsem graficznym.
 
+Kiedy używamy trybu graficznego, można skorzystać z instrukcji do konkretnie używanego środowiska.
+Jednak sama obecność graficznych przycisków podpowiada nam, jak można użyć debuggera (np. podglądanie wartości zmiennych lub śledzenie stosu wykonania).
+
+#### Zatrzymanie programu w funkcji `main`
+
+Aby przećwiczyć użycie `gdb`, twoim zadaniem jest zatrzymać się na wejściu do funkcji `main` wcześniej przykładowego programu. Wykonaj ćwiczenie w dwóch trybach: konsolowym i graficznym.
+
+W przypadku trybu konsolowego wystarczy wydać polecenie `b main` oraz `run`.
+Dla trybu graficznego stawianie breakpointów odbywa się typowo, poprzez naciśniecie lewym przyciskiem myszy na numer linii, gdzie chcemy zatrzymać nasz program.
+Jako symbol breakpoint'a pojawi się przy tej linii czerwona kropka.
+Szczegóły używania zależą od wybranego środowiska programistycznego.
+
 ### Użycie biblioteki GTest oraz przygotowanie testów jednostkowych
+
+Kiedy mamy skonfigurowany projekt wraz z debuggerem, możemy przejść do odkrywania błędów w dostarczonym kodzie.
+W przypadku tych laboratoriów napiszemy testy jednostkowe dla dostarczonych klas `Encoder` oraz `Decoder`.
+W tym celu dołączymy kolejną bibliotekę do naszego projektu: `GTest`.
+
+#### Integracja GTest z CMake
+
+Idąc za przykładem z [dokumnetcji GTesta](https://google.github.io/googletest/quickstart-cmake.html) wykorzystamy mechanizm `FetchContent` do pobrania kodu źródłowego biblioteki.
+W tym calu należy edytować plik `tests/CMakeLists.txt` i dodac do niego następujące linijki:
+
+```
+# Download a cmake library during the configure phase
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG        v1.16.0
+)
+FetchContent_MakeAvailable(googletest)
+enable_testing()
+include(GoogleTest)
+```
+
+Od tego momentu mamy do dyspozycji dwa targety: `GTest::gtest` oraz `GTest::gtest_main`.
+Obydwa zawierają wszystkie funkcjonalności biblioteki, ale drugi zawiera przy okazji definicję funkcji `main`.
+
+Aby przygotować program testujący dwie dostarczone funkcje, przygotuj dwa nowe pliki: `tests/encoder.cpp` oraz `tests/decoder.cpp`.
+Program testujący jest zwykłym plikiem wykonywalnym. Przygotuj nową definicję takiego pliku o nazwie `base32_test`, który zawiera dwa pliki `.cpp` znajdujące się w folderze `tests`.
+
+Aby skorzystać z klas `Encoder` oraz `Decoder` w testach, zdefiniuj statycznie linkowaną bibliotekę o nazwie `base32_static`, która będzie prywatną zależnością targetu `base32_test`.
+Drugą prywatną zależnością programu powinien zostać `GTest::gtest_main`, który zapewni wszystkie funkcjonalności dostarczone przez bibliotekę GoogleTest.
+Dodatkowo definiuje on funkcję main, która jest konieczna do wykonania programu testowego.
+
+Ostatnim elementem jest zawołanie funkcji `gtest_discover_tests(base32_test)` na końcu pliku `tests/CMakeLists.txt`.
+Dzięki niej CMake jest świadomy, jakie funkcje znajdują się we wnętrzu pliku wykonywalnego.
+Umożliwia to lepszą integrację z niektórymi środowiskami programistycznymi.
+
+
+#### Testy dla klasy Decoder
+
+Scenariusz testowy klasy `Decoder` polega na wczytaniu przygotowanego ręcznie zakodowanego tekstu, zdekodowanie go oraz porównanie z oczekiwanym ciągiem bajtów (w tym przypadku napisem).
+Dla każdego przypadku należy stworzyć instancje klasy `Decoder` w zależności od otrzymanego zakodowanego tekstu.
+Zaimplementuj podane poniżej przypadki:
+
+* `"" -> ""`
+* `"CO======" -> "f"`
+* `"CPNG====" -> "fo"`
+* `"CPNMU===" -> "foo"`
+* `"CPNMUOG=" -> "foob"`
+* `"CPNMUOJ1" -> "fooba"`
+* `"CPNMUOJ1E8======" -> "foobar"`
+* `"CPNMUOJ1E8======;CPNMU===" -> "foobar" and "foo"` - *zawołaj dwukrotnie funkcję `pullBytestream`*
+
+Jeżeli zastanawiasz się jak wykonać konwersję `std::string` do `std::vector<std::byte>` to tutaj znajdziesz podpowiedź jak powinien wyglądać typowy test:
+
+```
+char input[] = "12235343465ABDF====";
+char expected_chars[] = "expected_decoded_text";
+
+// Copy string byte-by-byte to the vector
+std::vector expected(
+    reinterpret_cast<std::byte *>(expected_chars),
+    reinterpret_cast<std::byte *>(expected_chars) + sizeof(expected_chars) - 1
+    );
+
+std::vector<std::byte> res;
+// Use a decoder here and fill the res vector here...
+
+ASSERT_EQ(res.size(), expected.size());
+for (int i = 0; i < res.size(); ++i)
+    EXPECT_EQ(res[i], expected[i]) << "Different value at " << i;
+```
+
+#### Testy dla klasy Encoder
+
+Scenariusz testowy klasy `Encoder` polega na przygotowaniu napisu, wykonaniu kodowania i porównaniu go ze spodziewanym wynikiem.
+Dla każdego przypadku istnieją wspólne zmienne.
+Przygotuj *fixturę* zawierającą pole `Encoder encoder` z akcesorem `protected`.
+Wykorzystaj ją do implementacji poniższych przypadków:
+* `"" -> ""`
+* `"f" -> "CO======"`
+* `"fo" -> "CPNG===="`
+* `"foo" -> "CPNMU==="`
+* `"foob" -> "CPNMUOG="`
+* `"fooba" -> "CPNMUOJ1"`
+* `"foobar" -> "CPNMUOJ1E8======"`
+* `"foobar" and "foo" -> "CPNMUOJ1E8======;CPNMU==="` - *zawołaj funkcje `pushBytes` dwa razy*
 
 ### Wczytanie *core dump* z momentu wystąpienia błędu
 
