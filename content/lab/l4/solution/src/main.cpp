@@ -80,12 +80,9 @@ int main(int argc, char *argv[])
     if (settings.decode)
     {
         base32::Decoder dec(s);
-        while (!dec.isEmpty())
-        {
-            auto bytestream = dec.pullBytestream();
-            std::cout.write(reinterpret_cast<const std::ostream::char_type *>(bytestream.data()), bytestream.size());
-            std::cout << std::endl;
-        }
+        auto bytestream = dec.pullBytestream();
+        std::cout.write(reinterpret_cast<const std::ostream::char_type *>(bytestream.data()), bytestream.size());
+        std::cout << std::endl;
     }
     else
     {

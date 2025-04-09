@@ -247,3 +247,11 @@ Wykorzystaj ją do implementacji poniższych przypadków:
 
 ### Wczytanie *core dump* z momentu wystąpienia błędu
 
+W pliku [weird_bug.core]() znajdziesz *coredump* z wykonania programu, który zakończył niespodziewanie.
+Wczytaj go do debuggera i spróbuj zrozumieć, dlaczego nastąpił crash.
+
+Jako dodatkowe ćwiczenie możesz spróbować zgadnąć jakie wejście spowodowało problem i reprodukować błąd.
+Dobrą praktyką jest przygotowanie testu, który eksponuje ten problem.
+Znacznie ułatwia to namierzenie przyczyny i naprawę błędu.
+Dokładne szczegóły działania biblioteki są poza zakresem laboratorium, więc naprawa błędu jest zadaniem dodatkowym.
+
