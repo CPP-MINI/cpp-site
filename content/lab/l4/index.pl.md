@@ -68,6 +68,7 @@ Proszę pamiętać, że błąd w naszym projekcie może być oczekiwaną własno
 W tym etapie zadanie chcemy skorzystać z biblioteki `base32`.
 Twórca biblioteki poza dwoma klasami dostarcza plik Makefile opisujący zbudowanie przykładowego programu.
 Zawiera on dodatkowo plik `main.cpp`, który symuluje program `basenc` z parametrem `--base32hex`.
+Kod zródłowy biblioteki znajdziesz w [tym miejscu](l4_base32_src.zip).
 
 **Proszę potraktować otrzymany kod w pliku main.cpp jako czarną skrzynkę. Wewnątrz znajdują się funkcje wychodzące poza zakres tego przedmiotu i nie będziemy ich omawiać.**
 
@@ -247,7 +248,7 @@ Wykorzystaj ją do implementacji poniższych przypadków:
 
 ### Wczytanie *core dump* z momentu wystąpienia błędu
 
-W pliku [weird_bug.core]() znajdziesz *coredump* z wykonania programu, który zakończył niespodziewanie.
+W pliku [weird_bug.core](weird_bug.core) znajdziesz *coredump* z wykonania programu, który zakończył niespodziewanie.
 Wczytaj go do debuggera i spróbuj zrozumieć, dlaczego nastąpił crash.
 
 Jako dodatkowe ćwiczenie możesz spróbować zgadnąć jakie wejście spowodowało problem i reprodukować błąd.

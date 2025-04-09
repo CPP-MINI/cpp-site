@@ -1,6 +1,6 @@
 CXX=g++
-CXXFLAGS=-Wall -g
-LDFLAGS=
+CXXFLAGS=-Wall -fsanitize=address,leak -g
+LDFLAGS=-fsanitize=address,leak
 AR=ar
 ARFLAGS=rcs
 
