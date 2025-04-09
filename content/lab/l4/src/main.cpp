@@ -3,8 +3,8 @@
 #include <fstream>
 #include <getopt.h>
 
-#include "lib/base32/decoder.hpp"
-#include "lib/base32/encoder.hpp"
+#include "decoder.hpp"
+#include "encoder.hpp"
 
 
 struct settings {

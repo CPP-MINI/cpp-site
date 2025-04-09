@@ -93,7 +93,7 @@ namespace l4::base32
 
         // Insert as much padding as it is required
         int padding_count = k_bit_idx_to_padding_count[bit_idx % 8];
-        for (std::size_t i = 0; i < padding_count; i++)
+        for (int i = 0; i < padding_count; i++)
             _buff.push_back(k_base32hex_pad_char);
     }
 
@@ -103,7 +103,7 @@ namespace l4::base32
         _buff.push_back(encodePlace(5, byte, std::byte(0)));
 
         int padding_count = k_bit_idx_to_padding_count[2];
-        for (std::size_t i = 0; i < padding_count; i++)
+        for (int i = 0; i < padding_count; i++)
             _buff.push_back(k_base32hex_pad_char);
     }
 
