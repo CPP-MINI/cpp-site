@@ -18,7 +18,7 @@ namespace l4::base32::test
         ASSERT_TRUE(decoder.isEmpty());
 
         ASSERT_EQ(res.size(), expected.size());
-        for (int i = 0; i < res.size(); ++i)
+        for (size_t i = 0; i < res.size(); ++i)
         {
             EXPECT_EQ(res[i], expected[i]) << "Different value at " << i;
         }
@@ -38,7 +38,7 @@ namespace l4::base32::test
         ASSERT_TRUE(decoder.isEmpty());
 
         ASSERT_EQ(res.size(), expected.size());
-        for (int i = 0; i < res.size(); ++i)
+        for (size_t i = 0; i < res.size(); ++i)
         {
             EXPECT_EQ(res[i], expected[i]) << "Different value at " << i;
         }
@@ -58,7 +58,7 @@ namespace l4::base32::test
         ASSERT_TRUE(decoder.isEmpty());
 
         ASSERT_EQ(res.size(), expected.size());
-        for (int i = 0; i < res.size(); ++i)
+        for (size_t i = 0; i < res.size(); ++i)
         {
             EXPECT_EQ(res[i], expected[i]) << "Different value at " << i;
         }
@@ -78,7 +78,7 @@ namespace l4::base32::test
         ASSERT_TRUE(decoder.isEmpty());
 
         ASSERT_EQ(res.size(), expected.size());
-        for (int i = 0; i < res.size(); ++i)
+        for (size_t i = 0; i < res.size(); ++i)
         {
             EXPECT_EQ(res[i], expected[i]) << "Different value at " << i;
         }
@@ -98,7 +98,7 @@ namespace l4::base32::test
         ASSERT_TRUE(decoder.isEmpty());
 
         ASSERT_EQ(res.size(), expected.size());
-        for (int i = 0; i < res.size(); ++i)
+        for (size_t i = 0; i < res.size(); ++i)
         {
             EXPECT_EQ(res[i], expected[i]) << "Different value at " << i;
         }
@@ -118,7 +118,7 @@ namespace l4::base32::test
         ASSERT_TRUE(decoder.isEmpty());
 
         ASSERT_EQ(res.size(), expected.size());
-        for (int i = 0; i < res.size(); ++i)
+        for (size_t i = 0; i < res.size(); ++i)
         {
             EXPECT_EQ(res[i], expected[i]) << "Different value at " << i;
         }
@@ -138,7 +138,7 @@ namespace l4::base32::test
         ASSERT_TRUE(decoder.isEmpty());
 
         ASSERT_EQ(res.size(), expected.size());
-        for (int i = 0; i < res.size(); ++i)
+        for (size_t i = 0; i < res.size(); ++i)
         {
             EXPECT_EQ(res[i], expected[i]) << "Different value at " << i;
         }
@@ -163,12 +163,12 @@ namespace l4::base32::test
         ASSERT_TRUE(decoder.isEmpty());
 
         ASSERT_EQ(res1.size(), expected1.size());
-        for (int i = 0; i < res1.size(); ++i)
+        for (size_t i = 0; i < res1.size(); ++i)
         {
             EXPECT_EQ(res1[i], expected1[i]) << "Different value at " << i;
         }
         ASSERT_EQ(res2.size(), expected2.size());
-        for (int i = 0; i < res2.size(); ++i)
+        for (size_t i = 0; i < res2.size(); ++i)
         {
             EXPECT_EQ(res2[i], expected2[i]) << "Different value at " << i;
         }
