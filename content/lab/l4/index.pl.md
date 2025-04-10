@@ -13,7 +13,7 @@ Umożliwi to nam używanie debuggera **gdb** oraz skorzystanie z biblioteki do t
 ### Kodowanie base32hex
 Tematyka laboratorium obejmuje kodowanie strumieni bajtów.
 Jest to zadanie zapisania arbitralnego strumienia bajtów w formacie ustalonym wcześniej z odbiorcą danych.
-W przypadku tych laboratorium użyjemy kodowania [**base32hex**](https://datatracker.ietf.org/doc/html/rfc4648#section-7), które zapisuje bajty wykorzystując 32 znaki `0-9A-V`.
+W przypadku tych laboratorium użyjemy kodowania [**base32hex**](https://en.wikipedia.org/wiki/Base32#Base_32_Encoding_with_Extended_Hex_Alphabet_per_%C2%A77), które zapisuje bajty wykorzystując 32 znaki `0-9A-V`.
 Jest to zapis, który powoduje zwiększenie objętości zapisanych danych.
 W zamian uzyskujemy możliwość zapisu danych w miejscach, gdzie powinien znaleźć się tekst (np. nazwy plików lub pismo wydane drukiem).
 
@@ -65,7 +65,7 @@ Proszę pamiętać, że błąd w naszym projekcie może być oczekiwaną własno
 
 ### Projekt CMake
 
-W tym etapie zadanie chcemy skorzystać z biblioteki `base32`.
+W tym etapie zadania chcemy skorzystać z biblioteki `base32`.
 Twórca biblioteki poza dwoma klasami dostarcza plik Makefile opisujący zbudowanie przykładowego programu.
 Zawiera on dodatkowo plik `main.cpp`, który symuluje program `basenc` z parametrem `--base32hex`.
 Kod zródłowy biblioteki znajdziesz w [tym miejscu](l4_base32_src.zip).
@@ -92,7 +92,7 @@ Stwórz następującą strukturę katalogów:
  - CMakeLists.txt
 ```
 
-W folderze `lib/base32` należy zdefiniować target `base32`, który reprezentuje budowanie **biblioteki statyczne** z kodem biblioteki.
+W folderze `lib/base32` należy zdefiniować target `base32`, który reprezentuje budowanie **biblioteki statycznej** z kodem biblioteki.
 Wszystkie pięć plików `.hpp` oraz `.cpp` należy załączyć jako źródła targetu `base32`.
 
 W folderze `src` należy zdefiniować target reprezentujący budowanie **pliku wykonywalnego** `l4_base32`.
@@ -116,6 +116,11 @@ Najpierw jednak należy przygotować swój program oraz środowisko programistyc
 Pierwszym krokiem jest upewnienie się, że każda jednostka translacji (plik `.o`) składający się na nasz program został zbudowany z flagą `-g`.
 Flaga ta dodaje do wynikowego pliku wykonywalnego niezbędne wskazówki, aby odnaleźć miejsce w kodzie źródłowym związane z aktualnym miejscem w kodzie maszynowym.
 Dodatkowo da nam także możliwość połączenia zawartości rejestrów procesora ze zmiennymi zdefiniowanymi w kodzie źródłowym.
+
+W przypadku projektów CMake istnieją domyślnie zdefiniowane konfiguracje `Debug` oraz `Release`.
+Skojarzone są z nimi domyślne zestawy flag do budowania (w przypadku `Debug` jest tam flaga `-g`).
+Aby wybrać, w jakiej konfiguracji będą używane polecenia budowania należy przekazać flagę `CMAKE_BUILD_TYPE` w trakcie konfiguracji projektu (np. `-DCMAKE_BUILD_TYPE=Debug`).
+Jeśli potrzebujemy dodatkowych flag poza przygotowanym zestawem, należy zdefiniować zmienną `CMAKE_CXX_FLAGS`, aby rozszerzyć używane flagi w trakcie budowania (np. włącznie address sanitizera).
 
 Aby przekonać się, jakie flagi używane są w fazie budowania, podaj przy konfigurowaniu CMake flagę `-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON`.
 
@@ -142,7 +147,7 @@ Ułatwiają one znalezienie potrzebnej akcji do wykonania w trakcie użytkowania
 
 Używanie `gdb` w środowisku graficznym pozwala nam uprościć użytkowanie debuggera.
 Mamy do dyspozycji integrację z naszym środowiskiem graficznym albo niezależne programy.
-Na laboratorium zachęcamy do korzystania do integracji z ze swoim IDE, ponieważ projekt CMake umożliwia takie podejście.
+Na laboratorium zachęcamy do korzystania z integracji ze swoim IDE, ponieważ projekt CMake umożliwia takie podejście.
 Jeśli jednak nasze IDE nie wspiera integracji lub nie skonfigurowaliśmy go do odpowiedniego poziomu, można posłużyć się bardzo dobrym projektem [`gdbgui`](https://github.com/cs01/gdbgui/), który jest niezależnym webowym interfejsem graficznym.
 
 Kiedy używamy trybu graficznego, można skorzystać z instrukcji do konkretnie używanego środowiska.
