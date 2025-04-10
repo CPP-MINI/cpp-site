@@ -115,7 +115,7 @@ Najpierw jednak należy przygotować swój program oraz środowisko programistyc
 
 Pierwszym krokiem jest upewnienie się, że każda jednostka translacji (plik `.o`) składający się na nasz program został zbudowany z flagą `-g`.
 Flaga ta dodaje do wynikowego pliku wykonywalnego niezbędne wskazówki, aby odnaleźć miejsce w kodzie źródłowym związane z aktualnym miejscem w kodzie maszynowym.
-Dodatkowo da nam także możliwość połączenia zawartości rejestrów procesora ze zmiennymi zdefiniowanymi w kodzie źródłowym.
+Dodatkowo da nam także możliwość połączenia zawartości pamięci ze zmiennymi zdefiniowanymi w kodzie źródłowym.
 
 W przypadku projektów CMake istnieją domyślnie zdefiniowane konfiguracje `Debug` oraz `Release`.
 Skojarzone są z nimi domyślne zestawy flag do budowania (w przypadku `Debug` jest tam flaga `-g`).
