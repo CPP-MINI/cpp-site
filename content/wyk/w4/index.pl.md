@@ -56,7 +56,7 @@ Repozytorium składa się z obiektów, przechowywanych w katalogu `.git/objects`
 Git definiuje 4 rodzaje obiektów (blob, tree, commit, annotated tag), z czego najistotniejsze są pierwsze 3:
 
 * **blob**: utrwalona zawartość jakiegoś pliku z katalogu roboczego
-* **tree**: utrwalony zawartość katalogu (słownika)
+* **tree**: utrwalona zawartość katalogu (słownika)
 * **commit**: utrwalony stan katalogu roboczego z dodatkowymi informacjami nt. wersji
 
 Obiekty po utworzeniu są niemodyfikowalne, nie można zmieniać ich zawartości. Dzięki temu zawartość obiektów
@@ -222,7 +222,7 @@ czyli tzw. tagi.
 ### HEAD
 
 A co to jest _aktywny branch_? Repozytorium zawiera specjalną referencję o nazwie `HEAD`
-(w pliku `.git/HEAD`), która pokazuje najnowszy, aktualny commit, na którym pracujemy.
+(w pliku `.git/HEAD`), która pokazuje aktualny commit, na którym pracujemy.
 `HEAD` może pokazywać na commit pośrednio poprzez branch lub bezpośrednio.
 Typową sytuacją jest wskazanie pośrednie:
 
@@ -689,7 +689,7 @@ git remote add origin ../origin
 Klonując repozytorium git automatycznie dodaje remote
 o nazwie `origin` wskazujący na miejscie z którego klonujemy.
 
-Istnieją jedynie 4 polecnia komunikujące się ze zdalnym repozytorium:
+Istnieją jedynie 4 polecenia komunikujące się ze zdalnym repozytorium:
 
 * `git clone`
 * `git fetch`
@@ -844,7 +844,7 @@ Do tej pory wykorzystywaliśmy GNU Make.
 
 Projekty wieloplatformowe, których kod jest rozwijany, np. dla platform Windows i Linux
 potrzebują systemu budowania opisującego projekt w sposób niezależny od platformy.
-Środowisko programistów stworzyła kilka takich narzędzi, np.:
+Środowisko programistów stworzyło kilka takich narzędzi, np.:
 
 * [CMake](https://cmake.org/)
 * [Bazel](https://bazel.build/)
@@ -1112,7 +1112,7 @@ Poszczególne właściwości są modyfikowane za pomocą dedykowanych procedur.
 #### Include directories
 
 Biblioteki definiują swój interfejs publiczny za pomocą zbioru plików nagłówkowych położonych w pewnym katalogu.
-Konsumenci biblioteki, używający dyrektyw `#include "..."` muszą móc odnajdywać te pliki nagłówkowe.
+Konsumenci biblioteki, używający dyrektyw `#include "..."`, muszą móc odnajdywać te pliki nagłówkowe.
 Korzystanie ze ścieżek względnych lub bezwzględnych w kodzie źródłowym nie jest dobrym rozwiązaniem.
 Konsumenci biblioteki `libfoo` powinni po prostu pisać `#include "foo.hpp"` bez względu na to,
 gdzie ta biblioteka się fizycznie znajduje. Służą do tego flagi kompilatora takie jak `-I<dir>`
@@ -1164,10 +1164,10 @@ zależnych. Populując tę własność biblioteka mówi innym gdzie znajdują si
 
 Kiedy zatem używać jakiego trybu? Najlepiej podsumuje to tabela:
 
-| Kto potrzebuje?<br/>ja/konsumenci | Potrzebują | Nie potrzebują |
-|-----------------------------------|------------|----------------|
-| Nie potrzebuję                    |            | `INTERFACE`    |
-| Potrzebuję                        | `PRIVATE`  | `PUBLIC`       |
+| Kto potrzebuje?<br/>ja/konsumenci | Nie potrzebują | Potrzebują  |
+|-----------------------------------|----------------|-------------|
+| Nie potrzebuję                    |                | `INTERFACE` |
+| Potrzebuję                        | `PRIVATE`      | `PUBLIC`    |
 
 #### Link libraries
 
