@@ -1,13 +1,13 @@
-#include <cstdlib>
-#include <iostream>
-#include <fstream>
 #include <getopt.h>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
 
 #include "lib/base32/decoder.hpp"
 #include "lib/base32/encoder.hpp"
 
-
-struct settings {
+struct settings
+{
     int decode;
     std::string input_file;
 };
@@ -19,16 +19,11 @@ settings parse_args(int argc, char *argv[])
 
     while (1)
     {
-        static struct option long_options[] =
-        {
-            {"decode", no_argument, &settings.decode, 1},
-            {0, 0, 0, 0}
-        };
+        static struct option long_options[] = {{"decode", no_argument, &settings.decode, 1}, {0, 0, 0, 0}};
         /* getopt_long stores the option index here. */
         int option_index = 0;
 
-        c = getopt_long(argc, argv, "d",
-                        long_options, &option_index);
+        c = getopt_long(argc, argv, "d", long_options, &option_index);
 
         /* Detect the end of the options. */
         if (c == -1)
@@ -40,13 +35,13 @@ settings parse_args(int argc, char *argv[])
                 /* If this option set a flag, do nothing else now. */
                 if (long_options[option_index].flag != 0)
                     break;
-            break;
+                break;
             case 'd':
                 settings.decode = 1;
-            break;
+                break;
             case '?':
                 /* getopt_long already printed an error message. */
-                    break;
+                break;
             default:
                 abort();
         }
@@ -67,7 +62,7 @@ int main(int argc, char *argv[])
 {
     auto settings = parse_args(argc, argv);
 
-    std::istream* input_stream = &std::cin;
+    std::istream *input_stream = &std::cin;
     std::ifstream file_input;
     if (!settings.input_file.empty())
     {
