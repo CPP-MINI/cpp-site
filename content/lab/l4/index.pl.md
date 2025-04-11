@@ -68,7 +68,10 @@ Proszę pamiętać, że błąd w naszym projekcie może być oczekiwaną własno
 W tym etapie zadania chcemy skorzystać z biblioteki `base32`.
 Twórca biblioteki poza dwoma klasami dostarcza plik Makefile opisujący zbudowanie przykładowego programu.
 Zawiera on dodatkowo plik `main.cpp`, który symuluje program `basenc` z parametrem `--base32hex`.
-Kod zródłowy biblioteki znajdziesz w [tym miejscu](l4_base32_src.zip).
+Kod źródłowy biblioteki możesz pobrać za pomocą polecenia
+```
+wget -w -R "index.html?*" -R "index.html" -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/l4/src/
+```
 
 **Proszę potraktować otrzymany kod w pliku main.cpp jako czarną skrzynkę. Wewnątrz znajdują się funkcje wychodzące poza zakres tego przedmiotu i nie będziemy ich omawiać.**
 
@@ -261,3 +264,9 @@ Dobrą praktyką jest przygotowanie testu, który eksponuje ten problem.
 Znacznie ułatwia to namierzenie przyczyny i naprawę błędu.
 Dokładne szczegóły działania biblioteki są poza zakresem laboratorium, więc naprawa błędu jest zadaniem dodatkowym.
 
+
+### Rozwiązanie laboratoriów
+Kod z przygotowaną struktura projektu w CMake, napisanymi testami i naprawionymi błędami można pobrać za pomocą polecenia
+```
+wget -w -R "index.html?*" -R "index.html" -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/l4/solution/
+```
