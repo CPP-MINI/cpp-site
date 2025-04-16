@@ -12,10 +12,10 @@ Umożliwi to nam używanie debuggera **gdb** oraz skorzystanie z biblioteki do t
 
 ### Kodowanie base32hex
 Tematyka laboratorium obejmuje kodowanie strumieni bajtów.
-Jest to zadanie zapisania arbitralnego strumienia bajtów w formacie ustalonym wcześniej z odbiorcą danych.
-W przypadku tych laboratorium użyjemy kodowania [**base32hex**](https://en.wikipedia.org/wiki/Base32#Base_32_Encoding_with_Extended_Hex_Alphabet_per_%C2%A77), które zapisuje bajty wykorzystując 32 znaki `0-9A-V`.
+Jest to zadanie zapisania arbitralnego strumienia bajtów w formacie wcześniej ustalonym z odbiorcą danych.
+W przypadku dzisiejszych laboratorium użyjemy kodowania [**base32hex**](https://en.wikipedia.org/wiki/Base32#Base_32_Encoding_with_Extended_Hex_Alphabet_per_%C2%A77), które zapisuje bajty wykorzystując 32 znaki `0-9A-V`.
 Jest to zapis, który powoduje zwiększenie objętości zapisanych danych.
-W zamian uzyskujemy możliwość zapisu danych w miejscach, gdzie powinien znaleźć się tekst (np. nazwy plików lub pismo wydane drukiem).
+W zamian uzyskujemy możliwość zapisu danych w miejscach, gdzie powinien znaleźć się tylko tekst (np. nazwy plików lub pismo wydane drukiem).
 
 Aby skorzystać z tego sposobu zapisu, potrzebne są dwa procesy: **kodowania** i **rozkodowania**.
 
@@ -27,13 +27,13 @@ Z tego powodu otrzymasz pewną implementację tych procesów w postaci dwóch kl
 
 Klasa `Encoder` implementuje proces kodowania strumienia bajtów do `std::string`.
 Posiada ona dwie metody:
-* `pushBytes`, która przyjmuje wskaźnik na początek strumienia oraz jego długość.
-* `encodedString`, która zwraca `std::string` zawierający napis z zakodowanym strumieniem bajtów.
+* `pushBytes`, która przyjmuje wskaźnik na początek strumienia oraz długość przekaznego strumienia.
+* `encodedString`, która zwraca `std::string` zawierający zakodowany strumień bajtów.
 
 Typowe użycie to:
 1. Stworzenie obiektu klasy `Encoder`.
-2. Zawołanie raz lub więcej funkcji `pushBytes`.
-3. Uzyskanie zakodowanego napisu przy pomocy `encodedString`.
+2. Zawołanie raz (lub więcej) funkcji `pushBytes`.
+3. Uzyskanie zakodowanego napisu przy pomocy wywołania `encodedString`.
 
 #### Decoder base32hex
 
@@ -45,8 +45,8 @@ Posiada ona dwie metody:
 
 Typowe użycie to:
 1. Stworzenie obiektu klasy `Decoder`. W czasie konstrukcji należy przekazać zakodowany napis.
-2. Sprawdzenie, czy jest strumień bajtów do zdekodowania przy pomocy metody `isEmpty`. Jeśli tak, to wykonaj pkt. 3. W przeciwnym wypadku koniec.
-3. Uzyskanie zdekodowanego strumienia przy pomocy `pullBytestream`.
+2. Zawołanie funkcji `isEmpty`, aby sprawdzić czy dekoder może rozkodować napis. Jeśli tak, to wykonaj pkt. 3. W przeciwnym wypadku koniec.
+3. Uzyskanie zdekodowanego strumienia przy pomocy wywołania `pullBytestream`.
 4. Idź do pkt.2
 
 ### Korzystanie z obcego kodu
@@ -56,7 +56,7 @@ Z tego powodu należy korzystać z bibliotek renomowanych, które są wysokiej j
 
 Jeśli jednak musimy skorzystać z biblioteki wątpliwej jakości (jak w przypadku tych laboratoriów), to kluczowe są dwie zasady:
 1. Mimo podejrzenia istnienia błędów należy zaufać, że kod działa prawidłowo.
-2. Jeśli jednak w czasie korzystania z biblioteki znajdziemy błąd:
+2. Jeśli jednak w czasie korzystania z biblioteki znajdziemy błąd to mamy dwie drogi:
     * Jako autor projektu korzystającego z obcego kodu bierzemy odpowiedzialność za całokształt i naprawiamy błąd (*trudna ścieżka*).
     * Kontaktujemy się z autorem biblioteki i prosimy go o naprawienie błędu (*trochę łatwiejsza ścieżka*).
 
@@ -75,8 +75,8 @@ wget -w 1 -A "*.cpp" -A "*.hpp" -A "makefile" --ignore-case -nH -r -np --cut-dir
 
 **Proszę potraktować otrzymany kod w pliku main.cpp jako czarną skrzynkę. Wewnątrz znajdują się funkcje wychodzące poza zakres tego przedmiotu i nie będziemy ich omawiać.**
 
-Twoim zadaniem jest stworzenie projektu `CMake` i powielenie procesu budowania już w nowym systemie.
-Stwórz następującą strukturę katalogów:
+Twoim zadaniem jest stworzenie projektu `CMake` na podstawie logiki z pliki `Makefile`.
+Aby tego dokonać stwórz następującą strukturę katalogów:
 ```text
  - src/
  |  - main.cpp
@@ -95,37 +95,43 @@ Stwórz następującą strukturę katalogów:
  - CMakeLists.txt
 ```
 
-W folderze `lib/base32` należy zdefiniować target `base32`, który reprezentuje budowanie **biblioteki statycznej** z kodem biblioteki.
-Wszystkie pięć plików `.hpp` oraz `.cpp` należy załączyć jako źródła targetu `base32`.
+W pliku `lib/base32/CMakeLists.txt` należy zdefiniować target `base32`, który reprezentuje budowanie **biblioteki statycznej** zawierającej kod biblioteki.
+Dwa pliki: `encoder.cpp` oraz `decoder.cpp` należy załączyć jako źródła targetu `base32`.
+Dołączenie plików nagłówkowych nie jest konieczne.
+CMake potrafi samodzielnie ustalić, które pliki źródłowe należy przebudować po zmianie pliku nagłówkowego.
 
-W folderze `src` należy zdefiniować target reprezentujący budowanie **pliku wykonywalnego** `l4_base32`.
+W pliku `src/CMakeLists.txt` należy zdefiniować target reprezentujący budowanie **pliku wykonywalnego** `l4_base32`.
 Powinien polegać prywatnie na targecie `base32`.
 
-Wspólne ustawienia flag kompilacji powinny być ustawione w głównym pliku `CMakeLists.txt`.
+W pliku `lib/CMakeLists.txt` użyj polecenie `add_subdirectory` aby załączyć do projektu folder `tests/base32`.
+Podobnie należy postąpić w głownym pliku `CMakeLists.txt` włączając do projektu trzy foldery `src`, `lib` oraz `tests`.
+Jest to też odpowiednie miejsce na ustawienie flag kompilacji wspólnych dla wszystkich targetów w projekcie.
 
 Aby sprawdzić, czy skompilowany program działa prawidłowo, wykonaj następujące kroki:
 1. Skonfiguruj projekt CMake i wykonaj budowanie targetu `l4_base32`.
-2. Wykonaj polecenie `echo "foobar" | path/to/built/executable/l4_base32`.
-3. Wykonaj polecenie `echo "foobar" | basenc --base32hex`.
-4. Wyjścia kroków 2. oraz 3. powinny być identyczne (konkretnie `CPNMUOJ1E850====`).
+2. Wykonaj polecenie `echo "abba" | path/to/built/executable/l4_base32`.
+3. Wykonaj polecenie `echo "abba" | basenc --base32hex`.
+4. Wyjścia kroków 2. oraz 3. powinny być identyczne (konkretnie `C5H64O8A`).
 
 ### Uruchomienie debuggera
 
 W świecie GNU Linux standardem stał się debugger `gdb` (GNU debugger).
 Debugger pozwala nam śledzić i modyfikować proces wykonania dowolnego programu.
-W przypadku dzisiejszego laboratorium będziemy używać go do znalezienia błędu w trakcie używania biblioteki `base32`.
-Najpierw jednak należy przygotować swój program oraz środowisko programistyczne do używania debuggera.
+W przypadku dzisiejszego laboratorium będziemy używać go do znalezienia błędu w bibliotece `base32`.
+Przed tym należy przygotować swój program oraz środowisko programistyczne do używania debuggera.
 
 Pierwszym krokiem jest upewnienie się, że każda jednostka translacji (plik `.o`) składający się na nasz program został zbudowany z flagą `-g`.
-Flaga ta dodaje do wynikowego pliku wykonywalnego niezbędne wskazówki, aby odnaleźć miejsce w kodzie źródłowym związane z aktualnym miejscem w kodzie maszynowym.
+Flaga ta dodaje do pliku wykonywalnego niezbędne wskazówki, które pozwalają odnaleźć linijkę w kodzie źródłowym związaną z aktualnie wykonywaną instrukcją procesora.
 Dodatkowo da nam także możliwość połączenia zawartości pamięci ze zmiennymi zdefiniowanymi w kodzie źródłowym.
 
 W przypadku projektów CMake istnieją domyślnie zdefiniowane konfiguracje `Debug` oraz `Release`.
-Skojarzone są z nimi domyślne zestawy flag do budowania (w przypadku `Debug` jest tam flaga `-g`).
-Aby wybrać, w jakiej konfiguracji będą używane polecenia budowania należy przekazać flagę `CMAKE_BUILD_TYPE` w trakcie konfiguracji projektu (np. `-DCMAKE_BUILD_TYPE=Debug`).
-Jeśli potrzebujemy dodatkowych flag poza przygotowanym zestawem, należy zdefiniować zmienną `CMAKE_CXX_FLAGS`, aby rozszerzyć używane flagi w trakcie budowania (np. włącznie address sanitizera).
+Skojarzone są z nimi domyślne zestawy flag kompilatora (w przypadku `Debug` jest tam flaga `-g`).
+Aby wybrać, w jakiej konfiguracji będą wykonywana kompilacja należy przekazać flagę `CMAKE_BUILD_TYPE` w trakcie konfiguracji projektu (np. `-DCMAKE_BUILD_TYPE=Debug`).
+Jeśli potrzebujemy flag innych niż przygotowane przez CMake, należy zdefiniować zmienną `CMAKE_CXX_FLAGS`.
+Rozszerzy to używane flagi w trakcie budowania.
+Jest to dobry sposób na włączenie address sanitizera.
 
-Aby przekonać się, jakie flagi używane są w fazie budowania, podaj przy konfigurowaniu CMake flagę `-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON`.
+Aby przekonać się, jakie flagi używane są w trakcie budowania, podaj przy konfigurowaniu CMake flagę `-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON`.
 
 #### Tryb konsolowy
 
@@ -149,19 +155,20 @@ Ułatwiają one znalezienie potrzebnej akcji do wykonania w trakcie użytkowania
 #### Tryb graficzny
 
 Używanie `gdb` w środowisku graficznym pozwala nam uprościć użytkowanie debuggera.
-Mamy do dyspozycji integrację z naszym środowiskiem graficznym albo niezależne programy.
+Mamy do dyspozycji integrację z naszym środowiskiem graficznym albo niezależne programy okienkowe.
 Na laboratorium zachęcamy do korzystania z integracji ze swoim IDE, ponieważ projekt CMake umożliwia takie podejście.
-Jeśli jednak nasze IDE nie wspiera integracji lub nie skonfigurowaliśmy go do odpowiedniego poziomu, można posłużyć się bardzo dobrym projektem [`gdbgui`](https://github.com/cs01/gdbgui/), który jest niezależnym webowym interfejsem graficznym.
+Jeśli jednak nasze IDE nie wspiera integracji lub nie skonfigurowaliśmy go na odpowiedniem poziomie, można posłużyć się bardzo dobrym projektem [`gdbgui`](https://github.com/cs01/gdbgui/), który jest niezależnym webowym interfejsem graficznym.
 
-Kiedy używamy trybu graficznego, można skorzystać z instrukcji do konkretnie używanego środowiska.
-Jednak sama obecność graficznych przycisków podpowiada nam, jak można użyć debuggera (np. podglądanie wartości zmiennych lub śledzenie stosu wykonania).
+Kiedy używamy trybu graficznego, należy skorzystać z instrukcji do używanego środowiska.
 
 #### Zatrzymanie programu w funkcji `main`
 
-Aby przećwiczyć użycie `gdb`, twoim zadaniem jest zatrzymać się na wejściu do funkcji `main` wcześniej przykładowego programu. Wykonaj ćwiczenie w dwóch trybach: konsolowym i graficznym.
+Aby przećwiczyć użycie `gdb`, twoim zadaniem jest zatrzymać się na wejściu do funkcji `main`.
+Wykonaj ćwiczenie w dwóch trybach: konsolowym i graficznym.
 
 W przypadku trybu konsolowego wystarczy wydać polecenie `b main` oraz `run`.
-Dla trybu graficznego stawianie breakpointów odbywa się typowo, poprzez naciśniecie lewym przyciskiem myszy na numer linii, gdzie chcemy zatrzymać nasz program.
+Pierwsze polecenie stworzy breakpoint na wejściu do funkcji, a drugi rozpocznie działanie programu.
+Dla trybu graficznego tworzenie breakpointów odbywa się zazwyczaj poprzez naciśniecie lewym przyciskiem myszy na numer linii, w której chcemy zatrzymać nasz program.
 Jako symbol breakpoint'a pojawi się przy tej linii czerwona kropka.
 Szczegóły używania zależą od wybranego środowiska programistycznego.
 
@@ -190,14 +197,14 @@ include(GoogleTest)
 ```
 
 Od tego momentu mamy do dyspozycji dwa targety: `GTest::gtest` oraz `GTest::gtest_main`.
-Obydwa zawierają wszystkie funkcjonalności biblioteki, ale drugi zawiera przy okazji definicję funkcji `main`.
+Obydwa zawierają wszystkie funkcjonalności biblioteki, ale drugi zawiera przy okazji definicję funkcji `main` dla programu testującego.
 
 Aby przygotować program testujący dwie dostarczone funkcje, przygotuj dwa nowe pliki: `tests/encoder.cpp` oraz `tests/decoder.cpp`.
-Program testujący jest zwykłym plikiem wykonywalnym. Przygotuj nową definicję takiego pliku o nazwie `base32_test`, który zawiera dwa pliki `.cpp` znajdujące się w folderze `tests`.
+Program testujący jest zwykłym plikiem wykonywalnym.
+Przygotuj nową definicję takiego pliku o nazwie `base32_test`, który zawiera dwa pliki `.cpp` znajdujące się w folderze `tests`.
 
-Aby skorzystać z klas `Encoder` oraz `Decoder` w testach, target `base32_test` powinien posiadać prywatną zaleźnośc do `base32`.
+Aby skorzystać z klas `Encoder` oraz `Decoder` w testach, target `base32_test` powinien posiadać prywatną zależnośc do `base32`.
 Drugą prywatną zależnością programu powinien zostać `GTest::gtest_main`, który zapewni wszystkie funkcjonalności dostarczone przez bibliotekę GoogleTest.
-Dodatkowo definiuje on funkcję `main`, która jest konieczna do wykonania programu testowego.
 
 Ostatnim elementem jest zawołanie funkcji `gtest_discover_tests(base32_test)` na końcu pliku `tests/CMakeLists.txt`.
 Dzięki niej CMake jest świadomy, jakie funkcje znajdują się we wnętrzu pliku wykonywalnego.
@@ -232,7 +239,7 @@ std::vector expected(
     );
 
 std::vector<std::byte> res;
-// Use a decoder here and fill the res vector here...
+// Use a decoder and fill the res vector here...
 
 ASSERT_EQ(res.size(), expected.size());
 for (int i = 0; i < res.size(); ++i)
@@ -263,7 +270,6 @@ Jako dodatkowe ćwiczenie możesz spróbować zgadnąć jakie wejście spowodowa
 Dobrą praktyką jest przygotowanie testu, który eksponuje ten problem.
 Znacznie ułatwia to namierzenie przyczyny i naprawę błędu.
 Dokładne szczegóły działania biblioteki są poza zakresem laboratorium, więc naprawa błędu jest zadaniem dodatkowym.
-
 
 ### Rozwiązanie laboratoriów
 Kod z przygotowaną struktura projektu w CMake, napisanymi testami i naprawionymi błędami można pobrać za pomocą polecenia
