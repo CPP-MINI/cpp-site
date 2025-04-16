@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 20) # Setting up C++ 20 standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_FLAGS "-Wall -fsanitize=address,leak")
-set(CMAKE_LINK_FLAGS "-fsanitize=address,leak")
 
 # It makes all includes relative to project root
 include_directories(${CMAKE_SOURCE_DIR})
