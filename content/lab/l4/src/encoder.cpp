@@ -18,6 +18,7 @@ const int k_bit_idx_to_padding_count[]{
     k_illegal_value,  // 5 - illegal
     k_illegal_value,  // 6 - illegal
     k_illegal_value,  // 7 - illegal
+    0,                // 8
 };
 
 const uint8_t base32_bit_mask = 0b11111000;
@@ -74,21 +75,22 @@ void Encoder::appendBytestream(const std::byte *bytestream, std::size_t size)
         {
             byte_idx++;
             current_byte = bytestream[byte_idx - 1];
-            next_byte = bytestream[byte_idx];
+            next_byte = byte_idx < size ? bytestream[byte_idx] : std::byte(0x00);
         }
 
         bit_idx = next_bit_index % 8;
     }
 
-    // At the last two bytes finish the work without loading the next byte
+    // At the final byte, we can overrun the buffer.
+    // Assume the is 0x00 byte at the next place and encode up to two final characters.
     while (bit_idx < 8)
     {
-        _buff.push_back(encodePlace(bit_idx, current_byte, next_byte));
-        bit_idx = (bit_idx + 5) % 8;
+        _buff.push_back(encodePlace(bit_idx, current_byte, std::byte(0x00)));
+        bit_idx = (bit_idx + 5);
     }
 
     // Insert as much padding as it is required
-    int padding_count = k_bit_idx_to_padding_count[bit_idx % 8];
+    int padding_count = k_bit_idx_to_padding_count[bit_idx];
     for (int i = 0; i < padding_count; i++)
         _buff.push_back(k_base32hex_pad_char);
 }

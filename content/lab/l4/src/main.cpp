@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
     {
         base32::Encoder encoder;
         encoder.pushBytes(reinterpret_cast<const std::byte *>(s.data()), s.size());
-        std::cout << encoder.encodedString();
+        std::cout << encoder.encodedString() << std::endl;
     }
 
     return EXIT_SUCCESS;
