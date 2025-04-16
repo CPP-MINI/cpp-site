@@ -69,15 +69,15 @@ W tym etapie zadania chcemy skorzystać z biblioteki `base32`.
 Twórca biblioteki poza dwoma klasami dostarcza plik Makefile opisujący zbudowanie przykładowego programu.
 Zawiera on dodatkowo plik `main.cpp`, który symuluje program `basenc` z parametrem `--base32hex`.
 Kod źródłowy biblioteki możesz pobrać za pomocą polecenia
-```
-wget -w -R "index.html?*" -R "index.html" -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/l4/src/
+```bash
+wget -w 1 -A "*.cpp" -A "*.hpp" -A "makefile" --ignore-case -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/l4/src/
 ```
 
 **Proszę potraktować otrzymany kod w pliku main.cpp jako czarną skrzynkę. Wewnątrz znajdują się funkcje wychodzące poza zakres tego przedmiotu i nie będziemy ich omawiać.**
 
 Twoim zadaniem jest stworzenie projektu `CMake` i powielenie procesu budowania już w nowym systemie.
 Stwórz następującą strukturę katalogów:
-```
+```text
  - src/
  |  - main.cpp
  |  - CMakeLists.txt
@@ -176,7 +176,7 @@ W tym celu dołączymy kolejną bibliotekę do naszego projektu: `GTest`.
 Idąc za przykładem z [dokumnetcji GTesta](https://google.github.io/googletest/quickstart-cmake.html) wykorzystamy mechanizm `FetchContent` do pobrania kodu źródłowego biblioteki.
 W tym celu należy edytować plik `tests/CMakeLists.txt` i dodać do niego następujące linijki:
 
-```
+```cmake
 # Download a cmake library during the configure phase
 include(FetchContent)
 FetchContent_Declare(
@@ -221,7 +221,7 @@ Zaimplementuj podane poniżej przypadki:
 
 Jeżeli zastanawiasz się jak wykonać konwersję `std::string` do `std::vector<std::byte>` to tutaj znajdziesz podpowiedź jak powinien wyglądać typowy test:
 
-```
+```cpp
 char input[] = "12235343465ABDF====";
 char expected_chars[] = "expected_decoded_text";
 
@@ -267,6 +267,6 @@ Dokładne szczegóły działania biblioteki są poza zakresem laboratorium, wię
 
 ### Rozwiązanie laboratoriów
 Kod z przygotowaną struktura projektu w CMake, napisanymi testami i naprawionymi błędami można pobrać za pomocą polecenia
-```
-wget -w -R "index.html?*" -R "index.html" -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/l4/solution/
+```bash
+wget -w 1 -A "*.cpp" -A "*.hpp" -A "cmakelists.txt" --ignore-case -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/l4/solution/
 ```
