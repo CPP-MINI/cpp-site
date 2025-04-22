@@ -5,7 +5,7 @@
 
 void MovieCollection::addMovie(const Movie<double>& movie) {
     if (!movie.getTitle().empty()) {
-        char firstLetter = std::toupper(movie.getTitle()[0]);
+        char firstLetter = movie.getTitle()[0];
         moviesByLetter[firstLetter].push_back(movie);
     }
 }
@@ -54,8 +54,6 @@ void MovieCollection::removeMoviesOlderThan(char letter, int yearThreshold) {
             return movie.getYear() < year;
         }
     };
-
-    letter = std::toupper(letter);
 
     auto it = moviesByLetter.find(letter);
     if (it != moviesByLetter.end()) {
