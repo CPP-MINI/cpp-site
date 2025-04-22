@@ -43,7 +43,7 @@ Klasa powinna zawierać następujące elementy:
 - `getTitle()`, `getYear()`, `getDescription()`, `getDirector()`, `getRatings()` – zwracające bezpośrednio wartości odpowiednich pól.
 
 Oczekiwane wyjście etapu 1:
-```
+```text
 Movie1 info:
 Title: Inception
 Year: 2010
