@@ -213,7 +213,7 @@ std::optional<Movie<double>> MovieCollection::findMovieWithAverageAbove(double t
 Przekopiuj powyższą funkcję do swojego kodu i przeanalizuj jej zawartość. Wzorując się na niej, możesz analogicznie zaimplementować resztę wymaganych funkcji.
 
 Oczekiwane wyjście etapu 4:
-```
+```text
 Found a movie with average rating above 8.0:
 Dunkirk (2017), Director: Christopher Nolan (Oscars: 2), Avg: 8.50, Top: 9.00
 
