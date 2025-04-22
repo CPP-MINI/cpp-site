@@ -66,6 +66,8 @@ W tym etapie rozbuduj klasę `Movie` o dodatkowe funkcjonalności:
 - `getAverageRating()` – zwraca średnią ocenę (do iteracji po liście użyj `ranged-for-loop`),
 - `getTopRating()` – zwraca najwyższą ocenę (do iteracji po liście użyj iteratora).
 
+  **Uwaga:** W przypadku braku ocen obie funkcje powinny zwracać `RatingType(0)`.
+
 **Operatory**:
 - `operator<` (zdefiniowany w klasie) – porównuje filmy alfabetycznie po tytule, a jeśli są równe, to po roku.
 - `operator==` (zdefiniowany w klasie) – porównuje tytuł i rok.
