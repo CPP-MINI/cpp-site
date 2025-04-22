@@ -132,7 +132,7 @@ Klasa powinna zawierać następujące elementy:
   ```
 
 Oczekiwane wyjście etapu 3:
-```
+```text
 All movies in collection:
 === D ===
 Dunkirk (2017), Director: Christopher Nolan (Oscars: 2), Avg: 8.50, Top: 9.00
