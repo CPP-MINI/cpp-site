@@ -118,7 +118,7 @@ Klasa powinna zawierać następujące elementy:
 
 **Operator**:
 - `operator<<` (zdefiniowany poza klasą) – wypisuje zawartość kolekcji w postaci:
-  ```
+  ```text
   === <litera1> ===
   <film1>
   <film2>
