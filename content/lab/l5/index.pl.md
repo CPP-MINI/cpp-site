@@ -82,7 +82,7 @@ W tym etapie rozbuduj klasę `Movie` o dodatkowe funkcjonalności:
   **Uwaga:** Nie musisz samodzielnie dbać o wypisywanie zmiennych z dokładnością do 2 miejsc po przecinku, ponieważ jest to ustawione na początku funkcji `main()`.
 
 Oczekiwane wyjście etapu 2:
-```
+```text
 Movie1 Average Rating: 8.50
 Movie1 Top Rating: 9.00
 Movie2 Average Rating: 7.50
