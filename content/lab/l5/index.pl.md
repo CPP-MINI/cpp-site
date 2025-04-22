@@ -71,7 +71,7 @@ W tym etapie rozbuduj klasę `Movie` o dodatkowe funkcjonalności:
 - `operator==` (zdefiniowany w klasie) – porównuje tytuł i rok.
 - `operator+` (zdefiniowany w klasie) – jako argument przyjmuje zmienną typu `RatingType` i dodaje ocenę do listy ocen i zwraca referencję do filmu (powinien umożliwiać łańcuchowe dodawanie ocen - patrz `main.cpp`).
 - `operator<<` (zdefiniowany poza klasą) – wypisuje film w formacie:
-  ```
+  ```text
   <Tytuł> (<Rok>), Director: <Imię Nazwisko> (Oscars: <Liczba Oscarów>), Avg: <średnia ocena>, Top: <najwyższa ocena>
   Description: <opcjonalny opis>
   ```
