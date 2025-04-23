@@ -14,8 +14,6 @@ Po zakończeniu implementacji konkretnego etapu odkomentuj odpowiadającą mu cz
 
 Tym razem nie został dostarczony żaden plik startowy do żadnego z etapów zadania. Klasy powinny być napisane od zera.
 
-**Uwaga:** Zamiast `Makefile` napisz tym razem `CMakeLists.txt`.
-
 ### Etap 1: Implementacja klasy `Movie` (część 1)
 
 W pliku `Movie.hpp` zaimplementuj klasę szablonową `Movie`, która przechowuje informacje o pojedynczym filmie.
@@ -271,4 +269,4 @@ Description: Pastel chaos and fancy mustaches.
 [MovieCollection.hpp](solution/MovieCollection.hpp)  
 [MovieCollection.cpp](solution/MovieCollection.cpp)  
 [main.cpp](solution/main.cpp)  
-[CMakeLists.txt](solution/CMakeLists.txt)  
+[Makefile](solution/Makefile)  
