@@ -42,7 +42,7 @@ text += ", world";
 Poznaliśmy już ten mechanizm przy okazji operatorów przypisania i przeniesienia `T& operator=(const T&)` i
 `T& operator=(T&&)`. Własne operatory to tak naprawdę metody o specjalnej nazwie: `operator@`, gdzie `@`
 jest konkretnym operatorem, takim jak `+=`. Typ biblioteczny `std::string` dostarcza 
-[operator +=](https://en.cppreference.com/w/cpp/string/basic_string/operator%2B%3D implementujący naturalnie oczekiwaną
+[operator +=](https://en.cppreference.com/w/cpp/string/basic_string/operator%2B%3D) implementujący naturalnie oczekiwaną
 konkatenację ciągów znakowych:
 
 ```cpp
@@ -515,7 +515,7 @@ for (item_type item : collection) {
 
 ## Szablony
 
-Jak zaimplementować kontener taki jak `std::vector<T>` mogący przechowywać wiele różnych typów danych.
+Jak zaimplementować kontener taki jak `std::vector<T>` mogący przechowywać wiele różnych typów danych?
 C++ dostarcza w tym celu możliwość definiowania **szablonów klas**. Służy do tego słowo kluczowe `template`.
 
 ```cpp
@@ -529,7 +529,7 @@ class vector {
 ```
 Source: [templates.cpp](templates.cpp)
 
-Mimo że występuje tu słowo `class` to nie jest definicja klasy. `vector` jest szablonem klasy, który trzeba
+Mimo że występuje tu słowo `class`, to nie jest definicja klasy. `vector` jest szablonem klasy, który trzeba
 zinstancjonować podając konkretny typ jako `T` w czasie kompilacji.
 
 ```cpp
