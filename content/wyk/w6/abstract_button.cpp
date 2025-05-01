@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 
 class AbstractButton {
     double _x = 0, _y = 0;
@@ -39,9 +40,35 @@ class ToggleButton : public AbstractButton {
 };
 
 class RoundButton : public AbstractButton  {
-   private:
+   public:
     void click() {
         _on_click();
     }
     void draw(); // draws rounded edges
 };
+
+
+void do_click() {
+    std::cout << "click" << std::endl;
+}
+
+int main() {
+     Button b;
+     b.setText("Button");
+     b.setPosition(0, 0);
+     b.setOnClick(do_click);
+     ToggleButton tb;
+     tb.setText("Toggle");
+     tb.setPosition(100, 0);
+     tb.setOnClick(do_click);
+     RoundButton rb;
+     rb.setText("Round");
+     rb.setPosition(200, 0);
+     rb.setOnClick(do_click);
+
+     b.click();
+     tb.click();
+     rb.click();
+
+     return 0;
+}
