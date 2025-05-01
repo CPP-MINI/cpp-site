@@ -293,7 +293,7 @@ Jaka jest widoczność odziedziczonych składowych? To zależy od dwóch czynnik
 
 Klasa pochodna określa, jaka ma być widoczność odziedziczonych składowych poprzedzając klasy bazowe na liście
 dziedziczenia słowami `public`, `private` lub `protected`. Mówi w ten sposób o tym, czy
-dziedziczymy w trybie publicznym, prywatnym lub chronionym. Dla klas domyślnym trybem jest `private`, 
+dziedziczymy w trybie publicznym, prywatnym lub chronionym. Dla klas domyślnym trybem jest `private`,
 dla struktur: `public`.
 
 Niezależnie od trybu dziedziczenia, składniki prywatne klasy bazowej są niedostępne dla nikogo,
@@ -331,7 +331,7 @@ pub.z *= 2;     // ok, z jest public
 
 Przy dziedziczeniu publicznym, składniki `protected` pozostają `protected`, a składniki `public` pozostają `public`.
 Dostęp do składowych `protected` będzie miała zatem klasa pochodna, ale nikt z zewnątrz. To najpowszechniejszy tryb
-dziedziczenia, oznaczający naturalne rozszerzanie klasy bazowej. Słowo `protected` oznacza więc _dostępne, ale tylko 
+dziedziczenia, oznaczający naturalne rozszerzanie klasy bazowej. Słowo `protected` oznacza więc _dostępne, ale tylko
 dla implementacji klas dziedziczących_.
 
 Przy dziedziczeniu prywatnym składniki `protected` i `public` stają się prywatnymi składowymi klasy pochodnej.
@@ -362,12 +362,111 @@ Przy dziedziczeniu protected składniki `protected` i `public` stają się chron
 Podobnie jak przy private, są niedostępne z zewnątrz, ale będą mogły z nich korzystać
 klasy położone niżej w hierarchii dziedziczenia.
 
-### Konstruktory
+### Konstruktory i destruktory
 
 Konstruktory potrafią inicjalizować obiekty typu, w którym zostały zdefiniowane,
 i tylko tego typu. W szczególności nie potrafią _robić_ obiektów typów pochodnych,
-więc **nie są dziedziczone**.
+więc **nie są dziedziczone**. Podobnie nie są dziedziczone destruktory.
 
-### Destruktory
+W czasie konstrukcji obiektu pochodnego musi zostać skonstruowany pod-obiekt klasy bazowej,
+czyli wywołanie jego konstruktora. Kompilator, o ile może, sam wygeneruje konstruktor domyślny,
+który to robi. Możemy też zrobić to ręcznie na początku listy inicjalizacyjnej.
+
+```cpp
+class A
+{
+   public:
+    A() { std::cout << "A()\n"; }
+    explicit A(int a) { std::cout << "A(int)\n"; }
+    ~A() { std::cout << "~A()\n"; }
+};
+
+class B
+{
+   public:
+    B() { std::cout << "B()\n"; }
+    explicit B(int a) { std::cout << "B(int)\n"; }
+    ~B() { std::cout << "~B()\n"; }
+};
+
+class C : public A
+{
+    B b;
+   public:
+    C() { std::cout << "C()\n"; }
+    explicit C(int a) : A(a), b(b) { std::cout << "C(int)\n"; }
+    ~C() { std::cout << "~C()\n"; }
+};
+
+C c;
+```
+
+Source: [constructors.cpp](constructors.cpp)
+
+Tworząc obiekt `C c`, rozpoczyna się wywołanie konstruktora `C()`. Najpierw wykonywana jest
+inicjalizacja podobiektów, w tym na samym początku podobiektów klas bazowych. Wołany jest więc
+konstruktor `A()`. Potem inicjalizowany jest podobiekt `B b`. a na samym końcu wykonywane
+jest ciało konstruktora `C()`.
+
+```text
+A()
+B()
+C()
+~C()
+~B()
+~A()
+```
+
+Kolejność inicjalizacji jest zawsze taka sama: najpierw podobiekty bazowe, potem jawne podobiekty,
+na końcu ja sam. Kolejność destrukcji zawsze jest odwrotna.
 
 ### Przypisania
+
+Nie dziedziczy się również operatorów przypisania/przeniesienia. Jeżeli sami ich nie zdefiniujemy,
+to kompilator sam je wygeneruje, kopiując bądź przenosząc składnik po składniku (w tym podobiekty bazowe).
+
+```cpp
+#include <iostream>
+
+class Base
+{
+   public:
+    Base& operator=(const Base&)
+    {
+        std::cout << "operator=(const Base&)\n";
+        return *this;
+    };
+    Base& operator=(Base&&)
+    {
+        std::cout << "operator=(Base&&)\n";
+        return *this;
+    };
+};
+
+class Derived : public Base
+{
+};
+
+int main()
+{
+    Derived o1, o2;
+    o1 = o2;
+    o1 = std::move(o2);
+    return 0;
+}
+```
+Source: [assignments.cpp](assignments.cpp)
+
+Jeżeli potrzebujemy zaimplementować inną logikę, to oczywiście możemy dostarczyć
+własne operatory przypisania. Można w ich ciele skorzystać z operatora klasy bazowej
+do skopiowania pod-obiektu bazowego:
+
+```cpp
+Derived& operator=(const Derived& other)
+{
+    Base::operator=(other);
+    return *this;
+};
+```
+
+
