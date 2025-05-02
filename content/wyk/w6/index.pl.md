@@ -469,4 +469,46 @@ Derived& operator=(const Derived& other)
 };
 ```
 
+### Wielodziedziczenie
 
+Klasa może mieć kilka typów bazowych. Obiekty tej klasy będą wtedy
+składały się z kilku pod-obiektów bazowych. 
+
+
+
+To powoduje, że graf dziedziczenia przestaje być prostym drzewem.
+
+### Polimorfizm
+
+Klasa pochodna, dziedzicząc, mówi, że jej obiekty **są** też obiektami klasy bazowej.
+Można je więc traktować jako obiekty typu bazowego. W końcu odziedziczyły (mają) komplet stanu
+i zachowania taki sam, jaki mają obiekty klasy bazowej. Rozważmy hierarchię:
+
+```mermaid
+classDiagram
+    class Vehicle { 
+        + name 
+        + position
+    }
+    class Car { }
+    class Bike { }
+    class Motorcycle { }
+    
+    Vehicle <|-- Car
+    Vehicle <|-- Bike
+    Vehicle <|-- Motorcycle
+```
+
+Bez względu na to, czy dany obiekt jest typu `Car`, `Bike` czy `Motorcycle`
+zawsze będzie miał atrybuty `name` i `position`. Można więc odnosić się do niego
+tak jak gdyby był to obiekt typu `Vehicle`, bez względu na konkretny typ.
+
+Język dostarcza nam wspaniałe narzędzie odzwierciedlające ten fakt. Odwołania do obiektów,
+czyli wskaźniki i referencje, mogą być niejawnie rzutowane na wskaźniki i referencje
+typu bazowego. Posługując się takimi bazowymi odniesieniami,
+jesteśmy w stanie programować algorytmy w oderwaniu od konkretnych typów.
+To właśnie jest **polimorfizm**.
+
+[//]: # ( TODO)
+
+### Dziedziczenie wirtualne
