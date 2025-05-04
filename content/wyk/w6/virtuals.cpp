@@ -9,17 +9,24 @@ class Vehicle
    public:
     const std::string& name() const { return _name; }
     float position() const { return _position; }
+    virtual float run(float time) {
+        std::cout << "Vehicle::run(" << time << "s)" << std::endl;
+        const float speed = 1.0f;
+        _position += time * speed;
+        return _position;
+    }
 };
 
 class Car : public Vehicle
 {
    protected:
-    float speed;
+    float speed = 0.0f;
     float acceleration;
     Car(std::string name, float acceleration) : Vehicle(std::move(name)), acceleration(acceleration) {}
 
    public:
-    float run(float time) {
+    float run(float time) override {
+        std::cout << "Car::run(" << time << "s)" << std::endl;
         _position += speed * time;
         speed += acceleration * time;
         return _position;
@@ -42,7 +49,8 @@ class Bike : public Vehicle
 {
    public:
     Bike(std::string name) : Vehicle(std::move(name)) {}
-    float run(float time) {
+    float run(float time) override {
+        std::cout << "Bike::run(" << time << "s)" << std::endl;
         const float speed = 0.2f;
         _position += speed * time;
         return _position;
@@ -58,30 +66,12 @@ int main() {
     DieselCar dc("Toyota Fortuner");
     ElectricCar ec ("Ford Mustang Mach-E");
 
-    std::cout << "Bike " << b.name() << " at " << static_cast<void*>(&b) << std::endl;
-    std::cout << "DieselCar " << dc.name() << " at " << static_cast<void*>(&dc) << std::endl;
-    std::cout << "ElectricCar " << ec.name() << " at " << static_cast<void*>(&ec) << std::endl;
-
-    {
-        // Refer to objects through pointers to a base type
-        Vehicle* vb = &b;
-        Vehicle* vdc = &dc;
-        Vehicle* vec = &ec;
-        std::cout << "Bike " << vb->name() << " at " << static_cast<void*>(vb) << std::endl;
-        std::cout << "DieselCar " << vdc->name() << " at " << static_cast<void*>(vdc) << std::endl;
-        std::cout << "ElectricCar " << vec->name() << " at " << static_cast<void*>(vec) << std::endl;
-    }
-
-    {
-        // Refer to objects through references to a base type
-        print(b);
-        print(dc);
-        print(ec);
-    }
-
-    {
-        // Store pointers to objects of different types in an array
+    for (float time = 0.0f; time < 3.0f; time += 1.0f) {
         Vehicle* vehicles[] = {&b, &dc, &ec};
+        std::cout << "======= " << time << "s =======" << std::endl;
+        for (auto v : vehicles) {
+            v->run(1.0f);
+        }
         for (auto v : vehicles) {
             print(*v);
         }

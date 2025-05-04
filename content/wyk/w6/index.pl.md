@@ -628,10 +628,148 @@ for (auto v : vehicles) {
 
 Dopełnieniem polimorfizmu możliwość implementowania tego samego elementu zachowania obiektu (metody) na różne sposoby
 w zależności od typu. Dzięki temu, nie wiedząc czy dany obiekt jest samochodem czy rowerem, dysponując tylko wskazaniem/referencją na `Vehicle`
-będziemy w stanie wykonać uruchomić pewne zachowanie, np. `float run(float time)` i wykonać kod inny ze względu na rzeczywisty typ
+będziemy w stanie uruchomić pewne zachowanie, np. `float run(float time)` i wykonać kod inny ze względu na rzeczywisty typ
 wskazywanego obiektu.
 
-[//]: # (TODO)
+```cpp
+class Vehicle {
+    /* ... */
+public:
+    virtual float run(float time) {
+        std::cout << "Vehicle::run(" << time << "s)" << std::endl;
+        const float speed = 1.0f;
+        _position += time * speed;
+        return _position;
+    }
+};
+
+class Car : public Vehicle {
+    float speed = 0.0f;
+    /* ... */
+public:
+    float run(float time) override {
+        std::cout << "Car::run(" << time << "s)" << std::endl;
+        _position += speed * time;
+        speed += acceleration * time;
+        return _position;
+    }
+};
+
+class DieselCar : public Car { /* ... */ };
+
+class ElectricCar : public Car { /* ... */ };
+
+class Bike : public Vehicle {
+    /* ... */
+public:
+    float run(float time) override {
+        std::cout << "Bike::run(" << time << "s)" << std::endl;
+        const float speed = 0.2f;
+        _position += speed * time;
+        return _position;
+    }
+};
+```
+Source: [virtuals.cpp](virtuals.cpp)
+
+```mermaid
+classDiagram
+    class Vehicle { 
+        + virtual float run(float time)
+    }
+    class Car { 
+        + float run(float time) 
+    }
+    class Bike {
+        + float run(float time)
+    }
+    class DieselCar { }
+    class ElectricCar { }
+    
+    Vehicle <|-- Car
+    Vehicle <|-- Bike
+    Car <|-- DieselCar
+    Car <|-- ElectricCar
+```
+
+Klasa bazowa `Vehicle` dostarcza metodę `run()` oznaczoną jako `virtual`.
+Jeżeli klasa pochodna dostarczy metodę o tym samym prototypie,
+to ją nadpisze! Implementacje `Car::run()` i `Bike::run()` dostarczają logikę
+ruchu dedykowaną dla obiektów typu `Car` (i pochodnych) oraz `Bike`.
+
+```cpp
+Bike b ("Romet");
+DieselCar dc("Toyota Fortuner");
+ElectricCar ec ("Ford Mustang Mach-E");
+
+for (float time = 0.0f; time < 3.0f; time += 1.0f) {
+    Vehicle* vehicles[] = {&b, &dc, &ec};
+    for (auto v : vehicles) {
+        v->run(1.0f); // Skok do różnych funkcji
+    }
+}
+```
+
+Jeżeli `v` jest typu `Car` (lub pochodnego) to zostanie wywołana
+metoda `Car::run()`. Jeżeli `v` jest typu `Bike` to zostanie wywołana metoda `Bike::run()`.
+Jeżeli rzeczywisty typ nie nadpisuje metody `run()` to zostanie wywołana implementacja z klasy bazowej
+`Vehicle::run()`.
+
+> Patrząc na deklarację metody w jakiejś dziedziczącej klasie, ciężko stwierdzić,
+czy nadpisuje ona jakąś metodę z klasy bazowej. Opcjonalne słowo kluczowe `overrides`
+dokumentuje fakt nadpisania funkcji wirtualnej i generuje błąd kompilacji, gdyby tak nie było.
+
+### Jak to działa?
+
+Kompilując wyrażenie typu `v->run(1.0f)`, gdzie `v` jest typu `Vehicle*`
+kompilator nie może wiedzieć, jaki będzie rzeczywisty typ wskazywanego obiektu.
+Dysponuje tylko adresem przechowywanym w zmiennej `v` faktem, że jest tam obiekt typu `Vehicle`, lub pochodnego.
+Co zatem generuje? Skąd ma wiedzieć, do jakiej funkcji skoczyć?
+Jak są implementowane funkcje wirtualne?
+
+Typowa implementacja wykorzystuje tzw. _tablice funkcji wirtualnych_.
+Każdy obiekt typu zawierającego funkcje wirtualne ma ukryte pole `vptr`
+wskazujące na tablicę wskaźników do funkcji. Wskaźnik `vptr`
+pokazuje na różne tablice w zależności od typu obiektu: jest inicjalizowany
+podczas konstrukcji, kiedy typ jest znany.
+
+```mermaid
+graph TD
+    subgraph DieselCar
+        
+        dieselCarInstance["Instance of DieselCar"]
+        dieselCarVptr["vptr --> DieselCar vtable"]
+    end
+
+    subgraph VTables
+        dieselCarVtable["DieselCar vtable"]
+        dieselCarVtableField1["run(float time) --> DieselCar::run()"]
+        
+        carVtable["Car vtable"]
+        carVtableField1["run(float time) --> Car::run()"]
+        
+        electricCarVtable["ElectricCar vtable"]
+        electricCarVtableField1["run(float time) --> ElectricCar::run()"]
+
+        bikeVtable["Bike vtable"]
+        bikeVtableField1["run(float time) --> Bike::run()"]
+        
+        vehicleVtable["Vehicle vtable"]
+        vehicleVtableField1["run(float time) --> Vehicle::run()"]
+    end
+
+    dieselCarInstance --- dieselCarVptr
+    dieselCarVptr --> dieselCarVtable
+    dieselCarVtable --> dieselCarVtableField1
+    
+    dieselCarVtable --- carVtable
+    carVtable --> carVtableField1
+    
+    electricCarVtable --> electricCarVtableField1
+    bikeVtable --> bikeVtableField1
+    vehicleVtable --> vehicleVtableField1
+
+```
 
 ### Destruktory
 
