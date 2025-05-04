@@ -94,7 +94,7 @@ mechanizmu **dziedziczenia**. W C++ definicja klasy może specyfikować jeden lu
 stan i zachowanie zostaną automatycznie włączone w typ pochodny.
 
 ```cpp
-class AbstractButton {
+class BaseButton {
     double _x = 0, _y = 0;
     double _w = 100, _h = 50;
     std::string _text;
@@ -102,7 +102,7 @@ class AbstractButton {
     void (*_on_click)() = nullptr;
 
    public:
-    AbstractButton() = default;
+    BaseButton() = default;
     std::pair<double, double> position() const { return {_x, _y}; }
     void setPosition(double x, double y) { _x = x; _y = y; }
     std::pair<double, double> size() const { return {_w, _h}; }
@@ -112,7 +112,7 @@ class AbstractButton {
     void setOnClick(void (*fn)()) { _on_click = fn; }
 };
 
-class Button : public AbstractButton {
+class Button : public BaseButton {
   public:
     void click() {
         _on_click();
@@ -120,7 +120,7 @@ class Button : public AbstractButton {
     void draw();
 };
 
-class ToggleButton : public AbstractButton {
+class ToggleButton : public BaseButton {
     bool _toggled = false;
 
    public:
@@ -132,7 +132,7 @@ class ToggleButton : public AbstractButton {
     void draw();
 };
 
-class RoundButton : public AbstractButton  {
+class RoundButton : public BaseButton  {
    public:
     void click() {
         _on_click();
@@ -143,7 +143,7 @@ class RoundButton : public AbstractButton  {
 
 Source: [abstract_button.cpp](abstract_button.cpp)
 
-Wspólne pola (elementy stanu) zostały wydzielone do klasy bazowej `AbstractButton`.
+Wspólne pola (elementy stanu) zostały wydzielone do klasy bazowej `BaseButton`.
 Podobnie, wspólne metody (elementy zachowania), charakterystyczne dla dowolnego przycisku stały się częścią klasy
 bazowej.
 
@@ -184,33 +184,33 @@ prezentujące hierarchię dziedziczenia, np. _diagramy klas_:
 
 ```mermaid
 classDiagram
-    class AbstractButton {
-        - double _x
-        - double _y
-        + std:: pair<double, double> position() const
-        + void setPosition(double x, double y)
+    class BaseButton {
+        - _x
+        - _y
+        + position()
+        + setPosition(x, y)
     }
 
     class Button {
-        + void click()
-        + void draw()
+            + click()
+            + draw()
     }
 
     class ToggleButton {
-        - bool _toggled
-        + void click()
-        + bool toggled() const
-        + void draw()
+        - _toggled
+        + click()
+        + toggled() const
+        + draw()
     }
 
     class RoundButton {
-        - void click()
-        - void draw()
+        - click()
+        - draw()
     }
 
-    AbstractButton <|-- Button
-    AbstractButton <|-- ToggleButton
-    AbstractButton <|-- RoundButton
+    BaseButton <|-- Button
+    BaseButton <|-- ToggleButton
+    BaseButton <|-- RoundButton
 ```
 
 Technicznie, każdy obiekt klasy pochodnej zawiera pod-obiekt klasy pochodnej, a w nim, wszystkie jego składowe.
@@ -733,44 +733,118 @@ wskazujące na tablicę wskaźników do funkcji. Wskaźnik `vptr`
 pokazuje na różne tablice w zależności od typu obiektu: jest inicjalizowany
 podczas konstrukcji, kiedy typ jest znany.
 
-```mermaid
-graph TD
-    subgraph DieselCar
-        
-        dieselCarInstance["Instance of DieselCar"]
-        dieselCarVptr["vptr --> DieselCar vtable"]
-    end
+![vtables.svg](vtables.svg)
 
-    subgraph VTables
-        dieselCarVtable["DieselCar vtable"]
-        dieselCarVtableField1["run(float time) --> DieselCar::run()"]
-        
-        carVtable["Car vtable"]
-        carVtableField1["run(float time) --> Car::run()"]
-        
-        electricCarVtable["ElectricCar vtable"]
-        electricCarVtableField1["run(float time) --> ElectricCar::run()"]
+Dla każdego typu zawierającego funkcje wirtualne kompilator generuje tablicę `vtable` w pamięci programu.
+Tablica zawiera tyle komórek, ile typ ma funkcji wirtualnych. Wartościami w komórkach tablicy są adresy konkretnych 
+funkcji. 
 
-        bikeVtable["Bike vtable"]
-        bikeVtableField1["run(float time) --> Bike::run()"]
-        
-        vehicleVtable["Vehicle vtable"]
-        vehicleVtableField1["run(float time) --> Vehicle::run()"]
-    end
+Kompilator analizując wywołanie wirtualne typu `v->run()` generuje instrukcje:
+* na podstawie adresu `v` ładowana jest wartość `vptr`
+* na podstawie wołanej funkcji z tablicy wskazywanej przez `vptr` wybierany jest odpowiedni indeks
+* następuje skok do funkcji pod adresem zapisanym w komórce tablicy `vtable` 
 
-    dieselCarInstance --- dieselCarVptr
-    dieselCarVptr --> dieselCarVtable
-    dieselCarVtable --> dieselCarVtableField1
-    
-    dieselCarVtable --- carVtable
-    carVtable --> carVtableField1
-    
-    electricCarVtable --> electricCarVtableField1
-    bikeVtable --> bikeVtableField1
-    vehicleVtable --> vehicleVtableField1
+### Funkcje czysto wirtualne
 
+W przykładzie z pojazdami ciało metody `Vehicle::run()` jest niejako nadmiarowe: nie powołujemy w końcu do życia obiektów
+typu `Vehicle`. Często nie wiadomo jak zaimplementować metodę w klasie bazowej, bo ma ona jedynie
+deklarować abstrakcyjny interfejs, a nie dostarczać konkretną implementację.
+
+Typ bazowy może jedynie deklarować, że typy pochodne będą implementować jakąś funkcję wirtualną, 
+nie dostarczając implementacji samemu:
+
+```cpp
+class Vehicle {
+  /* ... */
+public:
+  virtual float run(float time) = 0;
+};
 ```
 
+Taka konstrukcja `= 0` jest dozwolona tylko dla funkcji wirtualnych i nosi nazwę _pure virtual function_.
+Klasy posiadające funkcje czysto wirtualne często nazywamy _klasami abstrakcyjnymi_.
+W konsekwencji nie da się powołać do życia instancji obiektu typu abstrakcyjnego.
+Kompilator nie generuje dla takiego typu tablicy funkcji wirtualnych, bo nie miałby jak jej wypełnić.
+
 ### Destruktory
+
+Konstruktor wirtualny być nie może. Tworząc obiekt, zawsze podajemy jego typ.
+Natomiast destruktor może i często musi być wirtualny! Rozważmy następujący kod implementujący tablicę dynamiczną
+tablicę na stercie:
+
+```cpp
+class AbstractArray {
+   public:
+    virtual std::size_t size() const = 0;
+    virtual int get(std::size_t idx) const = 0;
+};
+
+class FakeArray : public AbstractArray { /* ... */ };
+
+class HeapArray : public AbstractArray
+{
+    std::size_t _size;
+    int* _data;
+
+   public:
+    HeapArray(std::size_t size) : _size(size), _data(new int[size]) {
+        for (std::size_t i = 0; i < size; i++)
+            _data[i] = i;
+    }
+
+    ~HeapArray() { delete[] _data; }
+
+    std::size_t size() const override { return _size; }
+    int get(std::size_t idx) const override { return _data[idx]; }
+};
+
+int main() {
+    AbstractArray* arr = new FakeArray(10);
+
+    for (std::size_t i = 0; i < arr->size(); i++)
+    {
+        std::cout << arr->get(i) << ", ";
+    }
+    std::cout << std::endl;
+
+    delete arr;
+    return 0;
+}
+```
+Source: [virtual_destructor.cpp](virtual_destructor.cpp)
+
+Ten program nie zwalnia całej zaalokowanej pamięci:
+
+```shell
+g++ -fsanitize=leak virtual_destructor.cpp -g -o /tmp/virtual_destructor && /tmp/virtual_destructor
+```
+
+```text
+==25858==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 40 byte(s) in 1 object(s) allocated from:
+    #0 0x7ef37c416362 in operator new[](unsigned long) ../../../../src/libsanitizer/lsan/lsan_interceptors.cpp:250
+    #1 0x5dfebd44e562 in HeapArray::HeapArray(unsigned long) /home/saqq/repos/cpp-site/content/wyk/w6/virtual_destructor.cpp:26
+    #2 0x5dfebd44e2b0 in main /home/saqq/repos/cpp-site/content/wyk/w6/virtual_destructor.cpp:43
+    #3 0x7ef37bc2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7ef37bc2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #5 0x5dfebd44e184 in _start (/tmp/virtual_destructor+0x1184) (BuildId: 4fead369add96fe2771035ebb6352e20b88ffd3b)
+
+SUMMARY: LeakSanitizer: 40 byte(s) leaked in 1 allocation(s).
+```
+
+Dlaczego? Kompilator analizując wyrażenie `delete arr` nie zna typu obiektu wskazywanego przez `arr`.
+Jest w stanie jedynie wywołać destruktor `~AbstractArray()`, który nic nie robi. 
+
+Destruktor typu abstrakcyjnego musi być zatem funkcją wirtualną:
+
+```cpp
+class AbstractArray {
+   public:
+    virtual ~AbstractArray() = default;
+    virtual std::size_t size() const = 0;
+    virtual int get(std::size_t idx) const = 0;
+};
+```
 
 ## Run Time Type Information

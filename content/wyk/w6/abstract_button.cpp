@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 
-class AbstractButton {
+class BaseButton {
     double _x = 0, _y = 0;
     double _w = 100, _h = 50;
     std::string _text;
@@ -9,7 +9,7 @@ class AbstractButton {
     void (*_on_click)() = nullptr;
 
    public:
-    AbstractButton() = default;
+    BaseButton() = default;
     std::pair<double, double> position() const { return {_x, _y}; }
     void setPosition(double x, double y) { _x = x; _y = y; }
     std::pair<double, double> size() const { return {_w, _h}; }
@@ -19,7 +19,7 @@ class AbstractButton {
     void setOnClick(void (*fn)()) { _on_click = fn; }
 };
 
-class Button : public AbstractButton {
+class Button : public BaseButton {
   public:
     void click() {
         _on_click();
@@ -27,7 +27,7 @@ class Button : public AbstractButton {
     void draw();
 };
 
-class ToggleButton : public AbstractButton {
+class ToggleButton : public BaseButton {
     bool _toggled = false;
 
    public:
@@ -39,7 +39,7 @@ class ToggleButton : public AbstractButton {
     void draw();
 };
 
-class RoundButton : public AbstractButton  {
+class RoundButton : public BaseButton  {
    public:
     void click() {
         _on_click();
