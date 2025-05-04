@@ -11,8 +11,10 @@ weight: 60
 * RTTI
 * Wyjątki
 * `std::error_code`
-* Funkcje lambda
-* `std::function`
+
+[//]: # (* Funkcje lambda)
+
+[//]: # (* `std::function`)
 
 ## Dziedziczenie
 
@@ -474,11 +476,90 @@ Derived& operator=(const Derived& other)
 Klasa może mieć kilka typów bazowych. Obiekty tej klasy będą wtedy
 składały się z kilku pod-obiektów bazowych. 
 
+```cpp
+class A {
+   public:
+    int x;
+    A(int x) : x{x} {}
+};
 
+class B {
+   public:
+    int x;
+    B(int x) : x{x} {}
+};
 
-To powoduje, że graf dziedziczenia przestaje być prostym drzewem.
+class C : public A, public B {
+   public:
+    int x;
 
-### Polimorfizm
+    C() : A{1}, B{2}, x{3} {
+
+    }
+
+    void print() const {
+        std::cout << A::x << ", " << B::x << ", " << x << std::endl;
+    }
+};
+```
+
+Jeżeli odniesienia do składników klas bazowych nie są jednoznaczne, możemy
+je doprecyzować, poprzedzając nazwy operatorem zakresowym jak w przypadku zwykłego przysłaniania.
+
+Dopuszczenie wielodziedziczenia wprowadza problem. Programista może stworzyć klasę, która
+ma tego samego przodka wielokrotnie. To problem znany jako _Deadly Diamond of Death_.
+Rozbudujmy poprzedni przykład o klasę `Base`, będącą wspólnym przodkiem `A` i `B`.
+
+```mermaid
+classDiagram
+    class A { }
+    class B { }
+    class C { }
+    A <|-- C
+    B <|-- C
+    
+    class Base { }
+    Base <|-- A
+    Base <|-- B
+```
+
+To powoduje, że obiekty klasy `C` zawierają 2 pod obiekty bazowe typu `Base`.
+Odwołania do składowych `Base` będą niejednoznaczne.
+
+```cpp
+class C {
+    // ...
+    void print() const
+    {
+        std::cout << A::x << ", " << B::x << ", " << x << std::endl;
+        // std::cout << value << std::endl; // błąd!
+        std::cout << A::value << std::endl;
+        std::cout << B::value << std::endl;
+    }
+    // ...
+};
+```
+Source: [multiple_inheritance.cpp](multiple_inheritance.cpp)
+
+Jężeli programista chciałby, aby jednak pod-obiekt `Base` występował
+jednokrotnie, może skorzystać z mechanizmu _wirtualnego dziedziczenia_,
+deduplikującego powtarzające się klasy bazowe.
+
+```cpp
+class A : virtual public Base { /* ... */ };
+class B : virtual public Base { /* ... */ };
+class C : public A, public B { /* ... */ };
+```
+
+Kompilator analizując hierarchię dziedziczenia typu `C`
+zbierze wszystkie krawędzie wirtualnego dziedziczenia odnoszące się do typu `Base`
+i pozostawi tę klasę bazową jednokrotnie.
+
+Z tego powodu, wiele języków obiektowych nie pozwala na wielodziedziczenie,
+albo je ogranicza, np. pozwalając tylko na jedną klasę bazową zawierającą pola
+(reszta może mieć tylko funkcje).
+
+## Polimorfizm
 
 Klasa pochodna, dziedzicząc, mówi, że jej obiekty **są** też obiektami klasy bazowej.
 Można je więc traktować jako obiekty typu bazowego. W końcu odziedziczyły (mają) komplet stanu
@@ -492,12 +573,15 @@ classDiagram
     }
     class Car { }
     class Bike { }
-    class Motorcycle { }
+    class DieselCar { }
+    class ElectricCar { }
     
     Vehicle <|-- Car
     Vehicle <|-- Bike
-    Vehicle <|-- Motorcycle
+    Car <|-- DieselCar
+    Car <|-- ElectricCar
 ```
+Source: [polymorph.cpp](polymorph.cpp)
 
 Bez względu na to, czy dany obiekt jest typu `Car`, `Bike` czy `Motorcycle`
 zawsze będzie miał atrybuty `name` i `position`. Można więc odnosić się do niego
@@ -509,6 +593,46 @@ typu bazowego. Posługując się takimi bazowymi odniesieniami,
 jesteśmy w stanie programować algorytmy w oderwaniu od konkretnych typów.
 To właśnie jest **polimorfizm**.
 
-[//]: # ( TODO)
+Wskaźnik na obiekt typu `Bike` można traktować jak wskaźnik na typ bazowy `Vehicle`.
+Technicznie adres przed i po konwersji zwykle będzie identyczny, ponieważ pod-obiekt bazowy
+jest przechowywany _na początku_. Nie będzie to prawdą w przypadku wielodziedziczenia.
 
-### Dziedziczenie wirtualne
+```cpp
+Bike b ("Romet");
+
+Vehicle* vb = &b;
+vb->name();
+```
+
+Podobnie, można odwoływać się do obiektu za pomocą referencji na typ bazowy, np. przekazać go do funkcji:
+
+```cpp
+void print(const Vehicle& v) {
+    std::cout << "Vehicle " << v.name() << " at " << v.position() << "m" << std::endl;
+}
+print(b);
+```
+
+Odwołania do obiektów różnych typów można umieścić w jednym kontenerze:
+
+```cpp
+DieselCar dc("Toyota Fortuner");
+
+Vehicle* vehicles[] = {&b, &dc};
+for (auto v : vehicles) {
+    print(*v);
+}
+```
+
+## Funkcje wirtualne
+
+Dopełnieniem polimorfizmu możliwość implementowania tego samego elementu zachowania obiektu (metody) na różne sposoby
+w zależności od typu. Dzięki temu, nie wiedząc czy dany obiekt jest samochodem czy rowerem, dysponując tylko wskazaniem/referencją na `Vehicle`
+będziemy w stanie wykonać uruchomić pewne zachowanie, np. `float run(float time)` i wykonać kod inny ze względu na rzeczywisty typ
+wskazywanego obiektu.
+
+[//]: # (TODO)
+
+### Destruktory
+
+## Run Time Type Information
