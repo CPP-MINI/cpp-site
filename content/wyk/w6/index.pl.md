@@ -6,15 +6,14 @@ weight: 60
 
 # Wykład 6 - Polimorfizm i Wyjątki
 
+Zakres:
+
 * Dziedziczenie
+* Polimorfizm
 * Funkcje wirtualne
 * RTTI
 * Wyjątki
 * `std::error_code`
-
-[//]: # (* Funkcje lambda)
-
-[//]: # (* `std::function`)
 
 ## Dziedziczenie
 
@@ -848,3 +847,14 @@ class AbstractArray {
 ```
 
 ## Run Time Type Information
+
+Język C++ udostępnia wyrażenia pozwalające sprawdzać typ obiektu w czasie wykonania programu.
+
+ 
+O ile rzutowania w górę hierarchii dziedziczenia są zawsze poprawne, to rzutowania w dół za pomocą `static_cast<T>`
+już być takie nie muszą. Do bezpiecznego rzutowania w dół można wykorzystać dedykowany rodzaj rzutowania: `dynamic_cast<T>`,
+sprawdzający, czy na pewno wskazywany obiekt jest pożądanego typu. Jeśli nie to takie rzutowanie zwróci `nullptr`.
+
+
+
+### 
