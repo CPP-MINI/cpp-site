@@ -626,7 +626,7 @@ for (auto v : vehicles) {
 ## Funkcje wirtualne
 
 Dopełnieniem polimorfizmu możliwość implementowania tego samego elementu zachowania obiektu (metody) na różne sposoby
-w zależności od typu. Dzięki temu, nie wiedząc czy dany obiekt jest samochodem czy rowerem, dysponując tylko wskazaniem/referencją na `Vehicle`
+w zależności od typu. Dzięki temu, nie wiedząc, czy dany obiekt jest samochodem czy rowerem, dysponując tylko wskazaniem/referencją na `Vehicle`
 będziemy w stanie uruchomić pewne zachowanie, np. `float run(float time)` i wykonać kod inny ze względu na rzeczywisty typ
 wskazywanego obiektu.
 
@@ -718,6 +718,8 @@ Jeżeli rzeczywisty typ nie nadpisuje metody `run()` to zostanie wywołana imple
 czy nadpisuje ona jakąś metodę z klasy bazowej. Opcjonalne słowo kluczowe `overrides`
 dokumentuje fakt nadpisania funkcji wirtualnej i generuje błąd kompilacji, gdyby tak nie było.
 
+Typy posiadające funkcje wirtualne C++ nazywa _typami polimorficznymi_.
+
 ### Jak to działa?
 
 Kompilując wyrażenie typu `v->run(1.0f)`, gdzie `v` jest typu `Vehicle*`
@@ -742,6 +744,14 @@ Kompilator analizując wywołanie wirtualne typu `v->run()` generuje instrukcje:
 * na podstawie adresu `v` ładowana jest wartość `vptr`
 * na podstawie wołanej funkcji z tablicy wskazywanej przez `vptr` wybierany jest odpowiedni indeks
 * następuje skok do funkcji pod adresem zapisanym w komórce tablicy `vtable` 
+
+To skakanie po pamięci, najpierw do tablicy funkcji wirtualnych, a dopiero potem
+do docelowej funkcji nosi różne nazwy: _późne wiązanie_ (_late binding_), _wiązanie w czasie wykonania_,
+_dynamic dispatch_, _wywołanie polimorficzne_ (_polymorphic dispatch_).
+Wszystkie odnoszą się do tego samego procesu: ustalenia adresu wywoływanej funkcji
+w czasie wykonania programu. Często stawia się ten mechanizm w odróżnieniu od _wczesnego wiązania_ albo
+_wiązania w czasie kompilacji_, używanego w przypadku zwykłych funkcji, kiedy to kompilator dokładnie wie,
+gdzie skoczyć.
 
 ### Funkcje czysto wirtualne
 
@@ -848,13 +858,132 @@ class AbstractArray {
 
 ## Run Time Type Information
 
-Język C++ udostępnia wyrażenia pozwalające sprawdzać typ obiektu w czasie wykonania programu.
+### Operator `typeid()`
 
- 
+Obiekty polimorficzne w C++ trzymają w pamięci informacje o swoim typie w postaci struktury
+[`std::type_info`](https://en.cppreference.com/w/cpp/types/type_info).
+Można ją pozyskać za pomocą operatora `typeid()`.
+
+```cpp
+struct Shape {
+    virtual ~Shape() = default;
+    virtual float area() = 0;
+};
+
+struct Square : Shape {
+    float size;
+    explicit Square(float size) : size{size} {}
+    float area() override { return size * size; }
+};
+
+struct Circle : Shape {
+    float radius;
+    explicit Circle(float radius) : radius{radius} {}
+    float area() override { return M_PI * radius * radius; }
+};
+
+Shape* shapes[] = {new Square(2), new Circle(1)};
+
+for (auto shape : shapes)
+{
+    const std::type_info& type = typeid(*shape);
+    std::cout << "Shape of type " << type.name() << std::endl;
+    if (type == typeid(Square)) {
+        std::cout << "It's a square!\n";
+    } else if (type == typeid(Circle)) {
+        std::cout << "It's a circle!\n";
+    }
+}
+```
+Source: [typeid.cpp](typeid.cpp)
+
+Pozyskane obiekty `std::type_info` można porównywać. Zawierają też metodę `name()` zwracającą nazwę typu,
+której dokładny format zależy od implementacji języka (kompilatora).
+
+> Implementacyjnie wskazanie na `std::type_info` jest przechowywane w tablicy funkcji wirtualnych
+
+### Rzutowanie `dynamic_cast<T>`
+
 O ile rzutowania w górę hierarchii dziedziczenia są zawsze poprawne, to rzutowania w dół za pomocą `static_cast<T>`
-już być takie nie muszą. Do bezpiecznego rzutowania w dół można wykorzystać dedykowany rodzaj rzutowania: `dynamic_cast<T>`,
-sprawdzający, czy na pewno wskazywany obiekt jest pożądanego typu. Jeśli nie to takie rzutowanie zwróci `nullptr`.
+już być takie nie muszą. Do bezpiecznego rzutowania obiektów w polimorficznej hierarchii dziedziczenia
+można wykorzystać dedykowany rodzaj rzutowania: `dynamic_cast<T>`,
+sprawdzający w czasie wykonania, czy na pewno wskazywany obiekt jest pożądanego typu. 
+Jeśli nie to takie rzutowanie zwróci błąd.
+
+```cpp
+Shape* shapes[] = {new Square(2), new Circle(1)};
+
+for (auto shape : shapes)
+{
+    auto square = dynamic_cast<Square*>(shape);
+    if (square != nullptr) {
+        std::cout << "It's a square!\n";
+        square->size = 10;
+    }
+
+    auto circle = dynamic_cast<Circle*>(shape);
+    if (circle != nullptr) {
+        std::cout << "It's a circle!\n";
+        circle->radius = 10;
+    }
+
+    std::cout << "Area is " << shape->area() << std::endl;
+    delete shape;
+}
+```
+
+Rzutowania `dynamic_cast<T>` można używać tylko do konwersji wskaźników i referencji.
+Dla wskaźników, jeżeli wskazywany obiekt nie jest pożądanego typu, zwrócony zostanie `nullptr`.
+Dla referencji operator rzuci wyjątek `std::bad_cast`.
+
+Rzutowanie w dół to prosty przypadek. `dynamic_cast<T>` potrafi być o wiele bardziej zadziwiający:
 
 
+```cpp
+struct Base {
+    virtual ~Base() = default;
+};
 
-### 
+struct A : Base {
+    int a = 0;
+};
+
+struct B : Base {
+    int b = 0;
+};
+
+struct Derived : A, B { };
+
+Derived obj;
+
+A& a = obj; // upcast
+a.a = 1;
+B& b = dynamic_cast<B&>(a); // sidecast!
+b.b = 2;
+Derived& d = dynamic_cast<Derived&>(b); // downcast
+```
+
+Ten typ rzutowania potrafi dowolnie przechodzić po drzewie dziedziczenia
+w bezpieczny sposób. W szczególności zamienić referencję `A&` na `B&` 
+o ile obiekt dziedziczy po obu typach.
+
+```mermaid
+classDiagram
+    class Base { }
+    class A { }
+    class B { }
+    class Derived { }
+    Base <|-- A
+    Base <|-- B
+    A <|-- Derived
+    B <|-- Derived
+```
+
+`dynamic_cast<T>(expr)` jest przez to dość ciężkim narzędziem. Kompilator do jego realizacji
+generuje kod algorytmu przeszukiwania grafu dziedziczenia od typu rzeczywistego `typeid(expr)` do typu docelowego `typeid(T)`.
+Jeżeli ścieżka istnieje to rzutowanie się powodzi. Dzieje się to w czasie działania programu.
+
+> Do implementacji innej logiki w zależności od typu obiektu zawsze preferujemy
+> funkcje wirtualne nad mechanizmy RTTI!
+
+### Wyjątki

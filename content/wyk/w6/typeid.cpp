@@ -28,20 +28,13 @@ int main()
 
     for (auto shape : shapes)
     {
-        dynamic_cast<Circle&>(*shape);
-
-        auto square = dynamic_cast<Square*>(shape);
-        if (square != nullptr) {
+        const std::type_info& type = typeid(*shape);
+        std::cout << "Shape of type " << type.name() << std::endl;
+        if (type == typeid(Square)) {
             std::cout << "It's a square!\n";
-            square->size = 10;
-        }
-
-        auto circle = dynamic_cast<Circle*>(shape);
-        if (circle != nullptr) {
+        } else if (type == typeid(Circle)) {
             std::cout << "It's a circle!\n";
-            circle->radius = 10;
         }
-
         std::cout << "Area is " << shape->area() << std::endl;
         delete shape;
     }
