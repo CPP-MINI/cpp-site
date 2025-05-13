@@ -15,6 +15,8 @@ Programowanie obiektowe (OOP) w C++ opiera się na kilku fundamentalnych zasadac
 - **Dziedziczenie** (ang. *inheritance*) pozwala na tworzenie nowych klas (klas pochodnych) na bazie istniejących klas (klas bazowych), co promuje ponowne wykorzystanie kodu. 
 - **Polimorfizm** (ang. *polymorphism*), czyli inaczej wielopostaciowość, umożliwia traktowanie obiektów różnych klas poprzez wspólny interfejs (klasy bazowej).
 
+Zadanie polega na stworzeniu prostego systemu walk pomiędzy różnymi klasami postaci.
+
 Skorzystaj z dostarczonego pliku [main.cpp](src/main.cpp), w którym umieszczone zostały testy do wszystkich etapów zadania.  
 Po zakończeniu implementacji konkretnego etapu odkomentuj odpowiadającą mu część funkcji `main()` i porównaj swój wynik z oczekiwanym (**pamiętaj o załączeniu stworzonych przez ciebie plików w main.cpp**).
 
@@ -38,7 +40,7 @@ W pliku `Character.hpp` zdefiniuj abstrakcyjną klasę bazową `Character`. Powi
 * `heal(int)` - metoda do leczenia postaci
 * `attack(Character* target)` - wirtualna metoda
   
-Ponieważ jest to klasa abstrakcyjna, pamiętaj również o zadeklarowaniu wirtualnego destruktora.
+Ponieważ jest to klasa abstrakcyjna, pamiętaj również o zadeklarowaniu wirtualnego destruktora!
 
 Dodaj dwie klasy dziedziczące po `Character`: `Warrior` oraz `Mage`.
 
@@ -59,25 +61,33 @@ Dla każdej z tych klas zaimplementuj metodę `attack`, w której zadawane są o
 
 Rozszerz system o wielodziedziczenie. Zdefiniuj dwie nowe "klasy cech": `CanCastSpells` oraz `CanUseMelee`. 
 
-Klasa `CanCastSpells` posiada dwa pola:
-* `int mana`
-* `int maxMana`
-  
-Oraz metody:
-* `getMana()`
-* `addMana(int amount)` - metoda powinna rzucać `NoManaException` jeśli many jest za mało
-* `castSpell(Character* target)`
-
-Klasa `CanUseMelee` posiada jedynie metodę:
-* `performMeleeAttack(Character* target)`
-
 Zdefiniuj klasę wyjątku `NoManaException`, dziedziczącą po `std::exception`. Zaimplementuj metodę `what()` zwracającą opis błędu.
 
-Dodaj do klas `Warrior` oraz `Mage` odpowiednio dziedziczenie po `CanUseMelee` oraz `CanCastSpells` i zaimplementuj wymagane metody. Zmodyfikuj metody `attack()` by używały metod `castSpell` oraz `performMeleeAttack`
+Klasa `CanCastSpells` posiada dwa pola:
+* `int mana` - informacja o aktualnej ilości many
+* `int maxMana` - maksymalna ilość many postaci
+  
+Oraz metody:
+* `getMana()` - getter dla many
+* `addMana(int amount)` - metoda dodaje wskazaną ilość many zachowując limit `maxMana`
+* `useMana(int amount)` - metoda zużywa wskazaną ilość many. W przypadku zbyt małej ilość powinna rzucać wyjątek `NoManaException`
+* `castSpell(Character* target)` - metoda czysto wirtualna, będziemy ją później implementować w klasie postaci
+
+Klasa `CanUseMelee` posiada jedynie metodę:
+* `performMeleeAttack(Character* target)` - tak samo jak `castSpell`, metoda czysto wirtualna
+
+
+Dodaj do klas `Warrior` oraz `Mage` odpowiednio dziedziczenie po `CanUseMelee` oraz `CanCastSpells` i zaimplementuj wymagane metody. Zmodyfikuj metody `attack()` tak by używały metod `castSpell` oraz `performMeleeAttack`. Rzucenie zaklęcia powinno zabierać 10 many. 
 
 Zdefiniuj klasę `BattleMage` dziedziczącą po `Character`, `CanCastSpells`, `CanUseMelee`.
-Zaimplementuj konstruktor `BattleMage`.
-Zaimplementuj polimorficzną metodę `attack()` w `BattleMage`. Wewnątrz tej metody losuj, czy użyć magii czy ataku fizycznego. Obsłuż potencjalny `NoManaException` wewnątrz metody attack lub pozwól mu wyjść na zewnątrz.
+Zaimplementuj konstruktor `BattleMage`:
+* `std::string name`
+* `int health`, domyślnie 100
+* `int mana`, domyślnie 100
+* `int meleeDmg`, domyślnie 10
+* `int spellDmg` domyślnie 15
+
+Zaimplementuj polimorficzną metodę `attack()` w `BattleMage`. Wewnątrz tej metody losuj, czy użyć magii czy ataku fizycznego. Obsłuż potencjalny `NoManaException` wewnątrz metody attack, w przypadku braku many wykonaj atak wręcz `performMeleeAttack`. Załóż, że rzucenia zaklęcia zużywa 8 many (`castSpell`).
 
 
 ### Etap 3: RTTI (`typeid`, `dynamic_cast`)
@@ -86,10 +96,18 @@ Dodaj klasę `Rogue` dziedziczącą po `Character` oraz po `CanUseMelee`.
 Klasa ta posiada dwa pola:
 * `int basicAttackDamage`
 * `int backstabDamage`
-  
-Zmodyfikuj metodę `attack()` w `Mage` aby używała `dynamic_cast<Warrior*>(target)` lub `dynamic_cast<CanUseMelee*>(target)` do sprawdzenia, czy cel jest Wojownikiem lub posiada zdolności walki wręcz, zadając bonusowe obrażenia w takim przypadku (+10). Sprawdź wynik rzutowania (czy nie jest nullptr).
 
-Zaimplementuj specjalną metodę `backstab(Character* target)` w klasie `Rogue`. Użyj `typeid(*target)` i porównaj ją z `typeid(Mage)` lub `typeid(CanCastSpells)`, aby sprawdzić, czy cel nie jest Magiem/Czarującym. Jeśli warunek spełniony, zadaj duże obrażenia (`backstabDamage`). W przeciwnym razie, wypisz komunikat, że Backstab się nie powiódł.
+Konstruktor przyjmuje:
+* `std::string name`
+* `int health`, domyślnie 90
+* `int basicDmg`, domyślnie 12
+* `int backstabDmg` domyślnie 30
+  
+Zmodyfikuj metodę `attack()` w `Mage` aby używała dynamicznego rzutowania do sprawdzenia, czy cel jest Wojownikiem lub posiada zdolności walki wręcz, zadając bonusowe obrażenia w takim przypadku (+10).
+
+Zaimplementuj specjalną metodę `backstab(Character* target)` w klasie `Rogue`. Użyj mechanizmu RTTI, aby sprawdzić, czy cel nie jest Magiem/Czarującym. Jeśli warunek spełniony, zadaj duże obrażenia (`backstabDamage`). W przeciwnym razie, wypisz komunikat, że dźgnięcie w plecy (backstab) się nie powiódł.
+
+Zaimplementuj polimorficzną metodę `attack()` w klasie `Rogue`. Wewnątrz tej metody losuj, czy użyć zwykłego ataku wręcz czy spróbować wykonać dźgnięcie w plecy.
 
 ### Rozwiązanie
 
