@@ -14,7 +14,7 @@ class Vehicle
 class Car : public Vehicle
 {
    protected:
-    float speed;
+    float speed = 0.0f;
     float acceleration;
     Car(std::string name, float acceleration) : Vehicle(std::move(name)), acceleration(acceleration) {}
 

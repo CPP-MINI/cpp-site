@@ -870,7 +870,7 @@ class HeapArray : public AbstractArray
 };
 
 int main() {
-    AbstractArray* arr = new FakeArray(10);
+    AbstractArray* arr = new HeapArray(10);
 
     for (std::size_t i = 0; i < arr->size(); i++)
     {
