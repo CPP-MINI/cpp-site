@@ -29,13 +29,13 @@ public:
     bool remove(const K& key);
     V& operator[](const K& key);
 
-    template <typename _K, typename _V>
-    friend std::ostream& operator<<(std::ostream& os, const Dictionary<_K,_V>& d);
+    template <typename _K, typename _V, int _Capacity>
+    friend std::ostream& operator<<(std::ostream& os, const Dictionary<_K,_V, _Capacity>& d);
 
     Dictionary intersect(const Dictionary& other) const;
 
-    template <typename _K, typename _V>
-    friend Dictionary<_K, _V> operator+(const Dictionary<_K,_V>& d1, const Dictionary<_K,_V>& d2);
+    template <typename _K, typename _V, int _Capacity>
+    friend Dictionary<_K, _V, _Capacity> operator+(const Dictionary<_K,_V, _Capacity>& d1, const Dictionary<_K,_V, _Capacity>& d2);
 
 };
 
@@ -161,7 +161,7 @@ V& Dictionary<K, V, Capacity>::operator[](const K& key) {
 }
 
 template<typename K, typename V, int Capacity>
-std::ostream& operator<<(std::ostream& os, const Dictionary<K, V>& d)
+std::ostream& operator<<(std::ostream& os, const Dictionary<K, V, Capacity>& d)
 {
     for (int i = 0; i < Capacity; ++i) {
         KeyValuePair<K, V>* entry = d.table[i];
@@ -196,17 +196,17 @@ inline Dictionary<K, V, Capacity> Dictionary<K, V, Capacity>::intersect(const Di
 }
 
 template<typename K, typename V, int Capacity>
-Dictionary<K, V, Capacity> operator+(const Dictionary<K, V>& d1, const Dictionary<K, V>& d2)
+Dictionary<K, V, Capacity> operator+(const Dictionary<K, V, Capacity>& d1, const Dictionary<K, V, Capacity>& d2)
 {
     Dictionary<K, V> d;
-    for (int i = 0; i < d1.TABLE_SIZE; ++i) {
+    for (int i = 0; i < Capacity; ++i) {
         KeyValuePair<K, V>* entry = d1.table[i];
         while (entry) {
             d.insert(entry->key, entry->value);
             entry = entry->next;
         }
     }
-    for (int i = 0; i < d2.TABLE_SIZE; ++i) {
+    for (int i = 0; i < Capacity; ++i) {
         KeyValuePair<K, V>* entry = d2.table[i];
         while (entry) {
             d.insert(entry->key, entry->value);
