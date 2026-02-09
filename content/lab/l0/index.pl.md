@@ -5,12 +5,6 @@ weight: 10
 ---
 
 # Laboratorium 0
-## Środowisko programistyczne
-
-Poruszyć: kompilacja, git, środowiska programistyczne
-
-
-
 
 ## Środowisko programistyczne
 Zanim przejdziemy do właściwej treści, musimy wybrać edytor, w którym będziemy pisali kod.
