@@ -33,7 +33,7 @@ Jako pierwsze zadanie stwórz program, wypisujący twoje:
 W przeciwieństwie do poprzedniego semestru tutaj będziemy używać **C++**.
 Poniżej znajdziesz najprostszy program wypisujący wybrany tekst na standardowe wyjście.
 
-```
+```cpp
 // Wczytanie definicji funkcji operujących na strumieniach wejścia-wyjścia 
 // (analogiczne do <stdio.h> z C)
 #include <iostream> 
