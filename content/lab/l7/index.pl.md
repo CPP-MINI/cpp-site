@@ -76,7 +76,7 @@ Klasa powinna zawierać:
 Do klasy `Dictionary` dodaj:
 - operator: `operator[]` który dla zadanego klucza zwróci referencję na wartość. Jeśli klucz nie istnieje w słowniku, należy stworzyć odpowiedni wpis w słowniku i zainicjalizować go domyślną wartością.
 - metody: 
-    - `bool get(const K& key, V& value) const`, która pozyskuje element o odpowiednim kluczu, i zwraca go przez parametr `value`. Jeśli klucz nie istnieje, metoda zwraca wartość `false`.
+    - `std::optional<V> get(const K& key) const`, która pozyskuje element o odpowiednim kluczu i zwraca `std::optional` zawierający wartość. Jeśli klucz nie istnieje, metoda zwraca pusty `std::optional`.
     - `bool remove(const K& key)`, która usuwa element o odpowiednim kluczu. W przypadku udanej operacji zwraca `true`, w.p.p. `false`.
 
 ### Etap 4: Specjalizacja struktury Hash
@@ -91,11 +91,6 @@ Zaimplementuj metodę `void intersect(const Dictionary& other) const`, która zw
 ### Etap 6: Operator+
 
 Zaimplementuj operator `operator+`, który zwróci słownik zawierający elementy o wszystkich kluczach znajdujących się w pierwszym bądź w drugim słowniku. Jeśli w słownikach znajduje się element o tym samym kluczu, jego wartość może zostać wzięta z dowolnego słownika.
-
-### Etap 7: Obsługa wyjątków
-
-W metodzie `remove`, rzuć wyjątek, kiedy użytkownik próbuje usunąć element o kluczu, który nie istnieje w słowniku. W metodzie `get`, rzuć wyjątek, kiedy użytkownik próbuje pozyskać element o kluczu, który nie istnieje w słowniku.
-Kiedykolwiek korzystasz z metody `get` w metodach klasy `Dictionary` (np. w metodzie `merge`), złap wyjątek i wypisz jego zawartość.
 
 ### Rozwiązanie
 
