@@ -40,12 +40,7 @@ Druga natomiast opisuje trzy rodzaje owoców:
 * `Plum`
 
 Następnie zdefiniuj strukturę `Fruit` składającą się z tych dwóch enumeracji.
-Na końcu pliku `fruit.hpp` zdefiniuj 6 statycznych wyrażeń stałych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
-
-Wyrażenie stałe może być użyte do wykonania obliczeń jeszcze w trakcie kompilacji.
-Na warsztatach użyjemy tego jako ułatwienie definiowania zmiennej statycznej.
-Wyrażenia stałe mogą być definiowane w całości w plikach nagłówkowych.
-Na dalszych wykładach szerzej zostanie poruszony temat obliczeń w trakcie kompilacji.
+Na końcu pliku `fruit.hpp` zdefiniuj 6 statycznych stałych (`static const`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
 
 Zwróć uwagę, że przy instancjonowaniu dojrzałej pomarańczy przekazujemy dwa razy enumerację o symbolu `Orange`.
 Enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać użyty w trakcie tworzenia instancji owoców przy pomocy nazwy klasy poprzedzającej wartość enumeracji.

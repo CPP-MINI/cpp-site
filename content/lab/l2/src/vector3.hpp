@@ -6,7 +6,7 @@ namespace l2
 class Vector3
 {
    private:
-    static constexpr int VECTOR_SIZE = 3;
+    static const int VECTOR_SIZE = 3;
 
     using internal_representation = int;  // STAGE 1: Define me!
 
