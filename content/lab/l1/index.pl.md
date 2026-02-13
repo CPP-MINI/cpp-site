@@ -125,9 +125,31 @@ Przebuduj funkcję `main`, aby tworzyła `bounded_buffer` o rozmiarze 4 i używa
 
 ### System budowania - GNU Make
 
-Po zaimplementowaniu programu `pager.cpp`, możemy zobaczyć wydzielony kawałek kodu z implementacją `bounded_buffer`
+Po zaimplementowaniu programu `pager.cpp` możemy zobaczyć wydzielony kawałek kodu z implementacją `bounded_buffer`.
+Jeśli chcielibyśmy użyć go w innym programie, warto utworzyć dla niego osobny plik `bounded_buffer.cpp`.
+Powoduje to jednak pewne komplikacje.
+W czasie kompilacji należy dostarczyć więcej informacji o tym, jak uzyskać skompilowany program.
+Od teraz zwykłe polecenie
+```bash
+g++ -o pager pager.cpp
+```
+już nie wystarczy.
+Wymaga to nietrywialnej logiki, która trzeba podzielić się z użytkownikami lub innymi programistami.
 
-https://www.gnu.org/software/make/manual/make.html
+Do przechowywania informacji o sposobie skompilowania programu służy **system budowania**.
+W przypadku naszego laboratorium będziemy posługiwać się systemem (**GNU Make**)[https://www.gnu.org/software/make/manual/make.html].
+
+#### Utworzenie `MakeFile`
+Poza kodem źródłowym programu typowo rozprowadza się także plik `MakeFile`, który opisuje sposób budowania
+
+#### Wydzielenie `bounded_buffer` do oddzielnego pliku
+
+#### Kompilacja programu `pager`
+
+
+### Rozwiązanie laboratorium
+
+
 
 Przez cały semestr projekty będą znacznie bardziej skomplikowane.
 
