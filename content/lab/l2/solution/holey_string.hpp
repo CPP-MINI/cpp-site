@@ -12,7 +12,7 @@ struct HoleyString
         char c;
     };
 
-    static constexpr int capacity = 16;
+    static const int capacity = 16;
     holey_char string[capacity];
 
     void assign(const std::string& val);
