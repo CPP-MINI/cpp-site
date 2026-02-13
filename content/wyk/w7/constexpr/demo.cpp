@@ -27,12 +27,12 @@ constexpr int fib(int n)
 int main(int argc, char** argv)
 {
     std::cout << "is_prime(10000) = " << is_prime(10000) << std::endl;
-    std::cout << "is_prime(15476717) = " << is_prime(48611) << std::endl;
+    std::cout << "is_prime(48611) = " << is_prime(48611) << std::endl;
     static_assert(is_prime(10000) == false);
     static_assert(is_prime(48611) == true);
-    std::cout << "nth_prime(1000) = " << nth_prime(10000) << std::endl;
+    std::cout << "nth_prime(10000) = " << nth_prime(10000) << std::endl;
     static_assert(nth_prime(5000) == 48611);
-    std::cout << "fib(20) = " << fib(10) << std::endl;
+    std::cout << "fib(10) = " << fib(10) << std::endl;
     static_assert(fib(10) == 55);
 
     std::array<int, fib(10)> arr = {};
