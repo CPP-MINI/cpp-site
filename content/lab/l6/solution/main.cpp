@@ -1,5 +1,6 @@
 ﻿#include <vector>
 #include <iostream>
+#include <memory>
 
 #include "Character.hpp"
 
@@ -13,24 +14,18 @@ int main() {
     std::cout << "--- Etap 1: Podstawowe Dziedziczenie i Polimorfizm ---" << std::endl;
     {
 #ifdef STAGE_1
-        Warrior* warrior = new Warrior("Aragorn");
-        Mage* mage = new Mage("Gandalf");
-        Warrior* monster = new Warrior("Goblin", 50, 5);
+        std::unique_ptr<Character> warrior = std::make_unique<Warrior>("Aragorn");
+        std::unique_ptr<Character> mage = std::make_unique<Mage>("Gandalf");
+        std::unique_ptr<Character> monster = std::make_unique<Warrior>("Goblin", 50, 5);
 
         std::cout << "\nDemonstrating polymorphism with base class pointers:" << std::endl;
-        Character* polymorphChar = warrior;
-        if (polymorphChar && polymorphChar->isAlive() && monster->isAlive()) {
-            polymorphChar->attack(monster);
+        if (warrior && warrior->isAlive() && monster->isAlive()) {
+            warrior->attack(monster.get());
         }
 
-        polymorphChar = mage;
-        if (polymorphChar && polymorphChar->isAlive() && monster->isAlive()) {
-            polymorphChar->attack(monster);
+        if (mage && mage->isAlive() && monster->isAlive()) {
+            mage->attack(monster.get());
         }
-
-        delete warrior;
-        delete mage;
-        delete monster;
 #endif // STAGE_1
     }
     std::cout << "\n--- Koniec Etapu 1 ---\n" << std::endl;
@@ -38,14 +33,14 @@ int main() {
     std::cout << "--- Etap 2: Wielodziedziczenie i Wyjatki ---" << std::endl;
     {
 #ifdef STAGE_2
-        BattleMage* battleMage = new BattleMage("Kaelthas", 100, 50);
-        Warrior* target_warrior = new Warrior("Training Dummy", 200, 0);
+        std::unique_ptr<Character> battleMage = std::make_unique<BattleMage>("Kaelthas", 100, 50);
+        std::unique_ptr<Character> target_warrior = std::make_unique<Warrior>("Training Dummy", 200, 0);
 
         std::cout << "Attempting BattleMage attacks (will run out of mana):" << std::endl;
         for (int i = 0; i < 10; ++i) {
             if (battleMage && battleMage->isAlive() && target_warrior && target_warrior->isAlive()) {
                 try {
-                    battleMage->attack(target_warrior);
+                    battleMage->attack(target_warrior.get());
                 }
                 catch (const NoManaException& e) {
                     std::cerr << "Caught NoManaException in main: " << e.what() << std::endl;
@@ -65,13 +60,14 @@ int main() {
         }
 
         std::cout << "\nAdding mana to BattleMage:" << std::endl;
-        battleMage->addMana(100);
-        if (battleMage && battleMage->isAlive() && target_warrior && target_warrior->isAlive()) {
-            battleMage->attack(target_warrior);
+        // Need to cast to BattleMage* to access addMana
+        BattleMage* bmPtr = dynamic_cast<BattleMage*>(battleMage.get());
+        if (bmPtr) {
+            bmPtr->addMana(100);
         }
-
-        delete battleMage;
-        delete target_warrior;
+        if (battleMage && battleMage->isAlive() && target_warrior && target_warrior->isAlive()) {
+            battleMage->attack(target_warrior.get());
+        }
 #endif // STAGE_2
     }
     std::cout << "\n--- Koniec Etapu 2 ---\n" << std::endl;
@@ -80,31 +76,27 @@ int main() {
     std::cout << "--- Etap 3: RTTI (typeid, dynamic_cast) ---" << std::endl;
     {
 #ifdef STAGE_3
-        Mage* powerfulMage = new Mage("Merlin", 100, 200, 30);
-        Warrior* sturdyWarrior = new Warrior("Gimli", 150);
-        Rogue* sneakyRogue = new Rogue("Ezreal", 80, 10, 40);
+        std::unique_ptr<Character> powerfulMage = std::make_unique<Mage>("Merlin", 100, 200, 30);
+        std::unique_ptr<Character> sturdyWarrior = std::make_unique<Warrior>("Gimli", 150);
+        std::unique_ptr<Character> sneakyRogue = std::make_unique<Rogue>("Ezreal", 80, 10, 40);
 
-        Warrior* simpleTarget_warrior = new Warrior("Weak Creature", 30, 1); 
-        BattleMage* mixyBattleMage = new BattleMage("Zilong", 100, 100, 12, 18);
+        std::unique_ptr<Character> simpleTarget_warrior = std::make_unique<Warrior>("Weak Creature", 30, 1); 
+        std::unique_ptr<Character> mixyBattleMage = std::make_unique<BattleMage>("Zilong", 100, 100, 12, 18);
 
         std::cout << "Mage attacking targets (demonstrating dynamic_cast for bonus):" << std::endl;
-        if (powerfulMage && powerfulMage->isAlive()) powerfulMage->attack(sturdyWarrior); // Should get bonus damage (is CanUseMelee)
-        if (powerfulMage && powerfulMage->isAlive()) powerfulMage->attack(simpleTarget_warrior);  // Should get bonus damage (is CanUseMelee)
-        if (powerfulMage && powerfulMage->isAlive()) powerfulMage->attack(sneakyRogue); // Should get bonus damage (is CanUseMelee)
-        if (powerfulMage && powerfulMage->isAlive()) powerfulMage->attack(mixyBattleMage); // Should get bonus damage (is CanUseMelee)
+        if (powerfulMage && powerfulMage->isAlive()) powerfulMage->attack(sturdyWarrior.get()); // Should get bonus damage (is CanUseMelee)
+        if (powerfulMage && powerfulMage->isAlive()) powerfulMage->attack(simpleTarget_warrior.get());  // Should get bonus damage (is CanUseMelee)
+        if (powerfulMage && powerfulMage->isAlive()) powerfulMage->attack(sneakyRogue.get()); // Should get bonus damage (is CanUseMelee)
+        if (powerfulMage && powerfulMage->isAlive()) powerfulMage->attack(mixyBattleMage.get()); // Should get bonus damage (is CanUseMelee)
 
 
         std::cout << "\nRogue attempting backstab (demonstrating typeid):" << std::endl;
-        if (sneakyRogue && sneakyRogue->isAlive()) sneakyRogue->backstab(powerfulMage); // Should fail (is Mage, is CanCastSpells)
-        if (sneakyRogue && sneakyRogue->isAlive()) sneakyRogue->backstab(sturdyWarrior); // Should succeed (is Warrior, not CanCastSpells)
-        if (sneakyRogue && sneakyRogue->isAlive()) sneakyRogue->backstab(simpleTarget_warrior); // Should succeed (is Warrior, not CanCastSpells)
-        if (sneakyRogue && sneakyRogue->isAlive()) sneakyRogue->backstab(mixyBattleMage); // Should fail (is BattleMage, is CanCastSpells)
-
-        delete powerfulMage;
-        delete sturdyWarrior;
-        delete sneakyRogue;
-        delete simpleTarget_warrior;
-        delete mixyBattleMage;
+        // Need to cast to Rogue* to access backstab
+        Rogue* roguePtr = dynamic_cast<Rogue*>(sneakyRogue.get());
+        if (roguePtr && roguePtr->isAlive()) roguePtr->backstab(powerfulMage.get()); // Should fail (is Mage, is CanCastSpells)
+        if (roguePtr && roguePtr->isAlive()) roguePtr->backstab(sturdyWarrior.get()); // Should succeed (is Warrior, not CanCastSpells)
+        if (roguePtr && roguePtr->isAlive()) roguePtr->backstab(simpleTarget_warrior.get()); // Should succeed (is Warrior, not CanCastSpells)
+        if (roguePtr && roguePtr->isAlive()) roguePtr->backstab(mixyBattleMage.get()); // Should fail (is BattleMage, is CanCastSpells)
 #endif // STAGE_3
     }
     std::cout << "\n--- Koniec Etapu 3 ---\n" << std::endl;
