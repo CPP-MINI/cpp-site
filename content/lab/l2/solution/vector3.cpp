@@ -6,41 +6,44 @@
 namespace l2
 {
 
-Vector3::Vector3() { memset(v.buffer, 0, sizeof(Vector3::internal_representation)); }
-
-Vector3::Vector3(double x, double y, double z)
+void vector3_init(Vector3& vec)
 {
-    v.x = x;
-    v.y = y;
-    v.z = z;
+    memset(vec.v.buffer, 0, sizeof(Vector3::internal_representation));
 }
 
-double Vector3::length() const
+void vector3_init(Vector3& vec, double x, double y, double z)
+{
+    vec.v.x = x;
+    vec.v.y = y;
+    vec.v.z = z;
+}
+
+double vector3_length(const Vector3& vec)
 {
     double res = 0.0;
-    for (int i = 0; i < VECTOR_SIZE; ++i)
-        res += v.buffer[i] * v.buffer[i];
+    for (int i = 0; i < Vector3::VECTOR_SIZE; ++i)
+        res += vec.v.buffer[i] * vec.v.buffer[i];
     return sqrt(res);
 }
 
-void Vector3::mul(double a)
+void vector3_mul(Vector3& vec, double a)
 {
-    for (int i = 0; i < VECTOR_SIZE; ++i)
-        v.buffer[i] *= a;
+    for (int i = 0; i < Vector3::VECTOR_SIZE; ++i)
+        vec.v.buffer[i] *= a;
 }
 
 Vector3 vector3_add(const Vector3& lhs, const Vector3& rhs)
 {
-    return Vector3{
-        lhs.v.x + rhs.v.x,
-        lhs.v.y + rhs.v.y,
-        lhs.v.z + rhs.v.z,
-    };
+    Vector3 result;
+    result.v.x = lhs.v.x + rhs.v.x;
+    result.v.y = lhs.v.y + rhs.v.y;
+    result.v.z = lhs.v.z + rhs.v.z;
+    return result;
 }
 
 void vector3_print(const Vector3& v)
 {
-    std::cout << "[" << v.v.x << "," << v.v.y << "," << v.v.z << "] " << v.length() << std::endl;
+    std::cout << "[" << v.v.x << "," << v.v.y << "," << v.v.z << "] " << vector3_length(v) << std::endl;
 }
 
 }  // namespace l2

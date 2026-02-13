@@ -47,9 +47,9 @@ int main()
     Vector3 v2 = BaseVector2;
     Vector3 v3 = BaseVector3;
 
-    v1.mul(3);
-    v2.mul(5);
-    v3.mul(7);
+    vector3_mul(v1, 3);
+    vector3_mul(v2, 5);
+    vector3_mul(v3, 7);
 
     Vector3 result_vector = vector3_add(v1, vector3_add(v2, v3));
     vector3_print(result_vector);
@@ -65,12 +65,12 @@ int main()
 
         for (int i = 0; i < array_size; ++i)
         {
-            stack_array[i] = {static_cast<double>(i), static_cast<double>(i), static_cast<double>(i)};
+            vector3_init(stack_array[i], static_cast<double>(i), static_cast<double>(i), static_cast<double>(i));
             std::cout << std::hex << &stack_array[0] << std::endl;
         }
 
         for (const Vector3& v : stack_array)
-            std::cout << v.length() << std::endl;
+            std::cout << vector3_length(v) << std::endl;
 
         dump_memory(reinterpret_cast<std::byte*>(stack_array), array_size * sizeof(Vector3));
     }
@@ -81,12 +81,12 @@ int main()
 
         for (int i = 0; i < array_size; ++i)
         {
-            heap_array[i] = {static_cast<double>(i), static_cast<double>(i), static_cast<double>(i)};
+            vector3_init(heap_array[i], static_cast<double>(i), static_cast<double>(i), static_cast<double>(i));
             std::cout << std::hex << &heap_array[0] << std::endl;
         }
 
         for (int i = 0; i < array_size; ++i)
-            std::cout << heap_array[i].length() << std::endl;
+            std::cout << vector3_length(heap_array[i]) << std::endl;
 
         dump_memory(reinterpret_cast<std::byte*>(heap_array), array_size * sizeof(Vector3));
         delete[] heap_array;
@@ -98,12 +98,14 @@ int main()
 
         for (int i = 0; i < array_size; ++i)
         {
-            vectors_vector.emplace_back(i, i, i);
+            Vector3 temp;
+            vector3_init(temp, i, i, i);
+            vectors_vector.push_back(temp);
             std::cout << std::hex << &vectors_vector[0] << std::endl;  // Spooky things happening here...
         }
 
         for (const Vector3& v : vectors_vector)
-            std::cout << v.length() << std::endl;
+            std::cout << vector3_length(v) << std::endl;
 
         dump_memory(reinterpret_cast<std::byte*>(vectors_vector.data()), vectors_vector.size() * sizeof(Vector3));
     }
@@ -111,15 +113,15 @@ int main()
     std::cout << "STAGE 4" << std::endl;
 
     HoleyString hello;
-    hello.assign("hello");
+    holey_string_assign(hello, "hello");
 
-    hello.print();
+    holey_string_print(hello);
     std::cout << std::endl;
     dump_memory(reinterpret_cast<std::byte*>(&hello), sizeof(HoleyString));
 
-    hello.hide("world");
+    holey_string_hide(hello, "world");
 
-    hello.print();
+    holey_string_print(hello);
     std::cout << std::endl;
     dump_memory(reinterpret_cast<std::byte*>(&hello), sizeof(HoleyString));
 
