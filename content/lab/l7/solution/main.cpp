@@ -128,11 +128,8 @@ int main()
     auto sum = numbersEnglishNames + numbersEnglishNames2;
     std::cout << sum << std::endl;
     std::cout << "------------------PART 7------------------" << std::endl;
-    try {
-    	numbersEnglishNames.remove(3);
-    }
-    catch (std::exception& e) {
-    	std::cout << e.what() << std::endl;
+    if (!numbersEnglishNames.remove(3)) {
+    	std::cout << "Failed to remove key 3 (key does not exist)" << std::endl;
     }
     auto intersect2 = numbersEnglishNames.intersect(numbersEnglishNames2);
     std::cout << intersect2 << std::endl;

@@ -92,11 +92,6 @@ Zaimplementuj metodę `void intersect(const Dictionary& other) const`, która zw
 
 Zaimplementuj operator `operator+`, który zwróci słownik zawierający elementy o wszystkich kluczach znajdujących się w pierwszym bądź w drugim słowniku. Jeśli w słownikach znajduje się element o tym samym kluczu, jego wartość może zostać wzięta z dowolnego słownika.
 
-### Etap 7: Obsługa wyjątków
-
-W metodzie `remove`, rzuć wyjątek, kiedy użytkownik próbuje usunąć element o kluczu, który nie istnieje w słowniku. Metoda `get` zwraca pusty `std::optional` dla nieistniejącego klucza, więc nie wymaga obsługi wyjątków.
-Kiedykolwiek korzystasz z metody `remove` w metodach klasy `Dictionary` (np. w metodzie `intersect`), złap wyjątek i wypisz jego zawartość jeśli to konieczne.
-
 ### Rozwiązanie
 
 [Dictionary.hpp](solution/Dictionary.hpp)  

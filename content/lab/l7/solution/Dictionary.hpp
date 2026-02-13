@@ -116,8 +116,6 @@ bool Dictionary<K, V, Capacity>::remove(const K& key) {
     }
 
     if (entry == nullptr) {
-
-        throw std::runtime_error("Trying to delete non-existing value!");
         return false;
     }
     else {
