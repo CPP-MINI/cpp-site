@@ -3,17 +3,17 @@
 namespace l2
 {
 
-void HoleyString::assign(const std::string& val)
+void holey_string_assign(HoleyString& hs, const std::string& val)
 {
     // STAGE 4: Implement me!
 }
 
-void HoleyString::hide(const std::string& val)
+void holey_string_hide(HoleyString& hs, const std::string& val)
 {
     // STAGE 4: Implement me!
 }
 
-void HoleyString::print() const
+void holey_string_print(const HoleyString& hs)
 {
     // STAGE 4: Implement me!
 }
