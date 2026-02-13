@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <optional>
 #include "Hash.hpp"
 
 template<typename K, typename V>
@@ -25,7 +26,7 @@ public:
     ~Dictionary();
 
     void insert(const K& key, const V& value);
-    bool get(const K& key, V& value) const;
+    std::optional<V> get(const K& key) const;
     bool remove(const K& key);
     V& operator[](const K& key);
 
@@ -90,20 +91,17 @@ void Dictionary<K, V, Capacity>::insert(const K& key, const V& value) {
 }
 
 template<typename K, typename V, int Capacity>
-bool Dictionary<K, V, Capacity>::get(const K& key, V& value) const {
+std::optional<V> Dictionary<K, V, Capacity>::get(const K& key) const {
     size_t index = hash(key);
     KeyValuePair<K, V>* entry = table[index];
 
     while (entry != nullptr) {
         if (entry->key == key) {
-            value = entry->value;
-            return true;
+            return entry->value;
         }
         entry = entry->next;
     }
-    // Part 7
-    throw std::runtime_error("Trying to get non-existing value!");
-    return false;
+    return std::nullopt;
 }
 
 template<typename K, typename V, int Capacity>
@@ -180,15 +178,9 @@ inline Dictionary<K, V, Capacity> Dictionary<K, V, Capacity>::intersect(const Di
     for (int i = 0; i < Capacity; ++i) {
         KeyValuePair<K, V>* entry = other.table[i];
         while (entry) {
-            V value;
-            // Part 7
-            try {
-                if (get(entry->key, value))
-                    d.insert(entry->key, value);
-            }
-            catch (std::exception &e){
-                std::cout << "Handled exception: " << e.what() << std::endl;
-            }
+            auto value = get(entry->key);
+            if (value.has_value())
+                d.insert(entry->key, value.value());
             entry = entry->next;
         }
     }
