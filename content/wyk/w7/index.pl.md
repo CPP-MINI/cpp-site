@@ -1010,7 +1010,7 @@ constexpr bool is_prime(std::size_t n) noexcept {
 
 // Obliczenia w czasie wykonania
 std::cout << "is_prime(10000) = " << is_prime(10000) << std::endl;
-std::cout << "is_prime(15476717) = " << is_prime(48611) << std::endl;
+std::cout << "is_prime(48611) = " << is_prime(48611) << std::endl;
 // Obliczenia w czasie kompilacji
 static_assert(is_prime(10000) == false); 
 static_assert(is_prime(48611) == true);
