@@ -900,6 +900,30 @@ Source: [point.cpp](point.cpp)
 Bariery kompilacji (`#ifndef POINT_HPP`) blokują wielokrotne załączenie tego pliku,
 a przez to nie dopuszczają do wielokrotnego definiowania, np. `Point`.
 
+#### Alternatywa: `#pragma once`
+
+Zamiast tradycyjnych barier kompilacji można użyć dyrektywy `#pragma once`, która jest prostszą alternatywą:
+
+```cpp
+#pragma once
+
+struct Point {
+    int x, y;
+};
+
+int dist(Point p, Point q);
+
+extern int factor;
+```
+
+Główne różnice:
+* `#pragma once` jest krótsze i czytelniejsze (jedna linia zamiast trzech)
+* `#pragma once` nie wymaga wymyślania unikalnej nazwy makra (jak `POINT_HPP`)
+* `#pragma once` nie jest częścią standardu C++, ale jest wspierane przez wszystkie popularne kompilatory (gcc, clang, msvc)
+* Bariery `#ifndef`/`#define`/`#endif` są standardowe i zawsze przenośne
+
+W praktyce `#pragma once` jest szeroko stosowane i zalecane ze względu na prostotę.
+
 ### Słowo kluczowe `inline`
 
 Czasami, mimo wszystko, wygodnie jest umieścić definicję zmiennej lub funkcji w nagłówku.
