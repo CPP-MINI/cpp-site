@@ -48,6 +48,7 @@ Enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać uży
 ### Etap 1: Trójwymiarowy wektor
 W pliku `vector3.hpp` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
 Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
+`using` tworzy alias (synonim) do typu znajdującego się po prawej stronie znaku równości.
 Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
 Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jak typ double.
 Proszę zwrócić uwagę na dwie linie zawierające `static_assert`.
