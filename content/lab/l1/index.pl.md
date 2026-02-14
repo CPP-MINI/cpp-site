@@ -91,13 +91,13 @@ persa
 i
 psa
 burka
-`
+```
 
 #### 4. Wydzielenie struktury `bounded_buffer`
 
 Funkcjonalności bufora mogą zostać wydzielone jako oddzielna struktura.
-Chcielibysmy uogólnić dopuszczony rozmiar do dowolnej liczby całkowitej
-Przygotuj nastepującą strukturę
+Chcielibyśmy uogólnić dopuszczony rozmiar do dowolnej liczby całkowitej
+Przygotuj następującą strukturę
 
 ```cpp
 struct bounded_buffer {
@@ -123,7 +123,7 @@ bool add_to_buffer(bounded_buffer* buffer, std::string line);
 
 Przebuduj funkcję `main`, aby tworzyła `bounded_buffer` o rozmiarze 4 i używała go w logice programu.
 
-### System budowania - GNU Make
+### System budowania -- GNU Make
 
 Po zaimplementowaniu programu `pager.cpp` możemy zobaczyć wydzielony kawałek kodu z implementacją `bounded_buffer`.
 Jeśli chcielibyśmy użyć go w innym programie, warto utworzyć dla niego osobny plik `bounded_buffer.cpp`.
@@ -139,17 +139,121 @@ Wymaga to nietrywialnej logiki, która trzeba podzielić się z użytkownikami l
 Do przechowywania informacji o sposobie skompilowania programu służy **system budowania**.
 W przypadku naszego laboratorium będziemy posługiwać się systemem (**GNU Make**)[https://www.gnu.org/software/make/manual/make.html].
 
-#### Utworzenie `MakeFile`
-Poza kodem źródłowym programu typowo rozprowadza się także plik `MakeFile`, który opisuje sposób budowania
+#### 1. Utworzenie `Makefile`
+Poza kodem źródłowym programu typowo rozprowadza się także plik `Makefile`, który opisuje sposób budowania.
+Najpierw przygotuj plik `Makefile` o zawartości
+```makefile
+CXX=g++
 
-#### Wydzielenie `bounded_buffer` do oddzielnego pliku
+.PHONY: all clean
 
-#### Kompilacja programu `pager`
+all: pager
 
+pager: pager.cpp
+	${CXX} pager.cpp -o pager
+
+clean:
+	rm -f pager
+```
+
+System budowania make konstruuje się z **targetów** (np. `all`, `pager` albo `clean`).
+Każdy target ma swoje **zależności** podane po dwukropku.
+Jest o konieczne do określenia, w jakiej kolejności należy wykonywać polecenia, aby uzyskać podany target.
+Poniżej definicji targetu znajdują się polecenia, które konsumują zależności (najczęściej pliki), aby uzyskać wynik.
+Rozważmy przykład targetu `all`.
+
+```
+all -> pager
+pager -> pager.cpp
+```
+Oznacza to, że aby uzyskać **wszystko**, należy wykonać polecenia z targetu `pager`, które potrzebują pliku `pager.cpp`.
+I rzeczywiście po przeanalizowaniu polecenia
+```bash
+${CXX} -o pager pager.cpp
+```
+Rzeczywiście używamy kompilatora C++ (opisanego zmienną `CXX`), aby skonsumować `pager.cpp` i uzyskać plik `pager`.
+
+W terminalu przejdź do folderu z plikami źródłowymi twojego programu i wykonaj polecenie
+```bash
+make
+```
+Wykona ono polecenia,aby uzyskać target `all`.
+Jeśli chcesz zbudować tylko pager, wykonaj
+```bash
+make pager
+```
+Aby usunąć pliki binarne wykonaj
+```bash
+make clean
+```
+
+#### 2. Wydzielenie `bounded_buffer` do oddzielnego pliku
+
+Teraz twoim zadaniem jest wydzielić logikę związaną ze strukturą `bounded_buffer` do oddzielnego pliku `bounded_buffer.cpp`.
+Aby można było użyć **definicji** funkcji z `bounded_buffer.cpp` w `pager.cpp`, potrzebny jest **plik nagłówkowy**.
+Taki plik posiada **deklaracje** funkcji, które opisują nagłówki funkcji bez ich implementacji.
+
+W tym celu utwórz kolejny plik `bounded_buffer.hpp`, który będzie posiadać definicje struktury oraz deklaracje funkcji.
+Jeśli chcesz skorzystać ze struktury `bounded_buffer` oraz czterech skojarzonych z nią funkcji, należy dodać w pliku `pager.cpp` następującą linijkę.
+```cpp
+#include "bounded_buffer.hpp"
+```
+Informuje ona kompilator, aby załączył cała zawartość pliku `bounded_buffer.hpp` w miejscu linijki `#include "bounded_buffer.hpp`.
+
+Pozostał jeszcze jeden szczegół, który jest dobrą praktyką w definiowaniu plików nagłówkowych.
+Na początku należy zdefiniować tzw. **include guard** (pol. strażnik inkluzywności).
+Jest to konstrukcja przeciwdziałająca wielokrotnej deklaracji zawartości pliku nagłówkowego.
+
+Proponuję eksperyment. Dodaj do swojego pliku `pager.cpp` następujące linijki
+``cpp
+// ... wcześniejsze includy z biblioteki standardowej ...
+
+#include "bounded_buffer.hpp"
+#include "bounded_buffer.hpp"
+
+// ... funkcja main ...
+```
+Wykonaj polecenie
+```bash
+g++ pager.cpp
+```
+W tym momencie powinien pojawić się błąd kompilacji
+```
+TODO: wstaw błąd
+```
+
+Jest to objaw braku include guard.
+Dodaj do swojego pliku `bounded_buffer.hpp` następujące instrukcje preprocessora na końcu i początku.
+```cpp
+#ifndef _BOUNDED_BUFFER_H
+#define _BOUNDED_BUFEFR_H
+
+// ... definicja struktury oraz deklaracje zmiennych ...
+
+#endif
+```
+
+Od tego momentu kompilator załączy deklaracje tylko raz, ponieważ za drugim razem będzie istniejć już zmienna preprocessora `_BOUNDED_BUFFER_H`, co spowoduje ominięcie deklaracji.
+
+Zachęcam do wykonania polecenia
+```bash
+g++ -E pager.cpp | tail 200
+```
+To polecenie wykona tylko instrukcje preprocessora i wypisze wynik na standardowe wyjście.
+Wykonaj powyższe polecenie z include guardem i bez niego.
+
+#### 3. Kompilacja programu `pager`
+
+Gdy już mamy 3 pliki: `pager.cpp`, `bounded_buffer.hpp` oraz `bounded_buffer.hpp`, mozemy przejśc do budowania programu.
+Wykonanie polecenia
+```bash
+make
+```
+zwróci błąd kompilacji.
+Należy przerobić target `pager`, aby zależał także od pliku `bounded_buffer.cpp` i wykonywał następujące polecenie
+```bash
+g++ -o pager pager.cpp bounded_buffer.cpp
+```
+Wtedy program zbuduje się prawidłowo, ponieważ będzie posiadał wszystkie **definicje** funkcji użytych w programie.
 
 ### Rozwiązanie laboratorium
-
-
-
-Przez cały semestr projekty będą znacznie bardziej skomplikowane.
-
