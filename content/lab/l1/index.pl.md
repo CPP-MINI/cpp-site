@@ -102,7 +102,7 @@ Przygotuj następującą strukturę
 ```cpp
 struct bounded_buffer {
   std::vector<std::string> buffer;
-  int max_size;
+  int capacity; // Rozmiar bufora, przy którym należy wykonac wypisanie
 }
 ```
 
@@ -205,7 +205,7 @@ Na początku należy zdefiniować tzw. **include guard** (pol. strażnik inkluzy
 Jest to konstrukcja przeciwdziałająca wielokrotnej deklaracji zawartości pliku nagłówkowego.
 
 Proponuję eksperyment. Dodaj do swojego pliku `pager.cpp` następujące linijki
-``cpp
+```cpp
 // ... wcześniejsze includy z biblioteki standardowej ...
 
 #include "bounded_buffer.hpp"
@@ -225,8 +225,8 @@ TODO: wstaw błąd
 Jest to objaw braku include guard.
 Dodaj do swojego pliku `bounded_buffer.hpp` następujące instrukcje preprocessora na końcu i początku.
 ```cpp
-#ifndef _BOUNDED_BUFFER_H
-#define _BOUNDED_BUFEFR_H
+#ifndef _BOUNDED_BUFFER_HPP
+#define _BOUNDED_BUFEFR_HPP
 
 // ... definicja struktury oraz deklaracje zmiennych ...
 
@@ -257,3 +257,12 @@ g++ -o pager pager.cpp bounded_buffer.cpp
 Wtedy program zbuduje się prawidłowo, ponieważ będzie posiadał wszystkie **definicje** funkcji użytych w programie.
 
 ### Rozwiązanie laboratorium
+
+[Makefile](solution/Makefile)
+
+[pager.cpp](solution/main.cpp)
+
+[bounded_buffer.hpp](solution/bounded_buffer.hpp)
+
+[bounded_buffer.cpp](solution/bounded_buffer.cpp)
+
