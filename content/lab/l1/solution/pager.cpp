@@ -4,6 +4,8 @@
 
 #include "bounded_buffer.hpp"
 
+#include "bounded_buffer.hpp"
+
 #define PAGE_SIZE 4
 
 int main() {
@@ -13,12 +15,13 @@ int main() {
 
     std::string line;
     while (std::getline(std::cin, line)) {
-        if (!add_to_buffer(&buffer, line)){
+        add_to_buffer(&buffer, line);
+    
+        if (buffer_size(&buffer) == buffer_capacity(&buffer)){
             flush_buffer(&buffer);
-            add_to_buffer(&buffer, line);
         }
     }
-    
+
     if (buffer_size(&buffer) > 0)
         flush_buffer(&buffer);
 

@@ -219,7 +219,16 @@ g++ pager.cpp
 ```
 W tym momencie powinien pojawić się błąd kompilacji
 ```
-TODO: wstaw błąd
+g++ pager.cpp -o pager
+In file included from pager.cpp:7:
+bounded_buffer.hpp:5:8: error: redefinition of ‘struct bounded_buffer’
+    5 | struct bounded_buffer {
+      |        ^~~~~~~~~~~~~~
+In file included from pager.cpp:5:
+bounded_buffer.hpp:5:8: note: previous definition of ‘struct bounded_buffer’
+    5 | struct bounded_buffer {
+      |        ^~~~~~~~~~~~~~
+make: *** [Makefile:8: pager] Error 1
 ```
 
 Jest to objaw braku include guard.
@@ -233,11 +242,11 @@ Dodaj do swojego pliku `bounded_buffer.hpp` następujące instrukcje preprocesso
 #endif
 ```
 
-Od tego momentu kompilator załączy deklaracje tylko raz, ponieważ za drugim razem będzie istniejć już zmienna preprocessora `_BOUNDED_BUFFER_H`, co spowoduje ominięcie deklaracji.
+Od tego momentu kompilator załączy deklaracje tylko raz, ponieważ za drugim razem będzie istnieć już zmienna preprocessora `_BOUNDED_BUFFER_HPP`, co spowoduje kolejne pominięcie deklaracji.
 
 Zachęcam do wykonania polecenia
 ```bash
-g++ -E pager.cpp | tail 200
+g++ -E pager.cpp | tail -100
 ```
 To polecenie wykona tylko instrukcje preprocessora i wypisze wynik na standardowe wyjście.
 Wykonaj powyższe polecenie z include guardem i bez niego.
@@ -249,7 +258,12 @@ Wykonanie polecenia
 ```bash
 make
 ```
-zwróci błąd kompilacji.
+zwróci błąd linkera 
+```
+/usr/bin/ld: pager.cpp:(.text:...): undefined reference to ...
+```
+Oznacza to, że kompilator znalezł **deklarację** funkcji, ale nie moze namierzyć jej **definicji**.
+
 Należy przerobić target `pager`, aby zależał także od pliku `bounded_buffer.cpp` i wykonywał następujące polecenie
 ```bash
 g++ -o pager pager.cpp bounded_buffer.cpp
