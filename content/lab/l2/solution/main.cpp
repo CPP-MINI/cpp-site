@@ -69,7 +69,7 @@ int main()
             std::cout << std::hex << &stack_array[0] << std::endl;
         }
 
-        for (int i = 0; i < array_size; ++i)
+        for (size_t i = 0; i < array_size; ++i)
             std::cout << vector3_length(stack_array[i]) << std::endl;
 
         dump_memory(reinterpret_cast<std::byte*>(stack_array), array_size * sizeof(Vector3));
