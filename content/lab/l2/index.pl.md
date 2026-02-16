@@ -49,8 +49,8 @@ Enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać uży
 W pliku `vector3.hpp` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
 Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
 `using` tworzy alias (synonim) do typu znajdującego się po prawej stronie znaku równości.
-Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
-Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jak typ double.
+Twoim zadaniem jest zdefiniować `internal_representation` jako trójelementową tablicę typu `double`.
+Stworzona tablica powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jak typ double.
 Proszę zwrócić uwagę na dwie linie zawierające `static_assert`.
 Jest to sposób na upewnienie się, że zdefiniowany przez ciebie typ będzie traktowany jako blok trzech liczb.
 Zastanów się, dlaczego akurat tak wyglądają sprawdzenia poprawności.
@@ -59,14 +59,15 @@ Struktura `Vector3` ma zdefiniowane pole `v` stworzonego przez ciebie typu `inte
 W czterech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
 
 Dwie z tych funkcji to tzw. funkcje inicjalizujące (`vector3_init`), które służą do ustawienia początkowych wartości wektora.
-Twoim zadaniem jest ustawić w nich wartości `x`, `y` oraz `z` pola `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
+Twoim zadaniem jest ustawić w nich wartości elementów tablicy `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
 Funkcja `vector3_length` służy do wyliczenia długości euklidesowej wektora (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `cmath`).
 Funkcja `vector3_mul` służy do pomnożenia wektora przez liczbę.
-Do zaimplementowania funkcji `vector3_length` oraz `vector3_mul` użyj możliwości dostępu do `v` z perspektywy tablicy typu `double`.
+Do zaimplementowania funkcji `vector3_length` oraz `vector3_mul` użyj możliwości dostępu do `v` jako tablicy typu `double`.
 
-Jako rozszerzenie struktury `Vector3` zadeklaruj dwie dodatkowe funkcje w pliku `vector3.hpp`:
+Jako rozszerzenie struktury `Vector3` zadeklaruj pięć dodatkowych funkcji w pliku `vector3.hpp`:
 * `vector3_add` - funkcja wykonuje dodawanie wektorów oraz przyjmuje dwie stałe referencje na typ `Vector3` reprezentujące lewą i prawą stronę operatora dodawania. Funkcja powinna zwracać nowy `Vector3` przechowujący wynik dodawania.
 * `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście.
+* `vector3_x`, `vector3_y`, `vector3_z` - funkcje dostępowe, które zwracają odpowiednio pierwszą, drugą i trzecią współrzędną wektora.
 
 Ciała funkcji powinny zostać zaimplementowane w pliku `vector3.cpp`.
 

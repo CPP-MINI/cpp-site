@@ -7,7 +7,7 @@ struct Vector3
 {
     static const int VECTOR_SIZE = 3;
 
-    using internal_representation = int;  // STAGE 1: Define me!
+    using internal_representation = double[VECTOR_SIZE];  // STAGE 1: Define me!
 
     static_assert(sizeof(internal_representation) == sizeof(double) * 3,
                   "Your internal_representation structure has to be properly sized!");
@@ -21,5 +21,9 @@ void vector3_init(Vector3& vec);
 void vector3_init(Vector3& vec, double x, double y, double z);
 double vector3_length(const Vector3& vec);
 void vector3_mul(Vector3& vec, double a);
+
+double vector3_x(const Vector3& vec);
+double vector3_y(const Vector3& vec);
+double vector3_z(const Vector3& vec);
 
 }  // namespace l2

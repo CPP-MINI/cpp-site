@@ -7,14 +7,7 @@ struct Vector3
 {
     static const int VECTOR_SIZE = 3;
 
-    using internal_representation = union
-    {
-        struct
-        {
-            double x, y, z;
-        };
-        double buffer[VECTOR_SIZE];
-    };
+    using internal_representation = double[VECTOR_SIZE];
 
     static_assert(sizeof(internal_representation) == sizeof(double) * 3,
                   "Your vector structure has to be properly sized!");
@@ -30,6 +23,10 @@ double vector3_length(const Vector3& vec);
 void vector3_mul(Vector3& vec, double a);
 Vector3 vector3_add(const Vector3& lhs, const Vector3& rhs);
 void vector3_print(const Vector3& v);
+
+double vector3_x(const Vector3& vec);
+double vector3_y(const Vector3& vec);
+double vector3_z(const Vector3& vec);
 
 static const Vector3 BaseVector1{{1, 0, 0}};
 static const Vector3 BaseVector2{{0, 1, 0}};
