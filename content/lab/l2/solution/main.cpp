@@ -69,8 +69,8 @@ int main()
             std::cout << std::hex << &stack_array[0] << std::endl;
         }
 
-        for (const Vector3& v : stack_array)
-            std::cout << vector3_length(v) << std::endl;
+        for (size_t i = 0; i < array_size; ++i)
+            std::cout << vector3_length(stack_array[i]) << std::endl;
 
         dump_memory(reinterpret_cast<std::byte*>(stack_array), array_size * sizeof(Vector3));
     }
@@ -104,8 +104,8 @@ int main()
             std::cout << std::hex << &vectors_vector[0] << std::endl;  // Spooky things happening here...
         }
 
-        for (const Vector3& v : vectors_vector)
-            std::cout << vector3_length(v) << std::endl;
+        for (size_t i = 0; i < vectors_vector.size(); ++i)
+            std::cout << vector3_length(vectors_vector[i]) << std::endl;
 
         dump_memory(reinterpret_cast<std::byte*>(vectors_vector.data()), vectors_vector.size() * sizeof(Vector3));
     }
