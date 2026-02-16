@@ -104,7 +104,7 @@ int main()
             std::cout << std::hex << &vectors_vector[0] << std::endl;  // Spooky things happening here...
         }
 
-        for (int i = 0; i < vectors_vector.size(); ++i)
+        for (size_t i = 0; i < vectors_vector.size(); ++i)
             std::cout << vector3_length(vectors_vector[i]) << std::endl;
 
         dump_memory(reinterpret_cast<std::byte*>(vectors_vector.data()), vectors_vector.size() * sizeof(Vector3));
