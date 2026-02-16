@@ -160,7 +160,7 @@ Po dodaniu takiego wpisu wyżej wspomniana strona powinna się normalnie otwiera
 
 ## Zadanie na dziś - zaznaczenie obecności
 
-Aby potwierdzić działanie twojej konfiguracji gita, twoim zadanie jest przesłanie przykładowego programu do repozytorium udostępnionego w ramach systemu ghlabs.
+Aby potwierdzić działanie twojej konfiguracji Gita, twoim zadaniem jest przesłanie przykładowego programu do repozytorium udostępnionego w ramach systemu ghlabs.
 Wykonaj następujące kroki:
 1. Odnajdź przyporządkowane do ciebie repozytorium o nazwie podobnej do `WUT-MiNI/P2_26L_{USOS_ID}_L0`.
 2. Wykonaj operację `git clone`.
