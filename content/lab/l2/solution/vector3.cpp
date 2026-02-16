@@ -8,7 +8,7 @@ namespace l2
 
 void vector3_init(Vector3& vec)
 {
-    memset(vec.v, 0, sizeof(Vector3::internal_representation));
+    memset(vec.v, 0, sizeof(vec.v));
 }
 
 void vector3_init(Vector3& vec, double x, double y, double z)
