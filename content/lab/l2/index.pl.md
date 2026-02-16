@@ -63,7 +63,7 @@ Funkcja `vector3_length` służy do wyliczenia długości euklidesowej wektora (
 Funkcja `vector3_mul` służy do pomnożenia wektora przez liczbę.
 Do zaimplementowania funkcji `vector3_length` oraz `vector3_mul` użyj możliwości dostępu do `v` z perspektywy tablicy typu `double`.
 
-Jako rozszerzenie struktury `Vector3` zadeklaruj dwie dodatkowe wolne funkcje w pliku `vector3.hpp`:
+Jako rozszerzenie struktury `Vector3` zadeklaruj dwie dodatkowe funkcje w pliku `vector3.hpp`:
 * `vector3_add` - funkcja wykonuje dodawanie wektorów oraz przyjmuje dwie stałe referencje na typ `Vector3` reprezentujące lewą i prawą stronę operatora dodawania. Funkcja powinna zwracać nowy `Vector3` przechowujący wynik dodawania.
 * `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście.
 
