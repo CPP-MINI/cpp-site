@@ -18,7 +18,7 @@ int buffer_capacity(const bounded_buffer* buffer);
 // Wypisz zawartośc bufora na standardowe wyjście i zwolnij zawartość bufora
 void flush_buffer(bounded_buffer* buffer);
 
-// Dodaj linie do bufora. Jeśli limit bufora został osiągniety, zwróć false i nie modyfikuj zawartości
+// Dodaj linie do bufora. Jeśli limit bufora został osiągnięty, zwróć false i nie modyfikuj zawartości
 bool add_to_buffer(bounded_buffer* buffer, std::string line);
 
 #endif
