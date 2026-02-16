@@ -56,18 +56,21 @@ Jest to sposób na upewnienie się, że zdefiniowany przez ciebie typ będzie tr
 Zastanów się, dlaczego akurat tak wyglądają sprawdzenia poprawności.
 
 Struktura `Vector3` ma zdefiniowane pole `v` stworzonego przez ciebie typu `internal_representation`.
-W czterech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
+W siedmiu funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
 
-Dwie z tych funkcji to tzw. funkcje inicjalizujące (`vector3_init`), które służą do ustawienia początkowych wartości wektora.
-Twoim zadaniem jest ustawić w nich wartości elementów tablicy `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
-Funkcja `vector3_length` służy do wyliczenia długości euklidesowej wektora (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `cmath`).
-Funkcja `vector3_mul` służy do pomnożenia wektora przez liczbę.
+Cztery z tych funkcji są już zadeklarowane w pliku nagłówkowym:
+* Dwie funkcje inicjalizujące (`vector3_init`), które służą do ustawienia początkowych wartości wektora. Twoim zadaniem jest ustawić w nich wartości elementów tablicy `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
+* Funkcja `vector3_length` służy do wyliczenia długości euklidesowej wektora (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `cmath`).
+* Funkcja `vector3_mul` służy do pomnożenia wektora przez liczbę.
+
 Do zaimplementowania funkcji `vector3_length` oraz `vector3_mul` użyj możliwości dostępu do `v` jako tablicy typu `double`.
 
-Jako rozszerzenie struktury `Vector3` zadeklaruj pięć dodatkowych funkcji w pliku `vector3.hpp`:
-* `vector3_add` - funkcja wykonuje dodawanie wektorów oraz przyjmuje dwie stałe referencje na typ `Vector3` reprezentujące lewą i prawą stronę operatora dodawania. Funkcja powinna zwracać nowy `Vector3` przechowujący wynik dodawania.
-* `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście.
+Trzy funkcje dostępowe są również już zadeklarowane:
 * `vector3_x`, `vector3_y`, `vector3_z` - funkcje dostępowe, które zwracają odpowiednio pierwszą, drugą i trzecią współrzędną wektora.
+
+Jako rozszerzenie struktury `Vector3` zadeklaruj dwie dodatkowe funkcje w pliku `vector3.hpp`:
+* `vector3_add` - funkcja wykonuje dodawanie wektorów oraz przyjmuje dwie stałe referencje na typ `Vector3` reprezentujące lewą i prawą stronę operatora dodawania. Funkcja powinna zwracać nowy `Vector3` przechowujący wynik dodawania.
+* `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście. W implementacji możesz użyć funkcji dostępowych `vector3_x`, `vector3_y` i `vector3_z` do pobrania współrzędnych wektora.
 
 Ciała funkcji powinny zostać zaimplementowane w pliku `vector3.cpp`.
 
