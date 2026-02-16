@@ -103,7 +103,7 @@ Przygotuj następującą strukturę
 struct bounded_buffer {
   std::vector<std::string> buffer;
   int capacity; // Rozmiar bufora, przy którym należy wykonac wypisanie
-}
+};
 ```
 
 I zaimplementuj następujące funkcje
