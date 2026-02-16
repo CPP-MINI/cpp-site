@@ -36,8 +36,8 @@ W pliku `Character.hpp` zdefiniuj abstrakcyjną klasę bazową `Character`. Powi
   
 **Metody**:
 * `getName()`, `getHealth()`, `isAlive()` - gettery na pola klasy
-* `takeDamage(int)` - metoda do zadawania obrażeń (wypisuje otrzymane obrażenia i pozostałe życie, oraz informację o pokonaniu postaci)
-* `heal(int)` - metoda do leczenia postaci (wypisuje wyleczone życie i pozostałe życie)
+* `takeDamage(int)` - metoda do zadawania obrażeń (wypisuje informację o otrzymanych obrażeniach i pozostałym życiu oraz o pokonaniu postaci, jeśli nastąpiło)
+* `heal(int)` - metoda do leczenia postaci (wypisuje informację o ilości wyleczonego życia i pozostałym życiu)
 * `attack(Character* target)` - wirtualna metoda
   
 Ponieważ jest to klasa abstrakcyjna, pamiętaj również o zadeklarowaniu wirtualnego destruktora!
@@ -70,7 +70,7 @@ Klasa `CanCastSpells` posiada dwa pola:
 Oraz metody:
 * `getMana()` - getter dla many
 * `addMana(int amount)` - metoda dodaje wskazaną ilość many zachowując limit `maxMana` (wypisuje informację o dodanej many i aktualnym stanie)
-* `useMana(int amount)` - metoda zużywa wskazaną ilość many (wypisuje informację o zużytej many i pozostałej ilości). W przypadku zbyt małej ilość powinna rzucać wyjątek `NoManaException`
+* `useMana(int amount)` - metoda zużywa wskazaną ilość many (wypisuje informację o zużytej many i pozostałej ilości). W przypadku zbyt małej ilości powinna rzucać wyjątek `NoManaException`
 * `castSpell(Character* target)` - metoda czysto wirtualna, będziemy ją później implementować w klasie postaci
 
 Klasa `CanUseMelee` posiada jedynie metodę:
