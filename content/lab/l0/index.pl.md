@@ -112,7 +112,7 @@ Repozytoria możemy tworzyć lub **klonować** z serwera.
 W przypadku tych zajęć repozytoria będą klonowane przez każdego studenta.
 
 ### 3. Podstawowe operacje
-Załóż konto w serwisie [Github](github.com).
+Załóż konto w serwisie [GitHub](github.com).
 Utwórz nowe repozytorium i spróbuj wykonać na nim poniższe operacje.
 
 Aby sklonować repozytorium, używamy polecenia
