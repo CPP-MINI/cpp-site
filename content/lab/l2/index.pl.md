@@ -89,7 +89,7 @@ Do każdej tablicy wstaw 10 obiektów typu `Vector3` o wartościach `{i,i,i}`, g
 Przy każdym wstawieniu pobierz adres pierwszego elementu oraz wypisz go na standardowe wyjście. Czy w każdym wypadku te adresy będą identyczne w czasie kolejnych iteracji pętli?
 Po zakończeniu wstawiania przejdź po tablicy ponownie oraz wypisz długość wektora na standardowe wyjście.
 
-**Wskazówka**: Aby uzyskać wskaźnik do danych wewnątrz `std::vector`, użyj metody `.data()`, która zwraca wskaźnik do pierwszego elementu (podobnie jak nazwa tablicy C).
+**Wskazówka**: Aby uzyskać wskaźnik do danych wewnątrz `std::vector`, użyj funkcji `.data()`, która zwraca wskaźnik do pierwszego elementu.
 
 ### Etap 3: Memory dumper (*pol. drukarz pamięci*)
 
