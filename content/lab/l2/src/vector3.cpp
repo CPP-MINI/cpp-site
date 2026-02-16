@@ -3,22 +3,22 @@
 namespace l2
 {
 
-Vector3::Vector3()
+void vector3_init(Vector3& vec)
 {
     // STAGE 1: Implement me!
 }
 
-Vector3::Vector3(double x, double y, double z)
+void vector3_init(Vector3& vec, double x, double y, double z)
 {
     // STAGE 1: Implement me!
 }
 
-double Vector3::length() const
+double vector3_length(const Vector3& vec)
 {
     // STAGE 1: Implement me!
 }
 
-void Vector3::mul(double a)
+void vector3_mul(Vector3& vec, double a)
 {
     // STAGE 1: Implement me!
 }

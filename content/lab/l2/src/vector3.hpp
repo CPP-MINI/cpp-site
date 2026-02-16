@@ -3,9 +3,8 @@
 namespace l2
 {
 
-class Vector3
+struct Vector3
 {
-   private:
     static const int VECTOR_SIZE = 3;
 
     using internal_representation = int;  // STAGE 1: Define me!
@@ -15,14 +14,12 @@ class Vector3
     static_assert(alignof(internal_representation) == alignof(double),
                   "Your vector structure has to be aligned as double!");
 
-   public:
     internal_representation v;
-
-    Vector3();
-    Vector3(double x, double y, double z);
-
-    double length() const;
-    void mul(double a);
 };
+
+void vector3_init(Vector3& vec);
+void vector3_init(Vector3& vec, double x, double y, double z);
+double vector3_length(const Vector3& vec);
+void vector3_mul(Vector3& vec, double a);
 
 }  // namespace l2
