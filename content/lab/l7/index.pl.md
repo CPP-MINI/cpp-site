@@ -67,7 +67,7 @@ Klasa powinna zawierać:
 - konstruktor: inicjalizujący tablicę `table` wartością `nullptr`.
 - destruktor: zwalniający pamięć elementów tablicy oraz elementów listy jednokierunknowych, jakie zostały stworzone w trakcie wstawiania elementów.
 - metody:
-    - `hash(const K& key)`, przyjmującą klucz i na jego podstawie zwracającą wartość typu `size_t`. Do implementacji tej metody użyj hashera znajdującego się w pliku `Hash.hpp`.
+    - `hash(const K& key)`, przyjmującą klucz i na jego podstawie zwracającą wartość typu `size_t`. Do implementacji tej metody użyj hashera znajdującego się w pliku `Hash.hpp`. Jeśli hasher zwróci wartość większą niż `Capacity`, użyj operatora modulo (`%`) aby wartość mieściła się w zakresie tablicy.
     - `insert(const K& key, const V& value)`, wstawiająca wartość dla podanego klucza. W celu znalezienia indeksu w tablicy table, użyj funkcji `hash`. Jeśli na podanym indeksie nie istnieje jeszcze element, należy go tam wstawić. Jeśli istnieje, należy przejść po liście jednokierunkowej, i na jej końcu wstawić nowy element o podanym kluczu i wartości.
 - operator: `operator<<`, który wypisze wszystkie istniejące pary klucz-wartość w słowniku.
 
