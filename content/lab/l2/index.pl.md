@@ -132,6 +132,8 @@ Różni je jednak bardzo subtelny szczegół: fakt nachodzenia się bloków źr�
 Funkcja `memcpy` zakłada, że podane bloki nie nachodzą na siebie, a `memmove` dopuszcza, aby bloki nachodziły na siebie.
 Zachęcam do przeczytania instrukcji dla standardowej biblioteki, aby zapoznać się z funkcjami (`man 3p memcpy` oraz `mam 3p memmove`).
 
+**Uwaga o typie `size_t`**: W sygnaturach tych funkcji używany jest typ `size_t`, który służy do reprezentowania rozmiarów obiektów w pamięci. W przeciwieństwie do `int` (który może być ujemny) oraz `unsigned int` (który ma ustaloną stałą szerokość), `size_t` jest typem **bez znaku gwarantującym** możliwość przechowania rozmiaru dowolnego obiektu w pamięci. Na różnych platformach może mieć różną szerokość (np. 32 lub 64 bity), dzięki czemu zawsze odpowiada architekturze systemu.
+
 Twoim zadaniem jest zaimplementować obydwie funkcje w pliku `memory_manipulation.cpp`.
 W celu sprawdzenia implementacji w pliku `main.cpp` wykonaj następujące przekształcenia:
 * `Hello world!` -> `Hello Hello!`
