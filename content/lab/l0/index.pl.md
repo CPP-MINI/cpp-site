@@ -124,7 +124,7 @@ Każdy nowy plik musi zostać dodany do Gita, aby go śledzić:
 ```sh
 git add <nazwa pliku>
 ```
-Do gita dodajemy tylko kod źródłowy.
+Do Gita dodajemy tylko kod źródłowy.
 Nie dodajemy nigdy plików, które powstają przy kompilacji!
 Z pomocą przychodzi specjalny plik `.gitignore`, który pozwala ignorować pliki o wybranej nazwie.
 
