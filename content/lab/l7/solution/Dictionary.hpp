@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <optional>
+#include <array>
 #include "Hash.hpp"
 
 template<typename K, typename V>
@@ -17,7 +18,7 @@ struct KeyValuePair {
 template<typename K, typename V, int Capacity = 128>
 class Dictionary {
 private:
-    KeyValuePair<K, V>* table[Capacity];
+    std::array<KeyValuePair<K, V>*, Capacity> table;
 
     size_t hash(const K& key) const;
 
