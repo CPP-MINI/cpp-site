@@ -13,7 +13,7 @@ menu:
 ### Wykład
 
 - Paweł Sobótka
-    - konsultacje: wtorki 16:00-18:00, pok 524, po uprzednim umówieniu
+    - konsultacje: poniedziałki 08:00-09:00, pok. 524, po uprzednim umówieniu
     - email: pawel.sobotka@pw.edu.pl
 
 ### Laboratorium
