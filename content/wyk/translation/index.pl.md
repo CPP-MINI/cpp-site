@@ -1,10 +1,10 @@
 ---
-title: "W1 - Translacja"
+title: "Translacja"
 date: 2022-02-05T18:00:18+01:00
 weight: 10
 ---
 
-# Wykład 1 - Translacja
+# Translacja
 
 Zakres:
 
@@ -23,11 +23,11 @@ Zakres:
 ## Język C++
 
 Język autorstwa duńskiego informatka [Bjarne Stroustrup'a](https://en.wikipedia.org/wiki/Bjarne_Stroustrup).
-Rozpoczął prace jeszcze w roku 1979 mając na celu stworzenie _"C z klasami"_.
+Rozpoczął prace jeszcze w roku 1979, mając na celu stworzenie _"C z klasami"_.
 Nazwa C++ pojawiła się w roku 1982. Po latach rozwoju,
 w 1998 roku pojawił się pierwszy standard ISO C++98.
 Mimo ogromnej popularności język ewolułował powoli, aż do roku 2011.
-Komitet ISO trzyma się od tego czasu 3-letniego cyklu w którym regularnie
+Komitet ISO trzyma się od tego czasu 3-letniego cyklu, w którym regularnie
 publikowany jest nowy standard języka - C++11, C++14, C++17, C++20, C++23 (obecny).
 Grupa regularnie publikuje postępy: https://isocpp.org/std/status.
 

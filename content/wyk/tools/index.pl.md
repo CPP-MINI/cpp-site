@@ -1,10 +1,10 @@
 ---
-title: "W4 - Narzędzia"
+title: "Narzędzia"
 date: 2022-02-05T18:00:18+01:00
-weight: 40
+weight: 70
 ---
 
-# Wykład 4 - Narzędzia
+# Narzędzia
 
 Zakres:
 

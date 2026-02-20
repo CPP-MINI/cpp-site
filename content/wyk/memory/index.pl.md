@@ -1,10 +1,10 @@
 ---
-title: "W2 - Pamięć"
+title: "Pamięć"
 date: 2022-02-05T18:00:18+01:00
 weight: 20
 ---
 
-# Wykład 2 - Pamięć
+# Pamięć
 
 Zakres:
 

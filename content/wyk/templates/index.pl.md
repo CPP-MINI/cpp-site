@@ -1,10 +1,10 @@
 ---
-title: "W7 - Metaprogramowanie"
+title: "Szablony"
 date: 2022-02-05T18:00:18+01:00
-weight: 70
+weight: 60
 ---
 
-# Wykład 7 - Metaprogramowanie
+# Szablony
 
 Zakres:
 * Szablony

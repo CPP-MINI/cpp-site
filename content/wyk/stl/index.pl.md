@@ -1,10 +1,10 @@
 ---
-title: "W5 - STL"
+title: "STL"
 date: 2022-02-05T18:00:18+01:00
-weight: 50
+weight: 40
 ---
 
-# Wykład 5 - STL
+# Standard Template Library
 
 Zakres:
 

@@ -1,10 +1,10 @@
 ---
-title: "W6 - Polimorfizm"
+title: "Polimorfizm"
 date: 2022-02-05T18:00:18+01:00
-weight: 60
+weight: 50
 ---
 
-# Wykład 6 - Polimorfizm i Wyjątki
+# Polimorfizm i Wyjątki
 
 Zakres:
 

@@ -6,23 +6,23 @@ title: "Harmonogram"
 
 Wtorki, godz. 14:15 - 16:00, s. 328
 
-| Data       | Tytuł                                                |
-|------------|------------------------------------------------------|
-| 24.02.2026 | [W1 - Translacja 1]({{< ref "wyk/w1" >}})            |
-| 03.03.2026 | [W1 - Translacja 2]({{< ref "wyk/w1" >}})            |
-| 10.03.2026 | [W2 - Pamięć 1]({{< ref "wyk/w2" >}})                |
-| 17.03.2026 | [W2 - Pamięć 2]({{< ref "wyk/w2" >}})                |
-| 24.03.2026 | [W3 - Klasy 1]({{< ref "wyk/w3" >}})                 |
-| 31.03.2026 | [W3 - Klasy 2]({{< ref "wyk/w3" >}})                 |
-| 14.04.2026 | [W4 - Narzędzia 1]({{< ref "wyk/w4" >}})             |
-| 21.04.2026 | [W4 - Narzędzia 2]({{< ref "wyk/w4" >}})             |
-| 28.04.2026 | [W5 - STL 1]({{< ref "wyk/w5" >}})                   |
-| 05.05.2026 | [W5 - STL 2]({{< ref "wyk/w5" >}})                   |
-| 19.05.2026 | [W6 - Polimorfizm i Wyjątki 1]({{< ref "wyk/w7" >}}) |
-| 26.05.2026 | [W6 - Polimorfizm i Wyjątki 2]({{< ref "wyk/w7" >}}) |
-| 02.06.2026 | [W7 - Szablony 1]({{< ref "wyk/w7" >}})              |
-| 09.06.2026 | [W7 - Szablony 2]({{< ref "wyk/w7" >}})              |
-| 16.06.2026 | Konsultacje                                          |
+| Data       | Tytuł                                         |
+|------------|-----------------------------------------------|
+| 24.02.2026 | [Translacja 1]({{< ref "wyk/translation" >}}) |
+| 03.03.2026 | [Translacja 2]({{< ref "wyk/translation" >}}) |
+| 10.03.2026 | [Pamięć 1]({{< ref "wyk/memory" >}})          |
+| 17.03.2026 | [Pamięć 2]({{< ref "wyk/memory" >}})          |
+| 24.03.2026 | [Klasy 1]({{< ref "wyk/classes" >}})          |
+| 31.03.2026 | [Klasy 2]({{< ref "wyk/classes" >}})          |
+| 14.04.2026 | [STL 1]({{< ref "wyk/stl" >}})                |
+| 21.04.2026 | [STL 2]({{< ref "wyk/stl" >}})                |
+| 28.04.2026 | [Polimorfizm 1]({{< ref "wyk/vcalls" >}})     |
+| 05.05.2026 | [Polimorfizm 2]({{< ref "wyk/vcalls" >}})     |
+| 19.05.2026 | [Szablony 1]({{< ref "wyk/templates" >}})     |
+| 26.05.2026 | [Szablony 2]({{< ref "wyk/templates" >}})     |
+| 02.06.2026 | [Narzędzia 1]({{< ref "wyk/tools" >}})        |
+| 09.06.2026 | [Narzędzia 2]({{< ref "wyk/tools" >}})        |
+| 16.06.2026 | Konsultacje                                   |
 
 ## Zajęcia laboratoryjne
 
