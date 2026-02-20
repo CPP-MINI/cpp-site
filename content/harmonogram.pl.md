@@ -4,25 +4,25 @@ title: "Harmonogram"
 
 ## Wykłady
 
-Wtorki, godz. 12:15 - 14:00, s. 101
+Wtorki, godz. 14:15 - 16:00, s. 328
 
 | Data       | Tytuł                                                |
 |------------|------------------------------------------------------|
-| 25.02.2025 | [W1 - Translacja 1]({{< ref "wyk/w1" >}})            |
-| 04.03.2025 | [W1 - Translacja 2]({{< ref "wyk/w1" >}})            |
-| 11.03.2025 | [W2 - Pamięć 1]({{< ref "wyk/w2" >}})                |
-| 18.03.2025 | [W2 - Pamięć 2]({{< ref "wyk/w2" >}})                |
-| 25.03.2025 | [W3 - Klasy 1]({{< ref "wyk/w3" >}})                 |
-| 01.04.2025 | [W3 - Klasy 2]({{< ref "wyk/w3" >}})                 |
-| 07.04.2025 | [W4 - Narzędzia 1]({{< ref "wyk/w4" >}})             |
-| 15.04.2025 | [W4 - Narzędzia 2]({{< ref "wyk/w4" >}})             |
-| 29.04.2025 | [W5 - STL 1]({{< ref "wyk/w5" >}})                   |
-| 06.05.2025 | [W5 - STL 2]({{< ref "wyk/w5" >}})                   |
-| 13.05.2025 | [W6 - Polimorfizm i Wyjątki 1]({{< ref "wyk/w7" >}}) |
-| 20.05.2025 | [W6 - Polimorfizm i Wyjątki 2]({{< ref "wyk/w7" >}}) |
-| 27.05.2025 | [W7 - Szablony 1]({{< ref "wyk/w7" >}})              |
-| 03.06.2025 | [W7 - Szablony 2]({{< ref "wyk/w7" >}})              |
-| 10.06.2025 | Konsultacje                                          |
+| 24.02.2026 | [W1 - Translacja 1]({{< ref "wyk/w1" >}})            |
+| 03.03.2026 | [W1 - Translacja 2]({{< ref "wyk/w1" >}})            |
+| 10.03.2026 | [W2 - Pamięć 1]({{< ref "wyk/w2" >}})                |
+| 17.03.2026 | [W2 - Pamięć 2]({{< ref "wyk/w2" >}})                |
+| 24.03.2026 | [W3 - Klasy 1]({{< ref "wyk/w3" >}})                 |
+| 31.03.2026 | [W3 - Klasy 2]({{< ref "wyk/w3" >}})                 |
+| 14.04.2026 | [W4 - Narzędzia 1]({{< ref "wyk/w4" >}})             |
+| 21.04.2026 | [W4 - Narzędzia 2]({{< ref "wyk/w4" >}})             |
+| 28.04.2026 | [W5 - STL 1]({{< ref "wyk/w5" >}})                   |
+| 05.05.2026 | [W5 - STL 2]({{< ref "wyk/w5" >}})                   |
+| 19.05.2026 | [W6 - Polimorfizm i Wyjątki 1]({{< ref "wyk/w7" >}}) |
+| 26.05.2026 | [W6 - Polimorfizm i Wyjątki 2]({{< ref "wyk/w7" >}}) |
+| 02.06.2026 | [W7 - Szablony 1]({{< ref "wyk/w7" >}})              |
+| 09.06.2026 | [W7 - Szablony 2]({{< ref "wyk/w7" >}})              |
+| 16.06.2026 | Konsultacje                                          |
 
 ## Zajęcia laboratoryjne
 

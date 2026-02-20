@@ -11,7 +11,7 @@ Strona zawiera materiały wykładowe i laboratoryjne. Jest publicznie hostowana 
 
 Strona używa generatora Hugo.
 
-Żeby zbudować stronę do katalogu public/ wystarczy uruchomić `hugo` bez argumentów. 
+Żeby zbudować stronę do katalogu `public/` wystarczy uruchomić `hugo` bez argumentów. 
 
 Z użyciem `hugo server` można uruchomić lokalny serwer prezentujący stronę pod adresem http://localhost:1313
 
