@@ -28,20 +28,20 @@ Wtorki, godz. 14:15 - 16:00, s. 328
 
 Piątki, godz. 10:15 - 12:00
 
-| Data       | Tytuł                                                            |
-|------------|------------------------------------------------------------------|
-| 28.02.2025 | [L1 - Translacja (warsztaty) ]({{< ref "lab/l1" >}})             |
-| 07.03.2025 | [L1 - Translacja (oceniane) ]({{< ref "lab/l1" >}})              |
-| 14.03.2025 | [L2 - Pamięć (warsztaty) ]({{< ref "lab/l2" >}})                 |
-| 21.03.2025 | [L2 - Pamięć (oceniane) ]({{< ref "lab/l2" >}})                  |
-| 28.03.2025 | [L3 - Klasy (warsztaty) ]({{< ref "lab/l3" >}})                  |
-| 04.04.2025 | [L3 - Klasy (oceniane) ]({{< ref "lab/l3" >}})                   |
-| 11.04.2025 | [L4 - Narzędzia (warsztaty) ]({{< ref "lab/l4" >}})              |
-| 17.04.2025 | [L4 - Narzędzia (oceniane) ]({{< ref "lab/l4" >}})               |
-| 25.04.2025 | [L5 - STL (warsztaty) ]({{< ref "lab/l5" >}})                    |
-| 09.05.2025 | [L5 - STL (oceniane) ]({{< ref "lab/l5" >}})                     |
-| 14.05.2025 | [L6 - Polimorfizm i Wyjątki (warsztaty) ]({{< ref "lab/l6" >}})  |
-| 23.05.2025 | [L6 - Polimorfizm i Wyjątki (oceniane) ]({{< ref "lab/l6" >}})   |
-| 30.05.2025 | [L7 - Szablony (warsztaty) ]({{< ref "lab/l7" >}})               |
-| 06.06.2025 | [L7 - Szablony (oceniane) ]({{< ref "lab/l7" >}})                |
-| Sesja      | Poprawa                                                          |
+| Data       | Tytuł                                                           |
+|------------|-----------------------------------------------------------------|
+| 27.02.2026 | L0 - Środowisko                                                 |
+| 06.03.2026 | L1 - Podstawy (warsztaty)                                       |
+| 13.03.2026 | L1 - Podstawy (oceniane)                                        |
+| 20.03.2026 | [L2 - Translacja (warsztaty) ]({{< ref "lab/l1" >}})            |
+| 27.03.2026 | [L2 - Translacja (oceniane) ]({{< ref "lab/l1" >}})             |
+| 10.04.2026 | [L3 - Pamięć (warsztaty) ]({{< ref "lab/l2" >}})                |
+| 17.04.2026 | [L3 - Pamięć (oceniane) ]({{< ref "lab/l2" >}})                 |
+| 24.04.2026 | [L4 - Klasy (warsztaty) ]({{< ref "lab/l3" >}})                 |
+| 27.04.2026 | [L4 - Klasy (oceniane) ]({{< ref "lab/l3" >}})                  |
+| 08.05.2026 | [L5 - STL (warsztaty) ]({{< ref "lab/l5" >}})                   |
+| 12.05.2026 | [L5 - STL (oceniane) ]({{< ref "lab/l5" >}})                    |
+| 22.05.2026 | [L6 - Polimorfizm i Wyjątki (warsztaty) ]({{< ref "lab/l6" >}}) |
+| 29.05.2026 | [L6 - Polimorfizm i Wyjątki (oceniane) ]({{< ref "lab/l6" >}})  |
+| 03.06.2026 | [L7 - Szablony (warsztaty) ]({{< ref "lab/l7" >}})              |
+| 12.06.2026 | [L7 - Szablony (oceniane) ]({{< ref "lab/l7" >}})               |
