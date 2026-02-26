@@ -206,7 +206,69 @@ Wykonaj następujące kroki:
 
 ## Posłowie -- dostęp do repozytoriów sgit spoza wydziału
 
-*Poniższy rozdział jest dodatkowy i zachęcam dociekliwych do zapoznania się z nim*
+*Poniższy rozdział jest dodatkowy.
+Zawiera zaawansowane i potencjalnie praktyczne treści.
+Zachęcam zainteresowanych do zapoznania się.*
 
 Metoda dostępu do repozytorium przedstawiona powyżej działa tylko w obrębie wydziału.
-Prosze zwróćić uwag
+Proszę zwrócić uwagę na adres zdalnego repozytorium `192.168.137.60`.
+Jest to adres z sieci wewnętrznej.
+Nie zadziała z dowolnego miejsca w internecie.
+
+Mamy do wyboru dwie ścieżki, aby rozszerzyć dostęp spoza wydziału: 
+* połączenie pośrednie SSH do sieci wydziałowej (poprzez `ssh.mini.pw.edu.pl`)
+* konfiguracja dostępu poprzez token i dodanie remote poprzez protokół HTTP
+
+### Połączenie pośrednie do sieci wydziałowej
+Skoro do komunikacji z serverem potrzebujemy znajdować się w sieci wydziałowej, to można wykorzystać metodę *ssh port forwarding*.
+Jest to funkcjonalność protokołu ssh, która pozwala przesłać wybrany ruch sieciowy do servera ssh.
+
+Najpierw należy połączyć się z serverem `ssh.mini.pw.edu.pl` i podać parametr `-L` w taki sposób
+```bash
+ssh -L 22222:192.168.137.60:22 {login_wydzialowy}@ssh.mini.pw.edu.pl
+```
+To polecenie mówi, aby w ramach sesji ssh otworzył się tunel, który zmapuje port `22222` na maszynie klienckiej na połączenie z `192.168.137.60:22` po stronie servera.
+W momencie, gdy mamy otwartą sesję ssh, w drugim terminalu proszę wykonać następujące polecenie w już sklonowanym repozytorium
+```bash
+git remote add foreign_origin ssh://git@localhost:22222/P2_26L/lab1_{nazwisko}_{imie}.git
+```
+
+Powyższe rozwiązanie wymaga utrzymywania dodatkowego remote poza wydziałem.
+Wymaga to także świadomego wykonywania operacji `push` i `pull` w zależności od aktualnie użytkowanej sieci.
+
+### Token dostępowy -- protokół HTTP
+
+Alternatywą jest utworzenie tokenu dostępowego w interfejsie `sgit` i skonfigurowanie **credential helpera** w ramach gita.
+
+Najpierw należy utworzyć token dostępowy w ustawieniach konta.
+Upewnij się, że token ma uprawnienia do prywatnych repozytoriów na poziomie `read/write`.
+
+![token](res/token.png)
+
+Po wygenerowaniu tokenu zapisz go sobie na boku.
+Teraz wykonaj następujące polecenie
+```bash
+git config --global credential.helper 'store --file ~/.git-credentials'
+chmod 600 ~/.git-credentials
+```
+
+To spowoduje, że git przy każdym podaniu loginu i hasła zapamięta je w pliku tekstowym.
+Niektóre konfiguracje Linuxa wspierają menadżery sekretów.
+Polecam dowiedzieć się jaki menadżer dostępny jest w twoim systemie i zintegrowanie się z nim zgodnie z [tą instrukcją](https://wiki.archlinux.org/title/Git#Using_git-credential-libsecret_as_credential-helper).
+
+
+Teraz wykonajmy operacje clone repozytorium po protokole HTTP
+```bash
+git clone https://sgit.mini.pw.edu.pl/P2_26L/lab1_{nazwisko}_{imie}.git
+```
+Git zapyta nas o login i hasło.
+Tym razem należy mu je podać.
+Login można odnaleźć w górnym rogu przy profilu uzytkownika
+
+![settings](res/settings.png)
+
+Hasło to token wygenerowany w pierwszym kroku.
+Przy prawidłowej konfiguracji operacja clone powinna się powieść.
+Kolejne połączenia z serwerem powinny skorzystać z zapisanego tokenu w pliku `~/.git-credentials`
+
+
