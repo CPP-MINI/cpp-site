@@ -141,7 +141,7 @@ git log
 Repozytoria możemy tworzyć lub **klonować** z serwera.
 W przypadku tych zajęć repozytoria będą klonowane przez każdego studenta.
 
-Do tego celu użyjemy systemu `sgit.mini.pw.edu.pl`.
+Do tego celu użyjemy systemu [sgit.mini.pw.edu.pl](sgit.mini.pw.edu.pl).
 Proszę udać się na tę stronę i zalogować się kontem PW CAS.
 Od momentu zalogowania na stronie głównej powinny pokazać się repozytoria dostępne dla użytkownika.
 
@@ -166,10 +166,12 @@ Wykonaj następujące polecenia
 ```bash
 ssh-keygen -t ed25519 -f ~/.ssh/sgit_id
 chmod 600 ~/.ssh/sgit_id
+git config --global core.sshCommand "ssh -i ~/.ssh/sgit_id"
 cat ~/.ssh/sgit_id.pub
 ```
 W momencie pytania o hasło do klucza proszę nacisnąć enter bez wpisywania niczego.
-Ostatnia linia jest **kluczem publiczym**, który musimy umieścić w systemie **sgit**.
+Powyższe polecenia generują parę kluczy: publiczny i prywatny, ustawiają odpowiednie uprawnienia oraz konfigurują gita, aby używał nowo utworzonego klucza jako tożsamości.
+Ostatnia linia jest **kluczem publicznym**, który musimy umieścić w systemie **sgit**.
 W tym celu proszę udać się do ustawień konta w prawym górnym rogu
 
 ![settings](res/settings.png)
@@ -195,12 +197,16 @@ Od tego momentu
 
 Aby potwierdzić działanie twojej konfiguracji Gita, twoim zadaniem jest przesłanie przykładowego programu do repozytorium udostępnionego w ramach systemu ghlabs.
 Wykonaj następujące kroki:
-1. Odnajdź przyporządkowane do ciebie repozytorium o nazwie podobnej do `WUT-MiNI/P2_26L_{USOS_ID}_L0`.
-2. Wykonaj operację `git clone`.
-3. Skopiuj plik `hello.cpp` (nie kopiuj pliku `hello` - to każdy może utworzyć z kodu źródłowego).
-4. Dodaj pliki do śledzonych poleceniem `git add hello.cpp`.
-5. Potwierdź status repozytorium poprzez `git status`.
-6. Zatwierdź zmiany w repozytorium wykonując `git commit -m "Example hello program"`.
-7. Wyślij zmiany do zdalnego repozytorium poprzez polecenie `git push`.
+
+1. Skopiuj plik `hello.cpp` do sklonowago repozytorium (nie kopiuj pliku `hello` - to każdy może utworzyć z kodu źródłowego).
+2. Dodaj pliki do śledzonych poleceniem `git add hello.cpp`.
+3. Potwierdź status repozytorium poprzez `git status`.
+4. Zatwierdź zmiany w repozytorium wykonując `git commit -m "Example hello program"`.
+5. Wyślij zmiany do zdalnego repozytorium poprzez polecenie `git push`.
 
 ## Posłowie -- dostęp do repozytoriów sgit spoza wydziału
+
+*Poniższy rozdział jest dodatkowy i zachęcam dociekliwych do zapoznania się z nim*
+
+Metoda dostępu do repozytorium przedstawiona powyżej działa tylko w obrębie wydziału.
+Prosze zwróćić uwag
