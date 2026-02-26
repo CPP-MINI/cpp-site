@@ -106,27 +106,21 @@ git config --list
 ```
 To działanie jest wymagane tylko raz.
 
-### 2. Repozytoria
+#### 2. Podstawowe operacje
 Każdy projekt związany jest z repozytorium -- to w nim przechowywany jest kod i jego historia.
-Repozytoria możemy tworzyć lub **klonować** z serwera.
-W przypadku tych zajęć repozytoria będą klonowane przez każdego studenta.
-
-### 3. Podstawowe operacje
-Załóż konto w serwisie [Github](github.com).
 Utwórz nowe repozytorium i spróbuj wykonać na nim poniższe operacje.
 
-Aby sklonować repozytorium, używamy polecenia
+Aby utworzyć repozytorium w aktualnym folderze, należy wykonać
 ```sh
-git clone <adres repozytorium>
+git init
 ```
 
 Każdy nowy plik musi zostać dodany do Gita, aby go śledzić:
 ```sh
 git add <nazwa pliku>
 ```
-Do gita dodajemy tylko kod źródłowy.
+Do gita dodajemy tylko kod źródłowy (w tym pliki `Makefile`).
 Nie dodajemy nigdy plików, które powstają przy kompilacji!
-Z pomocą przychodzi specjalny plik `.gitignore`, który pozwala ignorować pliki o wybranej nazwie.
 
 Aby sprawdzić, jakie pliki zostały zmodyfikowane od ostatniego zapisania zmian:
 ```sh
@@ -143,22 +137,61 @@ Aby sprawdzić historię zapisanych zmian, możemy użyć
 git log
 ```
 
-Wysłanie zmian na serwer wykonujemy przez
-```sh
-git push origin main
-```
+#### 3. Repozytoria zdalne - *remote*
+Repozytoria możemy tworzyć lub **klonować** z serwera.
+W przypadku tych zajęć repozytoria będą klonowane przez każdego studenta.
 
-### 4. Połączenie z systemem wydziałowym
-Aby połączyć się z naszym systemem udostępniającym repozytoria, z sieci wydziałowej wejdź na stronę [ghlabs](https://ghlabs.mini.pw.edu.pl/) i połącz swoje konto GitHub z kontem USOS.
-Dzięki temu w trakcie laboratoriów ocenianych uzyskasz dostęp do repozytorium na Twoje rozwiązanie.
+Do tego celu użyjemy systemu `sgit.mini.pw.edu.pl`.
+Proszę udać się na tę stronę i zalogować się kontem PW CAS.
+Od momentu zalogowania na stronie głównej powinny pokazać się repozytoria dostępne dla użytkownika.
 
-Aby uzyskać dostęp do systemu spoza sieci wydziałowej, najprostszym sposobem jest dodać do pliku `/etc/hosts` (na Windowsie: `%systemroot%\System32\Drivers\etc\hosts`) poniższy wpis:
-```
-194.29.178.38 ghlabs.mini.pw.edu.pl
-```
-Po dodaniu takiego wpisu wyżej wspomniana strona powinna się normalnie otwierać.
+![landing-page](res/landing-page.png)
 
-## Zadanie na dziś - zaznaczenie obecności
+Namierz repozytorium o nazwie `lab1_{nazwisko}_{imie}` i kliknie w nie lewym przyciskiem myszy.
+W prawym górnym rogu powinien pojawić sie odnośnik do wykonania operacji **clone**.
+
+![clone](res/clone.png)
+
+Aby wykonać operacje clone, wydaj następujące polecenie
+```bash
+git clone <adres zdalnego repozytorium>
+```
+Polecenie powinno zapytać o hasło i użytkownika.
+Oznacza to, że nie jesteś autoryzowany do dostępu.
+
+Na czas laboratorium wykorzystamy protokół `ssh`, aby mieć dostęp do swojego repozytorium.
+W tym celu należy przygotować **klucz ssh**, który pozwoli zidentyfikować, kim jesteśmy i jakie repozytoria możemy pobierać.
+
+Wykonaj następujące polecenia
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/sgit_id
+chmod 600 ~/.ssh/sgit_id
+cat ~/.ssh/sgit_id.pub
+```
+W momencie pytania o hasło do klucza proszę nacisnąć enter bez wpisywania niczego.
+Ostatnia linia jest **kluczem publiczym**, który musimy umieścić w systemie **sgit**.
+W tym celu proszę udać się do ustawień konta w prawym górnym rogu
+
+![settings](res/settings.png)
+
+Tam znajdź sekcję *SSH / GPG Keys*, w której należy dodać nowy klucz i wkleić zawartość **klucza publicznego**.
+
+![ssh-key](res/ssh-key.png)
+
+
+Od tego momentu przy próbie wykonania operacji klonowania przy pomocy adresu SSH
+```bash
+git clone ssh://git@192.168.137.60/P2_26L/lab1_{nazwisko}_imie.git
+```
+powinien utworzyć się folder z pustym repozytorium.
+Można potwierdzić prawidłowo skonfigurowane zdalne repozytorium poprzez wykonanie polecenia
+```bash
+git remote
+```
+Powinien być widoczny jeden remote o nazwie **origin**.
+Od tego momentu 
+
+## Zadanie na dziś -- zaznaczenie obecności
 
 Aby potwierdzić działanie twojej konfiguracji gita, twoim zadanie jest przesłanie przykładowego programu do repozytorium udostępnionego w ramach systemu ghlabs.
 Wykonaj następujące kroki:
@@ -169,3 +202,5 @@ Wykonaj następujące kroki:
 5. Potwierdź status repozytorium poprzez `git status`.
 6. Zatwierdź zmiany w repozytorium wykonując `git commit -m "Example hello program"`.
 7. Wyślij zmiany do zdalnego repozytorium poprzez polecenie `git push`.
+
+## Posłowie -- dostęp do repozytoriów sgit spoza wydziału
