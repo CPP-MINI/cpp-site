@@ -183,7 +183,7 @@ Tam znajdź sekcję *SSH / GPG Keys*, w której należy dodać nowy klucz i wkle
 
 Od tego momentu przy próbie wykonania operacji klonowania przy pomocy adresu SSH
 ```bash
-git clone ssh://git@192.168.137.60/P2_26L/lab1_{nazwisko}_imie.git
+git clone ssh://git@192.168.137.60/P2_26L/lab1_nazwisko_imię.git
 ```
 powinien utworzyć się folder z pustym repozytorium.
 Można potwierdzić prawidłowo skonfigurowane zdalne repozytorium poprzez wykonanie polecenia
@@ -195,7 +195,7 @@ Od tego momentu
 
 ## Zadanie na dziś -- zaznaczenie obecności
 
-Aby potwierdzić działanie twojej konfiguracji Gita, twoim zadaniem jest przesłanie przykładowego programu do repozytorium udostępnionego w ramach systemu ghlabs.
+Aby potwierdzić działanie twojej konfiguracji Gita, twoim zadaniem jest przesłanie przykładowego programu do repozytorium udostępnionego w ramach systemu sgit.
 Wykonaj następujące kroki:
 
 1. Skopiuj plik `hello.cpp` do sklonowago repozytorium (nie kopiuj pliku `hello` - to każdy może utworzyć z kodu źródłowego).
