@@ -195,7 +195,7 @@ Od tego momentu
 
 ## Zadanie na dziś -- zaznaczenie obecności
 
-Aby potwierdzić działanie twojej konfiguracji Gita, twoim zadaniem jest przesłanie przykładowego programu do repozytorium udostępnionego w ramach systemu ghlabs.
+Aby potwierdzić działanie twojej konfiguracji Gita, twoim zadaniem jest przesłanie przykładowego programu do repozytorium udostępnionego w ramach systemu sgit.
 Wykonaj następujące kroki:
 
 1. Skopiuj plik `hello.cpp` do sklonowago repozytorium (nie kopiuj pliku `hello` - to każdy może utworzyć z kodu źródłowego).
