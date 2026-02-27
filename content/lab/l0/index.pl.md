@@ -147,7 +147,7 @@ Od momentu zalogowania na stronie głównej powinny pokazać się repozytoria do
 
 ![landing-page](res/landing-page.png)
 
-Namierz repozytorium o nazwie `lab1_{nazwisko}_{imie}` i kliknie w nie lewym przyciskiem myszy.
+Namierz repozytorium o nazwie `lab1_{nazwisko}_{imie}` i kliknij w nie lewym przyciskiem myszy.
 W prawym górnym rogu powinien pojawić się odnośnik do wykonania operacji **clone**.
 
 ![clone](res/clone.png)
@@ -197,7 +197,7 @@ Powinien być widoczny jeden remote o nazwie **origin**.
 Aby potwierdzić działanie twojej konfiguracji Gita, twoim zadaniem jest przesłanie przykładowego programu do repozytorium udostępnionego w ramach systemu sgit.
 Wykonaj następujące kroki:
 
-1. Skopiuj plik `hello.cpp` do sklonowago repozytorium (nie kopiuj pliku `hello` - to każdy może utworzyć z kodu źródłowego).
+1. Skopiuj plik `hello.cpp` do sklonowanego repozytorium (nie kopiuj pliku `hello` - to każdy może utworzyć z kodu źródłowego).
 2. Dodaj pliki do śledzonych poleceniem `git add hello.cpp`.
 3. Potwierdź status repozytorium poprzez `git status`.
 4. Zatwierdź zmiany w repozytorium wykonując `git commit -m "Example hello program"`.
