@@ -183,7 +183,7 @@ Tam znajdź sekcję *SSH / GPG Keys*, w której należy dodać nowy klucz i wkle
 
 Od tego momentu przy próbie wykonania operacji klonowania przy pomocy adresu SSH
 ```bash
-git clone ssh://git@192.168.137.60/P2_26L/lab1_{nazwisko}_imie.git
+git clone ssh://git@192.168.137.60/P2_26L/lab1_{nazwisko}_{imię}.git
 ```
 powinien utworzyć się folder z pustym repozytorium.
 Można potwierdzić prawidłowo skonfigurowane zdalne repozytorium poprzez wykonanie polecenia
