@@ -36,7 +36,7 @@ Poniżej znajdziesz najprostszy program wypisujący wybrany tekst na standardowe
 ```cpp
 // Wczytanie definicji funkcji operujących na strumieniach wejścia-wyjścia 
 // (analogiczne do <stdio.h> z C)
-#include <iostream> 
+#include <iostream>
 
 int main()
 {
@@ -141,14 +141,14 @@ git log
 Repozytoria możemy tworzyć lub **klonować** z serwera.
 W przypadku tych zajęć repozytoria będą klonowane przez każdego studenta.
 
-Do tego celu użyjemy systemu [sgit.mini.pw.edu.pl](sgit.mini.pw.edu.pl).
+Do tego celu użyjemy systemu [sgit.mini.pw.edu.pl](https://sgit.mini.pw.edu.pl).
 Proszę udać się na tę stronę i zalogować się kontem PW CAS.
 Od momentu zalogowania na stronie głównej powinny pokazać się repozytoria dostępne dla użytkownika.
 
 ![landing-page](res/landing-page.png)
 
 Namierz repozytorium o nazwie `lab1_{nazwisko}_{imie}` i kliknie w nie lewym przyciskiem myszy.
-W prawym górnym rogu powinien pojawić sie odnośnik do wykonania operacji **clone**.
+W prawym górnym rogu powinien pojawić się odnośnik do wykonania operacji **clone**.
 
 ![clone](res/clone.png)
 
@@ -166,11 +166,11 @@ Wykonaj następujące polecenia
 ```bash
 ssh-keygen -t ed25519 -f ~/.ssh/sgit_id
 chmod 600 ~/.ssh/sgit_id
-git config --global core.sshCommand "ssh -i ~/.ssh/sgit_id"
+printf "\nHost 192.168.137.60\n  HostName 192.168.137.60\n  IdentityFile ~/.ssh/sgit_id\n  IdentitiesOnly yes\n" >> ~/.ssh/config
 cat ~/.ssh/sgit_id.pub
 ```
 W momencie pytania o hasło do klucza proszę nacisnąć enter bez wpisywania niczego.
-Powyższe polecenia generują parę kluczy: publiczny i prywatny, ustawiają odpowiednie uprawnienia oraz konfigurują gita, aby używał nowo utworzonego klucza jako tożsamości.
+Powyższe polecenia generują parę kluczy: publiczny i prywatny, ustawiają odpowiednie uprawnienia oraz konfigurują ssh, aby używał nowo utworzonego klucza jako tożsamości.
 Ostatnia linia jest **kluczem publicznym**, który musimy umieścić w systemie **sgit**.
 W tym celu proszę udać się do ustawień konta w prawym górnym rogu
 
@@ -183,15 +183,14 @@ Tam znajdź sekcję *SSH / GPG Keys*, w której należy dodać nowy klucz i wkle
 
 Od tego momentu przy próbie wykonania operacji klonowania przy pomocy adresu SSH
 ```bash
-git clone ssh://git@192.168.137.60/P2_26L/lab1_nazwisko_imię.git
+git clone ssh://git@192.168.137.60/P2_26L/lab1_{nazwisko}_{imie}.git
 ```
 powinien utworzyć się folder z pustym repozytorium.
 Można potwierdzić prawidłowo skonfigurowane zdalne repozytorium poprzez wykonanie polecenia
 ```bash
 git remote
 ```
-Powinien być widoczny jeden remote o nazwie **origin**.
-Od tego momentu 
+Powinien być widoczny jeden remote o nazwie **origin**. 
 
 ## Zadanie na dziś -- zaznaczenie obecności
 
@@ -220,14 +219,14 @@ Mamy do wyboru dwie ścieżki, aby rozszerzyć dostęp spoza wydziału:
 * konfiguracja dostępu poprzez token i dodanie remote poprzez protokół HTTP
 
 ### Połączenie pośrednie do sieci wydziałowej
-Skoro do komunikacji z serverem potrzebujemy znajdować się w sieci wydziałowej, to można wykorzystać metodę *ssh port forwarding*.
-Jest to funkcjonalność protokołu ssh, która pozwala przesłać wybrany ruch sieciowy do servera ssh.
+Skoro do komunikacji z serwerem potrzebujemy znajdować się w sieci wydziałowej, to można wykorzystać metodę *ssh port forwarding*.
+Jest to funkcjonalność protokołu ssh, która pozwala przesłać wybrany ruch sieciowy do serwera ssh.
 
-Najpierw należy połączyć się z serverem `ssh.mini.pw.edu.pl` i podać parametr `-L` w taki sposób
+Najpierw należy połączyć się z serwerem `ssh.mini.pw.edu.pl` i podać parametr `-L` w taki sposób
 ```bash
 ssh -L 22222:192.168.137.60:22 {login_wydzialowy}@ssh.mini.pw.edu.pl
 ```
-To polecenie mówi, aby w ramach sesji ssh otworzył się tunel, który zmapuje port `22222` na maszynie klienckiej na połączenie z `192.168.137.60:22` po stronie servera.
+To polecenie mówi, aby w ramach sesji ssh otworzył się tunel, który zmapuje port `22222` na maszynie klienckiej na połączenie z `192.168.137.60:22` po stronie serwera.
 W momencie, gdy mamy otwartą sesję ssh, w drugim terminalu proszę wykonać następujące polecenie w już sklonowanym repozytorium
 ```bash
 git remote add foreign_origin ssh://git@localhost:22222/P2_26L/lab1_{nazwisko}_{imie}.git
@@ -263,7 +262,7 @@ git clone https://sgit.mini.pw.edu.pl/P2_26L/lab1_{nazwisko}_{imie}.git
 ```
 Git zapyta nas o login i hasło.
 Tym razem należy mu je podać.
-Login można odnaleźć w górnym rogu przy profilu uzytkownika
+Login można odnaleźć w górnym rogu przy profilu użytkownika
 
 ![settings](res/settings.png)
 
