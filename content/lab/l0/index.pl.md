@@ -106,7 +106,7 @@ git config --list
 ```
 To działanie jest wymagane tylko raz.
 
-#### 2. Podstawowe operacje
+### 2. Podstawowe operacje
 Każdy projekt związany jest z repozytorium -- to w nim przechowywany jest kod i jego historia.
 Utwórz nowe repozytorium i spróbuj wykonać na nim poniższe operacje.
 
@@ -137,7 +137,7 @@ Aby sprawdzić historię zapisanych zmian, możemy użyć
 git log
 ```
 
-#### 3. Repozytoria zdalne - *remote*
+### 3. Repozytoria zdalne -- *remote*
 Repozytoria możemy tworzyć lub **klonować** z serwera.
 W przypadku tych zajęć repozytoria będą klonowane przez każdego studenta.
 
@@ -238,7 +238,7 @@ Wymaga to także świadomego wykonywania operacji `push` i `pull` w zależności
 
 ### Token dostępowy -- protokół HTTP
 
-Alternatywą jest utworzenie tokenu dostępowego w interfejsie `sgit` i skonfigurowanie **credential helpera** w ramach gita.
+Alternatywą jest utworzenie tokenu dostępowego w interfejsie `sgit` i skonfigurowanie [**credential helpera**](https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage) w ramach gita.
 
 Najpierw należy utworzyć token dostępowy w ustawieniach konta.
 Upewnij się, że token ma uprawnienia do prywatnych repozytoriów na poziomie `read/write`.
