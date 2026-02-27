@@ -147,7 +147,7 @@ Od momentu zalogowania na stronie głównej powinny pokazać się repozytoria do
 
 ![landing-page](res/landing-page.png)
 
-Namierz repozytorium o nazwie `lab1_{nazwisko}_{imie}` i kliknij w nie lewym przyciskiem myszy.
+Namierz repozytorium o nazwie `lab1_nazwisko_imie` i kliknij w nie lewym przyciskiem myszy.
 W prawym górnym rogu powinien pojawić się odnośnik do wykonania operacji **clone**.
 
 ![clone](res/clone.png)
@@ -183,7 +183,7 @@ Tam znajdź sekcję *SSH / GPG Keys*, w której należy dodać nowy klucz i wkle
 
 Od tego momentu przy próbie wykonania operacji klonowania przy pomocy adresu SSH
 ```bash
-git clone ssh://git@192.168.137.60/P2_26L/lab1_{nazwisko}_{imie}.git
+git clone ssh://git@192.168.137.60/P2_26L/lab1_nazwisko_imie.git
 ```
 powinien utworzyć się folder z pustym repozytorium.
 Można potwierdzić prawidłowo skonfigurowane zdalne repozytorium poprzez wykonanie polecenia
@@ -229,7 +229,7 @@ ssh -L 22222:192.168.137.60:22 {login_wydzialowy}@ssh.mini.pw.edu.pl
 To polecenie mówi, aby w ramach sesji ssh otworzył się tunel, który zmapuje port `22222` na maszynie klienckiej na połączenie z `192.168.137.60:22` po stronie serwera.
 W momencie, gdy mamy otwartą sesję ssh, w drugim terminalu proszę wykonać następujące polecenie w już sklonowanym repozytorium
 ```bash
-git remote add foreign_origin ssh://git@localhost:22222/P2_26L/lab1_{nazwisko}_{imie}.git
+git remote add foreign_origin ssh://git@localhost:22222/P2_26L/lab1_nazwisko_imie.git
 ```
 
 Powyższe rozwiązanie wymaga utrzymywania dodatkowego remote poza wydziałem.
@@ -258,7 +258,7 @@ Polecam dowiedzieć się jaki menadżer dostępny jest w twoim systemie i zinteg
 
 Teraz wykonajmy operacje clone repozytorium po protokole HTTP
 ```bash
-git clone https://sgit.mini.pw.edu.pl/P2_26L/lab1_{nazwisko}_{imie}.git
+git clone https://sgit.mini.pw.edu.pl/P2_26L/lab1_nazwisko_imie.git
 ```
 Git zapyta nas o login i hasło.
 Tym razem należy mu je podać.
