@@ -23,6 +23,7 @@ menu:
 - Aleksander Płocharski
 - Krzysztof Smogór
 - Maciej Spychała
+- Piotr Krasowski
 
 Sprawy dotyczące organizacji laboratorium, popraw, nieobecności proszę kierować do koordynatora laboratorium.
 
