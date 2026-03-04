@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace l4::base32
+namespace lbis::base32
 {
 /**
  * The class represents a process of encoding arbitrary bytestream into base32hex encoded string.
@@ -45,4 +45,4 @@ class Encoder
      */
     [[nodiscard]] std::string encodedString() const;
 };
-}  // namespace l4::base32
+}  // namespace lbis::base32

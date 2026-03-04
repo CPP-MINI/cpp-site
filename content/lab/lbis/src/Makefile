@@ -6,10 +6,10 @@ ARFLAGS=rcs
 
 .PHONY: all clean
 
-all: l4_base32
+all: lbis_base32
 
-l4_base32: main.o libbase32.a
-	${CXX} ${LDFLAGS} $^ -o l4_base32
+lbis_base32: main.o libbase32.a
+	${CXX} ${LDFLAGS} $^ -o lbis_base32
 
 main.o: main.cpp
 	${CXX} ${CXXFLAGS} -c $< -o $@
@@ -25,4 +25,4 @@ decoder.o: decoder.cpp
 
 
 clean:
-	rm -f *.o *.a l4_base32
+	rm -f *.o *.a lbis_base32
