@@ -1,11 +1,10 @@
 CXX = g++
+.PHONY : all clean
 
-          .PHONY : all clean
+all : pager
 
-                       all : pager
+pager : pager.cpp bounded_buffer.cpp bounded_buffer.hpp
+	${CXX} -o pager bounded_buffer.cpp pager.cpp
 
-                                 pager : pager.cpp bounded_buffer.cpp ${CXX} -
-      o pager bounded_buffer.cpp pager.cpp
-
-          clean : rm -
-      f pager
+clean :
+	rm -f pager

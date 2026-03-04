@@ -10,18 +10,18 @@ weight: 10
 
 ### Biblioteka standardowa
 
-W jeżyku C++ programista ma dostęp do **biblioteki standardowej C++**.
+W języku C++ programista ma dostęp do **biblioteki standardowej C++**.
 Zawiera ona podstawowe funkcje i klasy, których warto nauczyć się używać.
 Na laboratoriach nasze programy będą miały zawsze dostęp do wszystkich funkcjonalności biblioteki.
 
-Proszę nie używać standardowe biblioteki **C** (np. `#include <stdio.h>`).
+Proszę nie używać standardowej biblioteki **C** (np. `#include <stdio.h>`).
 Jeśli będzie potrzeba dowiedzieć się, jakie funkcje są dostępne w bibliotece standardowe oraz jak ich używać, proszę odwiedzać takie strony jak [https://cppreference.com/](https://cppreference.com/).
 Są to strony opisujące elementy standardowej biblioteki w sposób zwięzły i *przystępny* dla programisty (to ostatnie jest dyskusyjne).
 
-### Zadanie - Buforowanie wejścia
+### Zadanie -- Buforowanie wejścia
 
 Twoim zadaniem na dzisiejszych laboratoriach jest przygotowanie prostego programu zapamiętujący linie wprowadzone na standardowe wejście.
-Po przeczytaniu 4 linii powinny zostać wypisane na standardowe wyjście z dodatkową pustą linią.
+Po przeczytaniu 4 linii powinny zostać wypisane na standardowe wyjście z dodatkową linią zawierającą separator.
 
 #### 1. Przygotowanie pracy
 Rozpocznij od utworzenia pliku `pager.cpp` i otwarcia go w swoim środowisku programistycznym.
@@ -46,7 +46,7 @@ Jeśli kod kompiluje się i uruchamia bez problemu, przejdź do kolejnego kroku
 #### 2. Czytanie i pisanie
 
 Na początku przygotuj kod, który czyta linie do zmiennej typu `std::string` i wypisuje ją na standardowe wyjście.
-Do przeczytania całej linii na wejściu użyj funkcji (`std::getline()`)[https://en.cppreference.com/w/cpp/string/basic_string/getline].
+Do przeczytania całej linii na wejściu użyj funkcji [`std::getline()`](https://en.cppreference.com/w/cpp/string/basic_string/getline).
 Czytaj do czasu, jak standardowe wejście się zakończy.
 Aby sprawdzić działanie programu, wykonaj
 
@@ -59,7 +59,7 @@ Lub po uruchomieniu programu poprzez
 ```
 wpisuj dane ręcznie. Zakończ strumień poprzez `Ctrl+D`.
 
-**Podpowiedź**: użyj `while (std::getline(std:cin, ...))`, aby czytać do czasu końca strumienia standardowego wejścia. 
+**Podpowiedź**: użyj `while (std::getline(std::cin, ...))`, aby czytać do czasu końca strumienia standardowego wejścia. 
 
 #### 3. Buforowanie danych
 
@@ -137,7 +137,7 @@ już nie wystarczy.
 Wymaga to nietrywialnej logiki, która trzeba podzielić się z użytkownikami lub innymi programistami.
 
 Do przechowywania informacji o sposobie skompilowania programu służy **system budowania**.
-W przypadku naszego laboratorium będziemy posługiwać się systemem (**GNU Make**)[https://www.gnu.org/software/make/manual/make.html].
+W przypadku naszego laboratorium będziemy posługiwać się systemem [**GNU Make**](https://www.gnu.org/software/make/manual/make.html).
 
 #### 1. Utworzenie `Makefile`
 Poza kodem źródłowym programu typowo rozprowadza się także plik `Makefile`, który opisuje sposób budowania.
@@ -198,7 +198,7 @@ Jeśli chcesz skorzystać ze struktury `bounded_buffer` oraz czterech skojarzony
 ```cpp
 #include "bounded_buffer.hpp"
 ```
-Informuje ona kompilator, aby załączył cała zawartość pliku `bounded_buffer.hpp` w miejscu linijki `#include "bounded_buffer.hpp`.
+Informuje ona kompilator, aby załączył cała zawartość pliku `bounded_buffer.hpp` w miejscu linijki `#include "bounded_buffer.hpp"`.
 
 Pozostał jeszcze jeden szczegół, który jest dobrą praktyką w definiowaniu plików nagłówkowych.
 Na początku należy zdefiniować tzw. **include guard** (pol. strażnik inkluzywności).
@@ -235,7 +235,7 @@ Jest to objaw braku include guard.
 Dodaj do swojego pliku `bounded_buffer.hpp` następujące instrukcje preprocessora na końcu i początku.
 ```cpp
 #ifndef _BOUNDED_BUFFER_HPP
-#define _BOUNDED_BUFEFR_HPP
+#define _BOUNDED_BUFFER_HPP
 
 // ... definicja struktury oraz deklaracje zmiennych ...
 
@@ -253,7 +253,7 @@ Wykonaj powyższe polecenie z include guardem i bez niego.
 
 #### 3. Kompilacja programu `pager`
 
-Gdy już mamy 3 pliki: `pager.cpp`, `bounded_buffer.hpp` oraz `bounded_buffer.hpp`, mozemy przejśc do budowania programu.
+Gdy już mamy 3 pliki: `pager.cpp`, `bounded_buffer.cpp` oraz `bounded_buffer.hpp`, mozemy przejśc do budowania programu.
 Wykonanie polecenia
 ```bash
 make
@@ -274,7 +274,7 @@ Wtedy program zbuduje się prawidłowo, ponieważ będzie posiadał wszystkie **
 
 [Makefile](solution/Makefile)
 
-[pager.cpp](solution/main.cpp)
+[pager.cpp](solution/pager.cpp)
 
 [bounded_buffer.hpp](solution/bounded_buffer.hpp)
 
