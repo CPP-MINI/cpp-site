@@ -1,118 +1,138 @@
+#include <algorithm>
+#include <iomanip>
+#include <ios>
 #include <iostream>
+#include <ostream>
 #include <vector>
-#include <memory>
 
-#include "SongDuration.hpp"
-#include "Song.hpp"
-#include "Playlist.hpp"
+#include "holey_string.hpp"
+#include "memory_manipulation.hpp"
+#include "vector3.hpp"
 
-int main() {
+using namespace l2;
 
-    std::cout << "*************** PART 1 (SongDuration) ***************\n\n";
+void print_readable_character(std::byte byte)
+{
+    if (byte >= std::byte{0x20} && byte <= std::byte{0x7E})
+        std::cout << static_cast<char>(byte);
+    else
+        std::cout << ".";  // Non readable character cannot be shown in the console
+}
 
-    SongDuration duration1(0, 125);  // 2m 5s
-    SongDuration duration2(3, 98);  // 4m 38s
+void dump_memory(std::byte* start, size_t count)
+{
+    const long int window_width = 8;
 
-    std::cout << "Duration 1: " << duration1.get_formatted() << " (" << duration1.get_total_seconds() << "s)\n";
-
-    std::cout << "Duration 2: " << duration2.get_formatted() << " (" << duration2.get_total_seconds() << "s)\n";
-
-    std::cout << "\n*************** PART 2 (Song) ***************\n\n";
-
-    Song song1;
-    Song song2("Recursion Anthem", duration2, "Stack Overflow");
-    Song song3("Binary Love", 3, 45, "The Algorithms");
+    // Aliasing rules are ok here. size_t is the same size as any pointer.
+    const std::byte* finish_addr = start + count;
+    for (std::byte* addr = start; addr < finish_addr; addr += window_width)
     {
-        Song song4("Segmentation Fault", duration1);
-        Song song5("Git Happens", 2);
-
-        song1.print();
-        song2.print();
-        song3.print();
-        song4.print();
-        song5.print();
-        std::cout << "\nTotal songs: " << Song::get_total_songs() << std::endl;
+        int max_idx = std::min(finish_addr - addr, window_width);
+        std::cout << std::hex << addr << ": ";
+        for (int idx = 0; idx < max_idx; ++idx)
+            std::cout << std::setfill('0') << std::setw(2) << std::hex << static_cast<unsigned int>(*(addr + idx))
+                      << " ";
+        std::cout << "| ";
+        for (int idx = 0; idx < max_idx; ++idx)
+            print_readable_character(*(addr + idx));
+        std::cout << " |" << std::endl;
     }
-    std::cout << "\nTotal songs: " << Song::get_total_songs() << std::endl << std::endl;
+}
 
-    song1.set_title("Polymorphic Dreams");
-    song1.set_artist("Object-Oriented Orchestra");
-    song1.set_duration(300);
-    std::cout << "get_title(): " << song1.get_title() << std::endl;
-    std::cout << "get_artist(): " << song1.get_artist() << std::endl;
-    std::cout << "get_duration(): " << song1.get_duration() << std::endl;
+int main()
+{
+    std::cout << "STAGE 1" << std::endl;
+    // ETAP 1
+    Vector3 v1 = BaseVector1;
+    Vector3 v2 = BaseVector2;
+    Vector3 v3 = BaseVector3;
 
-    std::cout << "\n*************** PART 3 (Playlist) ***************\n\n";
+    v1.mul(3);
+    v2.mul(5);
+    v3.mul(7);
 
-    Playlist playlist;
-    playlist.add_song(song1);
-    playlist.add_song(song2);
-    playlist.add_song(song3);
+    Vector3 result_vector = vector3_add(v1, vector3_add(v2, v3));
+    vector3_print(result_vector);
 
-    std::cout << "Playlist size: " << playlist.get_size() << std::endl;
-    playlist.print();
+    dump_memory(reinterpret_cast<std::byte*>(&v1), sizeof(Vector3));
 
-    Playlist playlist_copy1(playlist);
-    std::cout << "\nPlaylist copy (constructor):" << std::endl;
-    playlist_copy1.print();
+    std::cout << "STAGE 2 and 3" << std::endl;
 
-    Playlist playlist_copy2 = playlist;
-    playlist_copy2 = playlist;
-    std::cout << "\nPlaylist copy (assignment):" << std::endl;
-    playlist_copy2.print();
-
-    Playlist playlist_move1(std::move(playlist_copy1));
-    std::cout << "\nPlaylist moved (constructor):" << std::endl;
-    playlist_move1.print();
-    std::cout << "\nMoved from:\n";
-    playlist_copy1.print();
-
-    Playlist playlist_move2;
-    playlist_move2 = std::move(playlist_copy2);
-    std::cout << "\nPlaylist moved (assignment):" << std::endl;
-    playlist_move2.print();
-    std::cout << "\nMoved from:\n";
-    playlist_copy2.print();
-
-    std::cout << "\n*************** PART 4 (Smart Pointers) ***************\n\n";
-
-    struct Dummy {
-        char id;
-        Dummy(char id) : id(id) {
-            std::cout << id << " created" << std::endl;
-        }
-        ~Dummy() {
-            std::cout << id << " destroyed" << std::endl;
-        }
-    };
-
-    std::vector<std::shared_ptr<Dummy>> v1;
-    std::vector<std::shared_ptr<Dummy>> v2;
+    const int array_size = 10;
+    // Stack
     {
-        std::shared_ptr<Dummy> A = std::make_shared<Dummy>('A');
-        std::shared_ptr<Dummy> B = std::make_shared<Dummy>('B');
-        std::shared_ptr<Dummy> C = std::make_shared<Dummy>('C');
+        Vector3 stack_array[array_size];
 
-        v1.push_back(A);
-        v1.push_back(B);
-        v1.push_back(C);
+        for (int i = 0; i < array_size; ++i)
+        {
+            stack_array[i] = {static_cast<double>(i), static_cast<double>(i), static_cast<double>(i)};
+            std::cout << std::hex << &stack_array[0] << std::endl;
+        }
 
-        v2.push_back(B);
-        v2.push_back(C);
+        for (const Vector3& v : stack_array)
+            std::cout << v.length() << std::endl;
+
+        dump_memory(reinterpret_cast<std::byte*>(stack_array), array_size * sizeof(Vector3));
     }
 
-    std::cout << "\nClearing v1" << std::endl;
-    v1.clear();
+    // Heap
+    {
+        Vector3* heap_array = new Vector3[array_size];
+
+        for (int i = 0; i < array_size; ++i)
+        {
+            heap_array[i] = {static_cast<double>(i), static_cast<double>(i), static_cast<double>(i)};
+            std::cout << std::hex << &heap_array[0] << std::endl;
+        }
+
+        for (int i = 0; i < array_size; ++i)
+            std::cout << heap_array[i].length() << std::endl;
+
+        dump_memory(reinterpret_cast<std::byte*>(heap_array), array_size * sizeof(Vector3));
+        delete[] heap_array;
+    }
+
+    // std::vector (wrapper for custom memory logic)
+    {
+        std::vector<Vector3> vectors_vector;
+
+        for (int i = 0; i < array_size; ++i)
+        {
+            vectors_vector.emplace_back(i, i, i);
+            std::cout << std::hex << &vectors_vector[0] << std::endl;  // Spooky things happening here...
+        }
+
+        for (const Vector3& v : vectors_vector)
+            std::cout << v.length() << std::endl;
+
+        dump_memory(reinterpret_cast<std::byte*>(vectors_vector.data()), vectors_vector.size() * sizeof(Vector3));
+    }
+
+    std::cout << "STAGE 4" << std::endl;
+
+    HoleyString hello;
+    hello.assign("hello");
+
+    hello.print();
     std::cout << std::endl;
+    dump_memory(reinterpret_cast<std::byte*>(&hello), sizeof(HoleyString));
 
-    std::cout << "Clearing v2" << std::endl;
-    v2.clear();
+    hello.hide("world");
+
+    hello.print();
     std::cout << std::endl;
+    dump_memory(reinterpret_cast<std::byte*>(&hello), sizeof(HoleyString));
 
-    std::vector<std::unique_ptr<Dummy>> v3;
+    std::cout << "STAGE 5" << std::endl;
 
-    v3.emplace_back(std::make_unique<Dummy>('D'));
-    v3.emplace_back(std::make_unique<Dummy>('E'));
+    std::string sentence = "Hello world!";
+    memcpy(reinterpret_cast<std::byte*>(sentence.data() + 6), reinterpret_cast<std::byte*>(sentence.data()), 5);
+    std::cout << sentence << std::endl;
+
+    std::string sentence2 = "Hello world once again!";
+    memmove(reinterpret_cast<std::byte*>(sentence2.data() + 12), reinterpret_cast<std::byte*>(sentence2.data() + 6),
+            10);
+    std::cout << sentence2 << std::endl;
 
     return 0;
 }

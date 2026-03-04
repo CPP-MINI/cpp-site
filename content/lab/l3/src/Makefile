@@ -1,12 +1,13 @@
 CXX=g++
-CXXFLAGS=-std=c++17 -Wall -fsanitize=address,leak -g
+CXXFLAGS=-Wall -fsanitize=address,leak
 LDFLAGS=-fsanitize=address,leak
 
 .PHONY: all clean
 
-all: l3
+all: l2
 
-
+l2: 
+	echo "Define how to build an executable here"
 
 clean:
-	rm -f *.o l3
+	rm -f l2

@@ -1,212 +1,156 @@
 ---
-title: "L3"
+title: "L2"
 date: 2022-02-05T17:26:02+01:00
-weight: 30
+weight: 20
 ---
 
-# Laboratorium 3
-## Klasy
+# Laboratorium 2
+## Pamięć
 
-Na tym laboratorium twoim zadaniem będzie przećwiczenie różnych funkcjonalności związanych z klasami, a także eksperymentowanie z inteligentnymi wskaźnikami.
-Głównym tematem laboratorium są funkcjonalności związane z piosenkami.
+Na tym laboratorium twoim zadaniem jest stworzenie niestandardowych typów danych oraz eksperymentowanie z ich czasem życia.
+Tym razem zadanie podzielone jest na sześć etapów.
+W kodzie znajdują się wskazówki, gdzie należy umieścić rozwiązania poszczególnych etapów (szukaj komentarzy zawierających `STAGE N`).
 
-Skorzystaj z dostarczonego pliku [main.cpp](src/main.cpp), w którym umieszczone zostały testy do pierwszych 3 etapów zadania.
-Po zakończeniu implementacji konkretnego etapu odkomentuje odpowiadającą mu część funkcji main i porównaj swój wynik z oczekiwanym (**pamiętaj o załączeniu stworzonych przez ciebie plików w main.cpp**).
-Dostarczony jest również startowy plik [Makefile](src/Makefile).
+Skorzystaj z kodu startowego oraz dołączonego do niego pliku `Makefile`. Można w nim znaleźć dwie zmienne: `CXXFLAGS` oraz `LDFLAGS`. Pierwsza powinna być używana przy tworzeniu obiektów.
+Druga natomiast jest przekazana przy linkowaniu obiektów do plików wykonywalnych lub bibliotek.
 
-### Etap 1: Implementacja klasy `SongDuration`
+[Makefile](src/Makefile)
 
-W pliku `SongDuration.hpp` zaimplementuj klasę `SongDuration`, która reprezentuje czas trwania utworu w minutach i sekundach.
+[main.cpp](src/main.cpp)
 
-Klasa powinna zawierać następujące elementy:
+[vector3.hpp](src/vector3.hpp) [vector3.cpp](src/vector3.cpp) 
 
-**Prywatne pola**:
-- `unsigned int minutes` – liczba minut.
-- `unsigned int seconds` – liczba sekund.
+[holey_string.hpp](src/holey_string.hpp) [holey_string.cpp](src/holey_string.cpp) 
 
-**Konstruktor**:
-- Zaimplementuj konstruktor przyjmujący liczbę minut i sekund. Jeśli liczba sekund przekracza 59, powinna być automatycznie przeliczona na minuty (np. `SongDuration(1, 65)` powinno skutkować `2 minutami i 5 sekundami`).
+[memory_manipulation.hpp](src/memory_manipulation.hpp) [memory_manipulation.cpp](src/memory_manipulation.cpp)
 
-**Metody publiczne**:
-- `get_total_seconds()` – zwraca całkowity czas trwania w sekundach.
-- `get_formatted()` – zwraca string zawierający czas trwania w formacie `"Xm Ys"`, gdzie `X` i `Y` to odpowiednio liczna minut i sekund.
+### Etap 0: Deklaracja enumeracji w stylu C++
 
-Oczekiwane wyjście etapu 1:
+Na rozgrzewkę twoim zadaniem będzie utworzenie dwóch enumeracji opisujących kolory oraz typy owoców.
+W tym celu utwórz plik `fruit.hpp` i zadeklaruj dwie enumeracje: `Color` oraz `FruitType`.
+Pierwsza z nich dopuszcza 4 kolory:
+* `Red`
+* `Orange`
+* `Green`
+* `Violet`
+
+Druga natomiast opisuje trzy rodzaje owoców:
+* `Apple`
+* `Orange`
+* `Plum`
+
+Następnie zdefiniuj strukturę `Fruit` składającą się z tych dwóch enumeracji.
+Na końcu pliku `fruit.hpp` zdefiniuj 6 statycznych wyrażeń stałych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
+
+Wyrażenie stałe może być użyte do wykonania obliczeń jeszcze w trakcie kompilacji.
+Na warsztatach użyjemy tego jako ułatwienie definiowania zmiennej statycznej.
+Wyrażenia stałe mogą być definiowane w całości w plikach nagłówkowych.
+Na dalszych wykładach szerzej zostanie poruszony temat obliczeń w trakcie kompilacji.
+
+Zwróć uwagę, że przy instancjonowaniu dojrzałej pomarańczy przekazujemy dwa razy enumerację o symbolu `Orange`.
+Enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać użyty w trakcie tworzenia instancji owoców przy pomocy nazwy klasy poprzedzającej wartość enumeracji.
+
+### Etap 1: Trójwymiarowy wektor
+W pliku `vector3.hpp` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
+Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
+Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
+Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jak typ double.
+Proszę zwrócić uwagę na dwie linie zawierające `static_assert`.
+Jest to sposób na upewnienie się, że zdefiniowany przez ciebie typ będzie traktowany jako blok trzech liczb.
+Zastanów się, dlaczego akurat tak wyglądają sprawdzenia poprawności.
+
+Struktura `Vector3` ma zdefiniowane pole `v` stworzonego przez ciebie typu `internal_representation`.
+W czterech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
+
+Dwie z tych funkcji to tzw. *konstruktory*, o których mowa będzie na kolejnych laboratoriach.
+Twoim zadaniem jest ustawić w nich wartości `x`, `y` oraz `z` pola `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
+Funkcja `length` służy do wyliczenia długości euklidesowej wektora (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `cmath`).
+Funkcja `mul` służy do pomnożenia wektora przez liczbę.
+Do zaimplementowania funkcji `length` oraz `mul` użyj możliwości dostępu do `v` z perspektywy tablicy typu `double`.
+
+Jako rozszerzenie klasy `Vector3` zadeklaruj dwie wolne funkcje w pliku `vector3.hpp`:
+* `vector3_add` - funkcja wykonuje dodawanie wektorów oraz przyjmuje dwie stałe referencje na typ `Vector3` reprezentujące lewą i prawą stronę operatora dodawania. Funkcja powinna zwracać nowy `Vector3` przechowujący wynik dodawania.
+* `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście.
+
+Ciała funkcji powinny zostać zaimplementowane w pliku `vector3.cpp`.
+
+Po skończeniu implementacji struktury `Vector3` przejdź do funkcji `main` w pliku `main.cpp`. 
+Mając już wszystkie konieczne operacje na wektorach, możemy wyrazić wektor `[3,5,7]` jako kombinację liniową wektorów bazowych pomnożonych przez pewne stałe.
+Zdefiniuj trzy wektory bazowe jako zmienne automatyczne i wykorzystując funkcje `mul` oraz `vector3_add` oblicz wynikowy wektor. Na koniec wypisz wynik na standardowe wyjście przy pomocy funkcji `vector3_print`.
+
+
+W ramach przypomnienia: wektory z bazy kanonicznej to `[1,0,0]`, `[0,1,0]` oraz `[0,0,1]` (**Podpowiedź**: `= {x,y,z}` zainicjalizuje wektor wartościami podanymi w klamrach).
+
+### Etap 2: Tablice wektorów
+
+Kiedy typ `Vector3` działa jak trzeba, możemy przejść do deklarowania tablic w funkcji `main`.
+Twoim zadaniem jest zadeklarować trzy rodzaje tablic:
+* automatyczna (na stosie),
+* dynamiczną (na stercie) - oznacza to wykonanie wszystkich akcji związanych z obsługą otrzymanej pamięci,
+* używając `std::vector` (używając obiektu, który zarządza pamięcią wewnętrznie).
+
+Do każdej tablicy wstaw 10 obiektów typu `Vector3` o wartościach `{i,i,i}`, gdzie `i` - numer wstawianego wektora.
+Przy każdym wstawieniu pobierz adres pierwszego elementu oraz wypisz go na standardowe wyjście. Czy w każdym wypadku te adresy będą identyczne w czasie kolejnych iteracji pętli?
+Po zakończeniu wstawiania przejdź po tablicy ponownie oraz wypisz długość wektora na standardowe wyjście.
+
+### Etap 3: Memory dumper (*pol. drukarz pamięci*)
+
+W tym etapie twoim celem jest napisanie funkcji, która przyjmie dowolny wskaźnik oraz ilość bajtów do wypisania na standardowe wyjście.
+W każdej linii wypisz 8 bajtów na dwa sposoby: jako liczbę heksadecymalną oraz znak ASCII (jeśli jest to możliwe).
+Aby dopełnić obraz wypisanych bajtów, na początku linii wypisz adres pierwszego bajta (**Podpowiedź**: [`std::hex`](https://en.cppreference.com/w/cpp/io/manip/hex) służy do formatowania wartości jako liczby heksadecymalnej).
+
+Przykładowo funkcja dla pamięci zajmowanej przez `Vector3{1,2,3}` wypisze na standardowe wyjście
 ```
-Duration 1: 2m 5s (125s)
-Duration 2: 4m 38s (278s)
+0x75c1bc3000f0: 00 00 00 00 00 00 f0 3f | .......? |
+0x75c1bc3000f8: 00 00 00 00 00 00 00 40 | .......@ |
+0x75c1bc300100: 00 00 00 00 00 00 08 40 | .......@ |
 ```
-
-### Etap 2: Implementacja klasy `Song`
-
-W plikach `Song.hpp` i `Song.cpp` zaimplementuj klasę `Song`, która reprezentuje pojedynczy utwór muzyczny.
-
-Klasa powinna zawierać następujące elementy:
-
-**Prywatne pola**:
-
-- `std::string title` – tytuł utworu.
-- `std::string artist` – wykonawca utworu.
-- `SongDuration duration` – czas trwania utworu.
-
-**Konstruktory**:
-- Konstruktor bezargumentowy inicjalizuje tytuł jako `"Untitled"`, wykonawcę jako `"Unknown"`, a czas trwania jako 0 sekund.
-- Konstruktor przyjmujący tytuł, czas trwania (`SongDuration`) oraz wykonawcę (wykonawca powinien mieć domyślną wartość `"Unknown"`).
-- Konstruktor przyjmujący tytuł, czas trwania (w minutach i sekundach) oraz wykonawcę (sekundy powinny mieć domyślną wartość 0, a wykonawca `"Unknown"`).
-
-**Uwaga**: Pamiętaj o używaniu list inicjalizacyjnych.
-
-**Metody publiczne**:
-- `print()` – wypisuje informacje o utworze w formacie:
-  ```
-  <tytuł>, Artist: <wykonawca> [<czas trwania>]
-  ```
-- gettery i settery do pól prywatnych (getter i setter do `duration` powinien przyjmować i zwracać tylko sumaryczną liczbę sekund)
-
-**Przypomnienie z wykładu**: Gettery i settery to proste funkcje dostarczające kontrolowany dostęp do prywatnego stanu obiektu.
-Często są to jedno linijkowe funkcje zwracające bądź ustawiające wartość prywatnego pola.
-W przypadku pojawienia się dodatkowych wymagań dotyczących stanu obiektu, w łatwy sposób pozwala nam to kontrolować czy stan cały czas będzie poprawny poprzez dodatkową walidację w odpowiednich setterach.
-
-**Statyczne pole i metodę**:
-- Pole statyczne `unsigned int count_songs` powinno przechowywać aktualną liczbę stworzonych obiektów typu `Song`.
-- Metoda statyczna `get_total_songs()` zwraca liczbę aktualnie istniejących obiektów typu `Song`.
-
-**Uwaga**: Żeby powyższy licznik działał poprawnie, musisz uwzględnić tę funkcjonalność w konstruktorach i zdefiniować odpowiedni destruktor.
-
-Oczekiwane wyjście etapu 2:
+a dla ciągu znaków `Hello world!`
 ```
-Untitled, Artist: Unknown [0m 0s]
-Recursion Anthem, Artist: Stack Overflow [4m 38s]
-Binary Love, Artist: The Algorithms [3m 45s]
-Segmentation Fault, Artist: Unknown [2m 5s]
-Git Happens, Artist: Unknown [2m 0s]
-
-Total songs: 5
-
-Total songs: 3
-
-get_title(): Polymorphic Dreams
-get_artist(): Object-Oriented Orchestra
-get_duration(): 300
-```
-
-### Etap 3: Implementacja klasy `Playlist`
-
-W plikach `Playlist.hpp` i `Playlist.cpp` zaimplementuj klasę `Playlist`, która reprezentuje playlistę utworów.
-Klasa będzie podobna w funkcjonalności do implementowanego przez was ostatnio w czasie laboratorium punktowanego wektora.
-Piosenki powinny być przechowywane w dynamicznie alokowanej tablicy. Tym razem jednak będziemy pozwalać tylko na dodawanie elementów.
-
-Klasa powinna zawierać następujące elementy:
-
-**Prywatne pola**:
-- `Song* songs` – wskaźnik na dynamiczną tablicę utworów.
-- `unsigned int capacity` – pojemność playlisty.
-- `unsigned int size` – aktualna liczba utworów w playliście.
-
-**Konstruktory, operatory przypisania i destruktor**:
-- Konstruktor przyjmujący początkową pojemność playlisty (domyślnie 10).
-- Konstruktor kopiujący.
-- Operator przypisania.
-- Konstruktor przenoszący.
-- Operator przypisania z przeniesieniem.
-- Destruktor.
-
-Z racji na to, że klasa `Playlist` zarządza dynamiczną pamięcią, chcemy zdefiniować dla niej powyższe funkcjonalności zgodnie z regułą 5/0.
-
-**Metoda prywatna**:
-- `resize(unsigned int new_capacity)` – pomocnicza funkcja zmieniająca pojemność playlisty na podaną wartość.
-
-**Metody publiczne**:
-- `add_song(const Song& song)` – dodaje utwór do playlisty. Jeśli tablica jest pełna, zwiększ jej pojemność dwukrotnie.
-- `get_size()` – zwraca liczbę utworów w playliście.
-- `print()` – wypisuje wszystkie utwory w playliście w formacie (lub `Playlist is empty` jeżeli playlista jest pusta):
-  ```
-  1. <tytuł>, Artist: <wykonawca> [<czas trwania>]
-  2. <tytuł>, Artist: <wykonawca> [<czas trwania>]
-  ...
-  ```  
-Oczekiwane wyjście etapu 3:
-```
-Playlist size: 3
-1. Polymorphic Dreams, Artist: Object-Oriented Orchestra [5m 0s]
-2. Recursion Anthem, Artist: Stack Overflow [4m 38s]
-3. Binary Love, Artist: The Algorithms [3m 45s]
-
-Playlist copy (constructor):
-1. Polymorphic Dreams, Artist: Object-Oriented Orchestra [5m 0s]
-2. Recursion Anthem, Artist: Stack Overflow [4m 38s]
-3. Binary Love, Artist: The Algorithms [3m 45s]
-
-Playlist copy (assignment):
-1. Polymorphic Dreams, Artist: Object-Oriented Orchestra [5m 0s]
-2. Recursion Anthem, Artist: Stack Overflow [4m 38s]
-3. Binary Love, Artist: The Algorithms [3m 45s]
-
-Playlist moved (constructor):
-1. Polymorphic Dreams, Artist: Object-Oriented Orchestra [5m 0s]
-2. Recursion Anthem, Artist: Stack Overflow [4m 38s]
-3. Binary Love, Artist: The Algorithms [3m 45s]
-
-Moved from:
-Playlist is empty
-
-Playlist moved (assignment):
-1. Polymorphic Dreams, Artist: Object-Oriented Orchestra [5m 0s]
-2. Recursion Anthem, Artist: Stack Overflow [4m 38s]
-3. Binary Love, Artist: The Algorithms [3m 45s]
-
-Moved from:
-Playlist is empty
+0x76a298300240: 48 65 6c 6c 6f 20 77 6f | Hello wo |
+0x76a298300248: 72 6c 64 21 | rld! |
 ```
 
-### Etap 4: Eksperymentowanie z inteligentnymi wskaźnikami
+Definicja funkcji jest przygotowana w pliku `main.cpp`.
+Po wykonaniu implementacji wypisz na ekran pamięć zajmowaną przez każdą tablicę z etapu drugiego.
 
-W tej części zostawimy już tematykę piosenek ze sobą i będziemy eksperymentować z inteligentnymi wskaźnikami `std::shared_ptr` i `std::unique_ptr`.
-Tę część wykonaj całkowicie w przygotowanej części na końcu funkcji main. Znajdziesz tam pomocniczą klasę, która pomoże obserwować, kiedy obiekt jest tworzony i niszczony.
+### Etap 4: Dziurawy ciąg znaków
 
-**1. Wykonaj polecenia oznaczone w kodzie jako [TODO 1]**
-* Oczekiwane wyjście:
-```
-A created
-B created
-C created
+W pliku `holey_string.hpp` zdefiniowana jest struktura reprezentująca 16 elementowy ciąg znaków.
+Znaki w tej strukturze są specjalne, pomimo wykorzystania typu `char` każdy znak zajmuje 2 bajty.
 
-Clearing v1
-A destroyed
+Twoim zadaniem jest zdefiniować ten specjalny typ znaku `holey_char` (**Podpowiedź**: `alignas`) i zaimplementować trzy funkcje:
+* `print` - ta funkcja wypisuje taki specjalnie przygotowany ciąg znaków na standardowe wyjście (długość ciągu znaków ustal na podstawie terminującego zera - jak w języku C),
+* `assign` - ta funkcja przypisuje otrzymany `std::string` do specjalnego ciągu znaków (zaterminuj string w stylu C - ustawiając ostatni bajt na zero),
+* `hide` - ta funkcja przypisuje otrzymany `std::string` do dziur powstałych pomiędzy znakami.
+W przypadku ostatniej funkcji wykonanie funkcji `hide` nie powinno wpłynąć na zawartość ciągu znaków oraz kolejne wywołania funkcji `print`. *Po laboratorium zastanów się, czy ta funkcja przypadkiem nie łamie jakichś zasad* 🤔
 
-Clearing v2
-B destroyed
-C destroyed
-```
-* Zastanów się, dlaczego dostaliśmy akurat taki wynik.
-* Czy wynik zmieniłby się, gdybyśmy usunęli nawiasy `{ }`? Dlaczego? Sprawdź!
+Po zaimplementowaniu powyższych funkcji przejdz do pliku `main.cpp` oraz stwórz automatyczny obiekt typu `HoleyString`. Wykonaj na nim funkcję `assign` ze stringiem `"hello"` oraz hide z `"world"`. Po wykonaniu każdej z tych dwóch operacji wykonaj funkcję `print` oraz wypisz pamięć zajmowaną przez obiekt funkcją `dump_memory`.
 
-Jeżeli chcielibyśmy zrobić to samo tylko z wykorzystaniem `std::unique_ptr` mielibyśmy problem, ponieważ jak nazwa wskazuje, może istnieć tylko jeden taki wskaźnik (nie można go kopiować).
-Aby umieścić taki wskaźnik w wektorze, musimy skonstruować go od razu w środku wektora.
-W tym celu można wykorzystać funkcję [emplace_back](https://en.cppreference.com/w/cpp/container/vector/emplace_back), która przyjmuje argumenty konstruktora elementu i tworzy element już w wektorze.
 
-**1. Wykonaj teraz polecenia oznaczone w kodzie jako [TODO 2]**
-* Oczekiwane wyjście:
-```
-D created
-E created
-D destroyed
-E destroyed
-```
+### Etap 5: Manipulacja pamięcią
 
----
-### Rozwiązanie
+W standardowej bibliotece C znajdują się dwie bardzo przydatne funkcje: `memcpy` oraz `memmove`.
+Obydwie służą do przekopiowania bloku pamięci ze wskazanego adresu do docelowego.
+Różni je jednak bardzo subtelny szczegół: fakt nachodzenia się bloków źródłowego oraz docelowego.
+Funkcja `memcpy` zakłada, że podane bloki nie nachodzą na siebie, a `memmove` dopuszcza, aby bloki nachodziły na siebie.
+Zachęcam do przeczytania instrukcji dla standardowej biblioteki, aby zapoznać się z funkcjami (`man 3p memcpy` oraz `mam 3p memmove`).
 
-[SongDuration.hpp](solution/SongDuration.hpp)
+Twoim zadaniem jest zaimplementować obydwie funkcje w pliku `memory_manipulation.cpp`.
+W celu sprawdzenia implementacji w pliku `main.cpp` wykonaj następujące przekształcenia:
+* `Hello world!` -> `Hello Hello!`
+* `Hello world once again!` -> `Hello world world once!`
 
-[Song.hpp](solution/Song.hpp)
+Zabronione jest użycie funkcji `std::memcpy` oraz `std::memmove` w implementacjach i przykładzie użycia!
 
-[Song.cpp](solution/Song.cpp)
-
-[Playlist.hpp](solution/Playlist.hpp)
-
-[Playlist.cpp](solution/Playlist.cpp)
-
-[main.cpp](solution/main.cpp)
+## Rozwiązanie
 
 [Makefile](solution/Makefile)
+
+[main.cpp](solution/main.cpp) [fruit.hpp](solution/fruit.hpp)
+
+[vector3.hpp](solution/vector3.hpp) [vector3.cpp](solution/vector3.cpp) 
+
+[holey_string.hpp](solution/holey_string.hpp) [holey_string.cpp](solution/holey_string.cpp) 
+
+[memory_manipulation.hpp](solution/memory_manipulation.hpp) [memory_manipulation.cpp](solution/memory_manipulation.cpp)
