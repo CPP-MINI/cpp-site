@@ -70,7 +70,7 @@ Twórca biblioteki poza dwoma klasami dostarcza plik Makefile opisujący zbudowa
 Zawiera on dodatkowo plik `main.cpp`, który symuluje program `basenc` z parametrem `--base32hex`.
 Kod źródłowy biblioteki możesz pobrać za pomocą polecenia
 ```bash
-wget -w 1 -A "*.cpp" -A "*.hpp" -A "makefile" --ignore-case -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/l4/src/
+wget -w 1 -A "*.cpp" -A "*.hpp" -A "makefile" --ignore-case -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/lbis/src/
 ```
 
 **Proszę potraktować otrzymany kod w pliku main.cpp jako czarną skrzynkę. Wewnątrz znajdują się funkcje wychodzące poza zakres tego przedmiotu i nie będziemy ich omawiać.**
@@ -100,7 +100,7 @@ Dwa pliki: `encoder.cpp` oraz `decoder.cpp` należy załączyć jako źródła t
 Dołączenie plików nagłówkowych nie jest konieczne.
 CMake potrafi samodzielnie ustalić, które pliki źródłowe należy przebudować po zmianie pliku nagłówkowego.
 
-W pliku `src/CMakeLists.txt` należy zdefiniować target reprezentujący budowanie **pliku wykonywalnego** `l4_base32`.
+W pliku `src/CMakeLists.txt` należy zdefiniować target reprezentujący budowanie **pliku wykonywalnego** `lbis_base32`.
 Powinien polegać prywatnie na targecie `base32`.
 
 W pliku `lib/CMakeLists.txt` użyj polecenie `add_subdirectory` aby załączyć do projektu folder `tests/base32`.
@@ -108,8 +108,8 @@ Podobnie należy postąpić w głownym pliku `CMakeLists.txt` włączając do pr
 Jest to też odpowiednie miejsce na ustawienie flag kompilacji wspólnych dla wszystkich targetów w projekcie.
 
 Aby sprawdzić, czy skompilowany program działa prawidłowo, wykonaj następujące kroki:
-1. Skonfiguruj projekt CMake i wykonaj budowanie targetu `l4_base32`.
-2. Wykonaj polecenie `echo "abba" | path/to/built/executable/l4_base32`.
+1. Skonfiguruj projekt CMake i wykonaj budowanie targetu `lbis_base32`.
+2. Wykonaj polecenie `echo "abba" | path/to/built/executable/lbis_base32`.
 3. Wykonaj polecenie `echo "abba" | basenc --base32hex`.
 4. Wyjścia kroków 2. oraz 3. powinny być identyczne (konkretnie `C5H64O8A`).
 
@@ -137,7 +137,7 @@ Aby przekonać się, jakie flagi używane są w trakcie budowania, podaj przy ko
 
 Zacznijmy od najprostszego sposobu użycia `gdb` - trybu konsolowego.
 Można go użyć, nie posiadając skonfigurowanego środowiska programistycznego.
-Aby uruchomić nasz program pod kontrolą debuggera, należy wydać polecenie `gdb path/to/built/executable/l4_base32`.
+Aby uruchomić nasz program pod kontrolą debuggera, należy wydać polecenie `gdb path/to/built/executable/lbis_base32`.
 
 W tym momencie debugger powinien załadować wszystkie symbole związane z kodem wykonywalnym.
 Gdy wszystko będzie gotowe, debugger będzie oczekiwać na polecenie `run`, które uruchomi program.
@@ -274,5 +274,5 @@ Dokładne szczegóły działania biblioteki są poza zakresem laboratorium, wię
 ### Rozwiązanie laboratoriów
 Kod z przygotowaną struktura projektu w CMake, napisanymi testami i naprawionymi błędami można pobrać za pomocą polecenia
 ```bash
-wget -w 1 -A "*.cpp" -A "*.hpp" -A "cmakelists.txt" --ignore-case -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/l4/solution/
+wget -w 1 -A "*.cpp" -A "*.hpp" -A "cmakelists.txt" --ignore-case -nH -r -np --cut-dirs=2 https://cpp.mini.pw.edu.pl/lab/lbis/solution/
 ```

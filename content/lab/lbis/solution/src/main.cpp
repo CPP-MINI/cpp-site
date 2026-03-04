@@ -56,7 +56,7 @@ settings parse_args(int argc, char *argv[])
     return settings;
 }
 
-using namespace l4;
+using namespace lbis;
 
 int main(int argc, char *argv[])
 {

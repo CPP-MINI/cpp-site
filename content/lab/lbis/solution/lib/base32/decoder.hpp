@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace l4::base32
+namespace lbis::base32
 {
 /**
  * The class represents a process of decoding base32hex string into an arbitrary bytestream.
@@ -44,4 +44,4 @@ class Decoder
     std::vector<std::byte> pullBytestream();
 };
 
-}  // namespace l4::base32
+}  // namespace lbis::base32

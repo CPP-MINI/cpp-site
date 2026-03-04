@@ -30,18 +30,21 @@ Piątki, godz. 10:15 - 12:00
 
 | Data       | Tytuł                                                            |
 |------------|------------------------------------------------------------------|
-| 28.02.2025 | [L1 - Translacja (warsztaty) ]({{< ref "lab/l1" >}})             |
-| 07.03.2025 | [L1 - Translacja (oceniane) ]({{< ref "lab/l1" >}})              |
-| 14.03.2025 | [L2 - Pamięć (warsztaty) ]({{< ref "lab/l2" >}})                 |
-| 21.03.2025 | [L2 - Pamięć (oceniane) ]({{< ref "lab/l2" >}})                  |
-| 28.03.2025 | [L3 - Klasy (warsztaty) ]({{< ref "lab/l3" >}})                  |
-| 04.04.2025 | [L3 - Klasy (oceniane) ]({{< ref "lab/l3" >}})                   |
-| 11.04.2025 | [L4 - Narzędzia (warsztaty) ]({{< ref "lab/l4" >}})              |
-| 17.04.2025 | [L4 - Narzędzia (oceniane) ]({{< ref "lab/l4" >}})               |
+| 28.02.2025 | [L1 - ? ]({{< ref "lab/l1" >}})             |
+| 07.03.2025 | [L1 - ? ]({{< ref "lab/l1" >}})    
+| 28.02.2025 | [L2 - Translacja (warsztaty) ]({{< ref "lab/l2" >}})             |
+| 07.03.2025 | [L2 - Translacja (oceniane) ]({{< ref "lab/l2" >}})              |
+| 14.03.2025 | [L3 - Pamięć (warsztaty) ]({{< ref "lab/l3" >}})                 |
+| 21.03.2025 | [L3 - Pamięć (oceniane) ]({{< ref "lab/l3" >}})                  |
+| 28.03.2025 | [L4 - Klasy (warsztaty) ]({{< ref "lab/l4" >}})                  |
+| 04.04.2025 | [L4 - Klasy (oceniane) ]({{< ref "lab/l4" >}})                   |
+             |
 | 25.04.2025 | [L5 - STL (warsztaty) ]({{< ref "lab/l5" >}})                    |
 | 09.05.2025 | [L5 - STL (oceniane) ]({{< ref "lab/l5" >}})                     |
 | 14.05.2025 | [L6 - Polimorfizm i Wyjątki (warsztaty) ]({{< ref "lab/l6" >}})  |
 | 23.05.2025 | [L6 - Polimorfizm i Wyjątki (oceniane) ]({{< ref "lab/l6" >}})   |
 | 30.05.2025 | [L7 - Szablony (warsztaty) ]({{< ref "lab/l7" >}})               |
 | 06.06.2025 | [L7 - Szablony (oceniane) ]({{< ref "lab/l7" >}})                |
+| 11.04.2025 | [LBis - Narzędzia (warsztaty) ]({{< ref "lab/lbis" >}})              |
+| 17.04.2025 | [LBis - Narzędzia (oceniane) ]({{< ref "lab/lbis" >}})  
 | Sesja      | Poprawa                                                          |

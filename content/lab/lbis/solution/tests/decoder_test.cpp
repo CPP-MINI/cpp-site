@@ -2,7 +2,7 @@
 
 #include "lib/base32/decoder.hpp"
 
-namespace l4::base32::test
+namespace lbis::base32::test
 {
 TEST(DecoderTest, EmptyStream)
 {
@@ -173,4 +173,4 @@ TEST(DecoderTest, ChainTwoBytestreams)
         EXPECT_EQ(res2[i], expected2[i]) << "Different value at " << i;
     }
 }
-}  // namespace l4::base32::test
+}  // namespace lbis::base32::test
