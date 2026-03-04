@@ -1,10 +1,10 @@
 ---
-title: "L2"
+title: "L3"
 date: 2022-02-05T17:26:02+01:00
 weight: 20
 ---
 
-# Laboratorium 2
+# Laboratorium 3
 ## Pamięć
 
 Na tym laboratorium twoim zadaniem jest stworzenie niestandardowych typów danych oraz eksperymentowanie z ich czasem życia.

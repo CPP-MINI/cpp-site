@@ -1,10 +1,10 @@
 ---
-title: "L1"
+title: "L2"
 date: 2022-02-05T17:26:02+01:00
 weight: 10
 ---
 
-# Laboratorium 1
+# Laboratorium 2
 ## Translacja
 
 W tym zadaniu stworzysz prosty projekt w C++ składający się z:

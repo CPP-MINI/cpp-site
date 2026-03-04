@@ -1,10 +1,10 @@
 ---
-title: "L4"
+title: "LBis"
 date: 2022-02-05T17:26:02+01:00
 weight: 40
 ---
 
-# Laboratorium 4
+# Laboratorium Bis
 ## Narzędzia
 
 W tym laboratorium zajmiemy się poznaniem nowego narzędzia do budowania programów: **CMake**.
