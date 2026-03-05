@@ -262,7 +262,7 @@ zwróci błąd linkera
 ```
 /usr/bin/ld: pager.cpp:(.text:...): undefined reference to ...
 ```
-Oznacza to, że kompilator znalezł **deklarację** funkcji, ale nie moze namierzyć jej **definicji**.
+Oznacza to, że kompilator znalazł **deklarację** funkcji, ale nie moze namierzyć jej **definicji**.
 
 Należy przerobić target `pager`, aby zależał także od pliku `bounded_buffer.cpp` i wykonywał następujące polecenie
 ```bash
