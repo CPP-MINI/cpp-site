@@ -126,7 +126,7 @@ Przebuduj funkcję `main`, aby tworzyła `bounded_buffer` o rozmiarze 4 i używa
 ### System budowania -- GNU Make
 
 Po zaimplementowaniu programu `pager.cpp` możemy zobaczyć wydzielony kawałek kodu z implementacją `bounded_buffer`.
-Jeśli chcielibyśmy użyć go w innym programie, warto utworzyć dla niego osobny plik `bounded_buffer.cpp`.
+Jeśli chcielibyśmy użyć go w innym programie lub zwiększyć czytelność długiego programu, warto utworzyć dla niego osobny plik `bounded_buffer.cpp`.
 Powoduje to jednak pewne komplikacje.
 W czasie kompilacji należy dostarczyć więcej informacji o tym, jak uzyskać skompilowany program.
 Od teraz zwykłe polecenie
@@ -187,7 +187,8 @@ Aby usunąć pliki binarne wykonaj
 make clean
 ```
 
-
+> Target .PHONY to specjalny rodzaj targetu, który nie oznacza produkcji żadnego pliku. 
+> Stąd operacja `clean` oraz `all` nadaje się idealnie do takiego oznaczenia.
 
 #### 2. Wydzielenie `bounded_buffer` do oddzielnego pliku
 
