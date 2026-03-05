@@ -17,10 +17,9 @@ void flush_buffer(bounded_buffer* buffer){
     buffer->buffer.clear();
 }
 
-bool add_to_buffer(bounded_buffer* buffer, std::string line){
+void add_to_buffer(bounded_buffer* buffer, std::string line){
     if (buffer_size(buffer) >= buffer_capacity(buffer))
-        return false;
+        return;
 
     buffer->buffer.push_back(line);
-    return true;
 }

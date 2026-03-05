@@ -20,8 +20,8 @@ Są to strony opisujące elementy standardowej biblioteki w sposób zwięzły i 
 
 ### Zadanie -- Buforowanie wejścia
 
-Twoim zadaniem na dzisiejszych laboratoriach jest przygotowanie prostego programu zapamiętujący linie wprowadzone na standardowe wejście.
-Po przeczytaniu 4 linii powinny zostać wypisane na standardowe wyjście z dodatkową linią zawierającą separator.
+Twoim zadaniem na dzisiejszych laboratoriach jest przygotowanie prostego programu zapamiętującego linie wprowadzone na standardowe wejście.
+Po przeczytaniu 4 linii powinny one zostać wypisane na standardowe wyjście z dodatkową linią zawierającą separator.
 
 #### 1. Przygotowanie pracy
 Rozpocznij od utworzenia pliku `pager.cpp` i otwarcia go w swoim środowisku programistycznym.
@@ -102,7 +102,7 @@ Przygotuj następującą strukturę
 ```cpp
 struct bounded_buffer {
   std::vector<std::string> buffer;
-  int capacity; // Rozmiar bufora, przy którym należy wykonac wypisanie
+  int capacity; // Rozmiar bufora, przy którym należy wykonać wypisanie
 };
 ```
 
@@ -117,8 +117,8 @@ int buffer_capacity(const bounded_buffer* buffer);
 // Wypisz zawartośc bufora na standardowe wyjście i zwolnij zawartość bufora
 void flush_buffer(bounded_buffer* buffer);
 
-// Dodaj linie do bufora. Jeśli limit bufora został osiągniety, zwróć false i nie modyfikuj zawartości
-bool add_to_buffer(bounded_buffer* buffer, std::string line);
+// Dodaj linie do bufora. Nie modyfikuj zawartości, jeśli limit rozmiaru został osiągnięty
+void add_to_buffer(bounded_buffer* buffer, std::string line);
 ```
 
 Przebuduj funkcję `main`, aby tworzyła `bounded_buffer` o rozmiarze 4 i używała go w logice programu.
@@ -134,7 +134,7 @@ Od teraz zwykłe polecenie
 g++ -o pager pager.cpp
 ```
 już nie wystarczy.
-Wymaga to nietrywialnej logiki, która trzeba podzielić się z użytkownikami lub innymi programistami.
+Wymaga to nietrywialnej logiki, którą trzeba podzielić się z użytkownikami lub innymi programistami.
 
 Do przechowywania informacji o sposobie skompilowania programu służy **system budowania**.
 W przypadku naszego laboratorium będziemy posługiwać się systemem [**GNU Make**](https://www.gnu.org/software/make/manual/make.html).
@@ -158,7 +158,7 @@ clean:
 
 System budowania make konstruuje się z **targetów** (np. `all`, `pager` albo `clean`).
 Każdy target ma swoje **zależności** podane po dwukropku.
-Jest o konieczne do określenia, w jakiej kolejności należy wykonywać polecenia, aby uzyskać podany target.
+Jest to konieczne do określenia, w jakiej kolejności należy wykonywać polecenia, aby uzyskać podany target.
 Poniżej definicji targetu znajdują się polecenia, które konsumują zależności (najczęściej pliki), aby uzyskać wynik.
 Rozważmy przykład targetu `all`.
 
@@ -171,13 +171,13 @@ I rzeczywiście po przeanalizowaniu polecenia
 ```bash
 ${CXX} -o pager pager.cpp
 ```
-Rzeczywiście używamy kompilatora C++ (opisanego zmienną `CXX`), aby skonsumować `pager.cpp` i uzyskać plik `pager`.
+używamy kompilatora C++ (opisanego zmienną `CXX`), aby skonsumować `pager.cpp` i uzyskać plik `pager`.
 
 W terminalu przejdź do folderu z plikami źródłowymi twojego programu i wykonaj polecenie
 ```bash
 make
 ```
-Wykona ono polecenia,aby uzyskać target `all`.
+Wykona ono polecenia, aby uzyskać target `all`.
 Jeśli chcesz zbudować tylko pager, wykonaj
 ```bash
 make pager
@@ -186,6 +186,8 @@ Aby usunąć pliki binarne wykonaj
 ```bash
 make clean
 ```
+
+
 
 #### 2. Wydzielenie `bounded_buffer` do oddzielnego pliku
 
@@ -232,28 +234,28 @@ make: *** [Makefile:8: pager] Error 1
 ```
 
 Jest to objaw braku include guard.
-Dodaj do swojego pliku `bounded_buffer.hpp` następujące instrukcje preprocessora na końcu i początku.
+Dodaj do swojego pliku `bounded_buffer.hpp` następujące instrukcje preprocesora na końcu i początku.
 ```cpp
-#ifndef _BOUNDED_BUFFER_HPP
-#define _BOUNDED_BUFFER_HPP
+#ifndef BOUNDED_BUFFER_HPP
+#define BOUNDED_BUFFER_HPP
 
 // ... definicja struktury oraz deklaracje zmiennych ...
 
 #endif
 ```
 
-Od tego momentu kompilator załączy deklaracje tylko raz, ponieważ za drugim razem będzie istnieć już zmienna preprocessora `_BOUNDED_BUFFER_HPP`, co spowoduje kolejne pominięcie deklaracji.
+Od tego momentu kompilator załączy deklaracje tylko raz, ponieważ za drugim razem będzie istnieć już zmienna preprocesora `BOUNDED_BUFFER_HPP`, co spowoduje kolejne pominięcie deklaracji.
 
 Zachęcam do wykonania polecenia
 ```bash
 g++ -E pager.cpp | tail -100
 ```
-To polecenie wykona tylko instrukcje preprocessora i wypisze wynik na standardowe wyjście.
-Wykonaj powyższe polecenie z include guardem i bez niego.
+To polecenie wykona tylko instrukcje preprocesora i wypisze wynik na standardowe wyjście.
+Wykonaj powyższe polecenie z include guard i bez niego.
 
 #### 3. Kompilacja programu `pager`
 
-Gdy już mamy 3 pliki: `pager.cpp`, `bounded_buffer.cpp` oraz `bounded_buffer.hpp`, mozemy przejśc do budowania programu.
+Gdy już mamy 3 pliki: `pager.cpp`, `bounded_buffer.cpp` oraz `bounded_buffer.hpp`, możemy przejść do budowania programu.
 Wykonanie polecenia
 ```bash
 make
@@ -262,7 +264,7 @@ zwróci błąd linkera
 ```
 /usr/bin/ld: pager.cpp:(.text:...): undefined reference to ...
 ```
-Oznacza to, że kompilator znalezł **deklarację** funkcji, ale nie moze namierzyć jej **definicji**.
+Oznacza to, że kompilator znalazł **deklarację** funkcji, ale nie może namierzyć jej **definicji**.
 
 Należy przerobić target `pager`, aby zależał także od pliku `bounded_buffer.cpp` i wykonywał następujące polecenie
 ```bash
