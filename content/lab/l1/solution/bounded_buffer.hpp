@@ -1,5 +1,5 @@
-#ifndef _BOUNDED_BUFFER_HPP
-#define _BOUNDED_BUFFER_HPP
+#ifndef BOUNDED_BUFFER_HPP
+#define BOUNDED_BUFFER_HPP
 
 #include <string>
 #include <vector>
@@ -19,7 +19,7 @@ int buffer_capacity(const bounded_buffer* buffer);
 // Print the buffer content to standard output and clear the buffer
 void flush_buffer(bounded_buffer* buffer);
 
-// Add a line to the buffer. If the buffer limit is reached, return false and do not modify the content
-bool add_to_buffer(bounded_buffer* buffer, std::string line);
+// Add a line to the buffer. If the buffer limit is reached, do not modify the content
+void add_to_buffer(bounded_buffer* buffer, std::string line);
 
-#endif // _BOUNDED_BUFFER_HPP
+#endif // BOUNDED_BUFFER_HPP

@@ -4,8 +4,6 @@
 
 #include "bounded_buffer.hpp"
 
-#include "bounded_buffer.hpp"
-
 #define PAGE_SIZE 4
 
 int main()
@@ -19,9 +17,7 @@ int main()
         add_to_buffer(&buffer, line);
 
         if (buffer_size(&buffer) == buffer_capacity(&buffer))
-        {
             flush_buffer(&buffer);
-        }
     }
 
     if (buffer_size(&buffer) > 0)
