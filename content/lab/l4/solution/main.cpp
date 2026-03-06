@@ -2,22 +2,23 @@
 #include <vector>
 #include <memory>
 
+#include "SongDuration.hpp"
+#include "Song.hpp"
+#include "Playlist.hpp"
+
 int main() {
 
     std::cout << "*************** PART 1 (SongDuration) ***************\n\n";
 
-    /*
     SongDuration duration1(0, 125);  // 2m 5s
     SongDuration duration2(3, 98);  // 4m 38s
 
     std::cout << "Duration 1: " << duration1.get_formatted() << " (" << duration1.get_total_seconds() << "s)\n";
 
     std::cout << "Duration 2: " << duration2.get_formatted() << " (" << duration2.get_total_seconds() << "s)\n";
-    */
 
     std::cout << "\n*************** PART 2 (Song) ***************\n\n";
 
-    /*
     Song song1;
     Song song2("Recursion Anthem", duration2, "Stack Overflow");
     Song song3("Binary Love", 3, 45, "The Algorithms");
@@ -40,11 +41,9 @@ int main() {
     std::cout << "get_title(): " << song1.get_title() << std::endl;
     std::cout << "get_artist(): " << song1.get_artist() << std::endl;
     std::cout << "get_duration(): " << song1.get_duration() << std::endl;
-    */
 
     std::cout << "\n*************** PART 3 (Playlist) ***************\n\n";
 
-    /*
     Playlist playlist;
     playlist.add_song(song1);
     playlist.add_song(song2);
@@ -74,11 +73,9 @@ int main() {
     playlist_move2.print();
     std::cout << "\nMoved from:\n";
     playlist_copy2.print();
-    */
 
     std::cout << "\n*************** PART 4 (Smart Pointers) ***************\n\n";
 
-    /*
     struct Dummy {
         char id;
         Dummy(char id) : id(id) {
@@ -89,18 +86,19 @@ int main() {
         }
     };
 
-    // [TODO 1]: Zdefiniuj dwa puste wektory przechowujące shared_ptr do Dummy
-    // v1
-    // v2
+    std::vector<std::shared_ptr<Dummy>> v1;
+    std::vector<std::shared_ptr<Dummy>> v2;
     {
-        // [TODO 1]: Zdefiniuj 3 zmienne przechowujące shared_ptr do Dummy z identyfikatorami A, B i C
-        // A
-        // B
-        // C
+        std::shared_ptr<Dummy> A = std::make_shared<Dummy>('A');
+        std::shared_ptr<Dummy> B = std::make_shared<Dummy>('B');
+        std::shared_ptr<Dummy> C = std::make_shared<Dummy>('C');
 
-        // [TODO 1]: Dodaj A, B i C do v1
+        v1.push_back(A);
+        v1.push_back(B);
+        v1.push_back(C);
 
-        // [TODO 1]: Dodaj B i C do v2
+        v2.push_back(B);
+        v2.push_back(C);
     }
 
     std::cout << "\nClearing v1" << std::endl;
@@ -111,11 +109,10 @@ int main() {
     v2.clear();
     std::cout << std::endl;
 
-    // [TODO 2]: Zdefiniuj pusty wektor przechowujący unique_ptr do Dummy
-    // v3
+    std::vector<std::unique_ptr<Dummy>> v3;
 
-    // [TODO 2]: Dodaj do v3 dwa unique_ptr z identyfikatorami D i E
-    */
+    v3.emplace_back(std::make_unique<Dummy>('D'));
+    v3.emplace_back(std::make_unique<Dummy>('E'));
 
     return 0;
 }

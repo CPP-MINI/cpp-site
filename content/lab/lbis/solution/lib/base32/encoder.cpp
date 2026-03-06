@@ -1,7 +1,7 @@
 #include "encoder.hpp"
 #include "base32_def.hpp"
 
-namespace l4::base32
+namespace lbis::base32
 {
 // Source: https://datatracker.ietf.org/doc/html/rfc4648#section-7
 const char k_base32hex_alphabet[]{
@@ -114,4 +114,4 @@ void Encoder::pushBytes(const std::byte *bytestream, std::size_t size)
 }
 
 std::string Encoder::encodedString() const { return {_buff.data(), _buff.size()}; }
-}  // namespace l4::base32
+}  // namespace lbis::base32

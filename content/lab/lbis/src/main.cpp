@@ -3,8 +3,8 @@
 #include <fstream>
 #include <iostream>
 
-#include "lib/base32/decoder.hpp"
-#include "lib/base32/encoder.hpp"
+#include "decoder.hpp"
+#include "encoder.hpp"
 
 struct settings
 {
@@ -56,7 +56,7 @@ settings parse_args(int argc, char *argv[])
     return settings;
 }
 
-using namespace l4;
+using namespace lbis;
 
 int main(int argc, char *argv[])
 {
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
     {
         base32::Encoder encoder;
         encoder.pushBytes(reinterpret_cast<const std::byte *>(s.data()), s.size());
-        std::cout << encoder.encodedString();
+        std::cout << encoder.encodedString() << std::endl;
     }
 
     return EXIT_SUCCESS;

@@ -2,7 +2,7 @@
 
 #include "lib/base32/encoder.hpp"
 
-namespace l4::base32::test
+namespace lbis::base32::test
 {
 class EncoderTest : public testing::Test
 {
@@ -91,4 +91,4 @@ TEST_F(EncoderTest, ChainTwoBytestreams)
 
     ASSERT_EQ(res, "CPNMUOJ1E8======;CPNMU===");
 }
-}  // namespace l4::base32::test
+}  // namespace lbis::base32::test

@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace l4::base32
+namespace lbis::base32
 {
 const int k_character_counter_to_bytes[]{
     0,                // 0
@@ -100,4 +100,4 @@ Decoder::Decoder(const std::string &encoded_string) : _encoded_string(encoded_st
 bool Decoder::isEmpty() const { return _idx == _encoded_string.size(); }
 
 std::vector<std::byte> Decoder::pullBytestream() { return decodeBytestream(); }
-}  // namespace l4::base32
+}  // namespace lbis::base32

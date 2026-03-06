@@ -1,29 +1,39 @@
-CXX=g++
-CXXFLAGS=-Wall -fsanitize=address,leak
-LDFLAGS=-fsanitize=address,leak
+COMPILER=g++
 
-.PHONY: all clean
+.PHONY: all
+all: program_1 program_2
 
-all: l2
+# Program 1
+program_1: program_1.o vars.o libgreeter.a
+	${COMPILER} vars.o program_1.o -L. -lgreeter -o program_1
 
-# $^ - this variable holds all dependencies of given target
-l2: vector3.o main.o holey_string.o memory_manipulation.o
-	${CXX} ${LDFLAGS} $^ -o l2 
+program_1.o: program_1.cpp
+	${COMPILER} -c program_1.cpp -o program_1.o
 
-# $< - this variable holds only first dependency of given target
-# $@ - this variables holds the target itself
-main.o: main.cpp
-	${CXX} ${CXXFLAGS} -c $< -o $@
+vars.o: vars.cpp
+	${COMPILER} -c vars.cpp -o vars.o
 
-vector3.o: vector3.cpp
-	${CXX} ${CXXFLAGS} -c $< -o $@
+# Program 2
+program_2: program_2.o libgreeter.a librome.so
+	${COMPILER} program_2.o -L. -lgreeter -lrome -o program_2
 
-holey_string.o: holey_string.cpp
-	${CXX} ${CXXFLAGS} -c $< -o $@
+# Greeter static library
+greeter.o: greeter.cpp
+	${COMPILER} -c greeter.cpp -o greeter.o
 
-memory_manipulation.o: memory_manipulation.cpp
-	${CXX} ${CXXFLAGS} -c $< -o $@
+libgreeter.a: greeter.o
+	ar rcs libgreeter.a greeter.o
 
+# Rome dynamic library
+rome.o: rome.cpp
+	${COMPILER} -c -fPIC rome.cpp -o rome.o
 
+librome.so: rome.o
+	${COMPILER} -shared rome.o -o librome.so
+
+.PHONY: clean
 clean:
-	rm -f *.o l2
+	rm -rf program_1 program_1.o vars.o
+	rm -rf program_2 program_2.o
+	rm -rf greeter.o libgreeter.a
+	rm -rf rome.o librome.so

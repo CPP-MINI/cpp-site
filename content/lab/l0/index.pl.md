@@ -1,7 +1,7 @@
 ---
 title: "L0"
 date: 2026-02-08T19:27:02+01:00
-weight: 10
+weight: 20
 ---
 
 # Laboratorium 0
