@@ -17,23 +17,6 @@ W pełni dozwolone (o ile nie będzie to wprost zabronione) jest i będzie korzy
 
 **Skorzystaj z następującego kodu startowego**: [greeter.cpp](src/greeter.cpp) [program_2.cpp](src/program_2.cpp).
 
-### Środowisko programistyczne
-Zanim przejdziemy do właściwej treści, musimy wybrać edytor, w którym będziemy pisali kod.
-W poprzednim semestrze było to Visual Studio.
-Nie ma ono swojej wersji na Linuxa (wielu programistów powiedziałoby: i bardzo dobrze, nie chcemy go).
-W naszym laboratorium dostępne jest:
-- Visual Studio Code -- niemające wiele wspólnego z Visual Studio środowisko (też wydawane przez Microsoft). Ma mniejszą funkcjonalność, ale dzięki temu jest znacznie szybsze i lżejsze.
-- CLion -- cięższe środowisko mające bardziej rozbudowaną funkcjonalność, bardziej przypominające Visual Studio.
-- Vim -- edytor tekstowy w terminalu. Bez odpowiedniej konfiguracji korzystanie z niego byłoby bardzo nieprzyjemne. Wbrew pozorom pozwala jednak na bardzo wiele rozszerzeń. Możliwości rozbudowy są jednak znacznie większe, niż w wymienionych wyżej edytorach.
-- Emacs -- edytor tekstowy, który podobnie jak vim, pozwala na dowolne rozbudowywanie funkcjonalności.
-- Geany -- prosty edytor tekstowy, bez wielkich możliwości rozbudowy.
-
-Wybór środowiska zależy od każdego indywidualnie.
-Na początek zarekomendowałbym Visual Studio Code lub CLion.
-Osoby bardziej ambitne, chcące zbudować sobie swoje własne środowisko od podstaw zachęcam do spróbowania Vima lub Emacsa. W internecie znajdziemy setki poradników, jak to zrobić.
-
-Na kolejnych laboratoriach, w szczególności na laboratoriach ocenianych, zakładamy znajomość z wybranym środowiskiem.
-
 ### Program z wieloma plikami
 Utwórz trzy nowe pliki: `program_1.cpp`, `vars.hpp` i `vars.cpp`.
 Wszystkie te pliki kompilowane będą do jednego programu o nazwie `program_1`.
