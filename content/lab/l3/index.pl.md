@@ -1,7 +1,7 @@
 ---
 title: "L3"
 date: 2022-02-05T17:26:02+01:00
-weight: 20
+weight: 30
 ---
 
 # Laboratorium 3
@@ -40,43 +40,38 @@ Druga natomiast opisuje trzy rodzaje owoców:
 * `Plum`
 
 Następnie zdefiniuj strukturę `Fruit` składającą się z tych dwóch enumeracji.
-Na końcu pliku `fruit.hpp` zdefiniuj 6 statycznych wyrażeń stałych (`static constexpr`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
-
-Wyrażenie stałe może być użyte do wykonania obliczeń jeszcze w trakcie kompilacji.
-Na warsztatach użyjemy tego jako ułatwienie definiowania zmiennej statycznej.
-Wyrażenia stałe mogą być definiowane w całości w plikach nagłówkowych.
-Na dalszych wykładach szerzej zostanie poruszony temat obliczeń w trakcie kompilacji.
+Na końcu pliku `fruit.hpp` zdefiniuj 6 statycznych stałych (`static const`) zmiennych typu `Fruit` opisujące dojrzałe i niedojrzałe jabłko, pomarańczę oraz śliwkę.
 
 Zwróć uwagę, że przy instancjonowaniu dojrzałej pomarańczy przekazujemy dwa razy enumerację o symbolu `Orange`.
 Enumerację w stylu C++ wprost wyrażają, który `Orange` powinien zostać użyty w trakcie tworzenia instancji owoców przy pomocy nazwy klasy poprzedzającej wartość enumeracji.
 
 ### Etap 1: Trójwymiarowy wektor
 W pliku `vector3.hpp` zadeklarowana jest struktura, która ma reprezentować wektor trójwymiarowy.
-Jako element jej definicji znajdziesz `using internal_representation`, który definiuje, jak wewnętrznie przechowywane są informacje o trzech liczbach rzeczywistych.
-Twoim zadaniem jest stworzyć definicję struktury `internal_representation` w taki sposób, aby dostęp do trzech liczb typu `double` można było wykonać poprzez trzy oddzielne zmienne `x`, `y` oraz `z`, albo poprzez trójelementową tablicę typu `double`.
-Stworzona struktura powinna mieć rozmiar `3 * sizeof(double)` oraz alignment taki jak typ double.
-Proszę zwrócić uwagę na dwie linie zawierające `static_assert`.
-Jest to sposób na upewnienie się, że zdefiniowany przez ciebie typ będzie traktowany jako blok trzech liczb.
-Zastanów się, dlaczego akurat tak wyglądają sprawdzenia poprawności.
+Jako element jej definicji znajdziesz pole `v`, które ma przechowywać trzy liczby rzeczywiste.
+Twoim zadaniem jest zdefiniować pole `v` jako trójelementową tablicę typu `double`.
 
-Struktura `Vector3` ma zdefiniowane pole `v` stworzonego przez ciebie typu `internal_representation`.
-W czterech funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
+Struktura `Vector3` ma zdefiniowane pole `v` typu `double[VECTOR_SIZE]`.
+W siedmiu funkcjach, które musisz teraz zaimplementować w pliku `vector3.cpp`, będzie ona dostępna jako pole `v`.
 
-Dwie z tych funkcji to tzw. *konstruktory*, o których mowa będzie na kolejnych laboratoriach.
-Twoim zadaniem jest ustawić w nich wartości `x`, `y` oraz `z` pola `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
-Funkcja `length` służy do wyliczenia długości euklidesowej wektora (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `cmath`).
-Funkcja `mul` służy do pomnożenia wektora przez liczbę.
-Do zaimplementowania funkcji `length` oraz `mul` użyj możliwości dostępu do `v` z perspektywy tablicy typu `double`.
+Cztery z tych funkcji są już zadeklarowane w pliku nagłówkowym:
+* Dwie funkcje inicjalizujące (`vector3_init`), które służą do ustawienia początkowych wartości wektora. Twoim zadaniem jest ustawić w nich wartości elementów tablicy `v` zgodnie z przekazanymi argumentami (brak argumentów oznacza wypełnienie zerami).
+* Funkcja `vector3_length` służy do wyliczenia długości euklidesowej wektora (**Podpowiedź**: funkcja `sqrt` znajduje się w nagłówku `cmath`).
+* Funkcja `vector3_mul` służy do pomnożenia wektora przez liczbę.
 
-Jako rozszerzenie klasy `Vector3` zadeklaruj dwie wolne funkcje w pliku `vector3.hpp`:
+Do zaimplementowania funkcji `vector3_length` oraz `vector3_mul` użyj możliwości dostępu do `v` jako tablicy typu `double`.
+
+Trzy funkcje dostępowe są również już zadeklarowane:
+* `vector3_x`, `vector3_y`, `vector3_z` - funkcje dostępowe, które zwracają odpowiednio pierwszą, drugą i trzecią współrzędną wektora.
+
+Jako rozszerzenie struktury `Vector3` zadeklaruj dwie dodatkowe funkcje w pliku `vector3.hpp`:
 * `vector3_add` - funkcja wykonuje dodawanie wektorów oraz przyjmuje dwie stałe referencje na typ `Vector3` reprezentujące lewą i prawą stronę operatora dodawania. Funkcja powinna zwracać nowy `Vector3` przechowujący wynik dodawania.
-* `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście.
+* `vector3_print` - funkcja formatuje i wypisuje na standardowe wyjście współrzędne wektora oraz jego długość (`[x,y,z] length`). Przyjmuje jako argument jedną stałą referencję na wektor, który należy wypisać na standardowe wyjście. W implementacji możesz użyć funkcji dostępowych `vector3_x`, `vector3_y` i `vector3_z` do pobrania współrzędnych wektora.
 
 Ciała funkcji powinny zostać zaimplementowane w pliku `vector3.cpp`.
 
 Po skończeniu implementacji struktury `Vector3` przejdź do funkcji `main` w pliku `main.cpp`. 
 Mając już wszystkie konieczne operacje na wektorach, możemy wyrazić wektor `[3,5,7]` jako kombinację liniową wektorów bazowych pomnożonych przez pewne stałe.
-Zdefiniuj trzy wektory bazowe jako zmienne automatyczne i wykorzystując funkcje `mul` oraz `vector3_add` oblicz wynikowy wektor. Na koniec wypisz wynik na standardowe wyjście przy pomocy funkcji `vector3_print`.
+Zdefiniuj trzy wektory bazowe jako zmienne automatyczne i wykorzystując funkcje `vector3_mul` oraz `vector3_add` oblicz wynikowy wektor. Na koniec wypisz wynik na standardowe wyjście przy pomocy funkcji `vector3_print`.
 
 
 W ramach przypomnienia: wektory z bazy kanonicznej to `[1,0,0]`, `[0,1,0]` oraz `[0,0,1]` (**Podpowiedź**: `= {x,y,z}` zainicjalizuje wektor wartościami podanymi w klamrach).
@@ -92,6 +87,8 @@ Twoim zadaniem jest zadeklarować trzy rodzaje tablic:
 Do każdej tablicy wstaw 10 obiektów typu `Vector3` o wartościach `{i,i,i}`, gdzie `i` - numer wstawianego wektora.
 Przy każdym wstawieniu pobierz adres pierwszego elementu oraz wypisz go na standardowe wyjście. Czy w każdym wypadku te adresy będą identyczne w czasie kolejnych iteracji pętli?
 Po zakończeniu wstawiania przejdź po tablicy ponownie oraz wypisz długość wektora na standardowe wyjście.
+
+**Wskazówka**: Aby uzyskać wskaźnik do danych wewnątrz `std::vector`, użyj funkcji `.data()`, która zwraca wskaźnik do pierwszego elementu.
 
 ### Etap 3: Memory dumper (*pol. drukarz pamięci*)
 
@@ -120,12 +117,12 @@ W pliku `holey_string.hpp` zdefiniowana jest struktura reprezentująca 16 elemen
 Znaki w tej strukturze są specjalne, pomimo wykorzystania typu `char` każdy znak zajmuje 2 bajty.
 
 Twoim zadaniem jest zdefiniować ten specjalny typ znaku `holey_char` (**Podpowiedź**: `alignas`) i zaimplementować trzy funkcje:
-* `print` - ta funkcja wypisuje taki specjalnie przygotowany ciąg znaków na standardowe wyjście (długość ciągu znaków ustal na podstawie terminującego zera - jak w języku C),
-* `assign` - ta funkcja przypisuje otrzymany `std::string` do specjalnego ciągu znaków (zaterminuj string w stylu C - ustawiając ostatni bajt na zero),
-* `hide` - ta funkcja przypisuje otrzymany `std::string` do dziur powstałych pomiędzy znakami.
-W przypadku ostatniej funkcji wykonanie funkcji `hide` nie powinno wpłynąć na zawartość ciągu znaków oraz kolejne wywołania funkcji `print`. *Po laboratorium zastanów się, czy ta funkcja przypadkiem nie łamie jakichś zasad* 🤔
+* `holey_string_print` - ta funkcja wypisuje taki specjalnie przygotowany ciąg znaków na standardowe wyjście (długość ciągu znaków ustal na podstawie terminującego zera - jak w języku C),
+* `holey_string_assign` - ta funkcja przypisuje otrzymany `std::string` do specjalnego ciągu znaków (zaterminuj string w stylu C - ustawiając ostatni bajt na zero),
+* `holey_string_hide` - ta funkcja przypisuje otrzymany `std::string` do dziur powstałych pomiędzy znakami.
+W przypadku ostatniej funkcji wykonanie funkcji `holey_string_hide` nie powinno wpłynąć na zawartość ciągu znaków oraz kolejne wywołania funkcji `holey_string_print`. *Po laboratorium zastanów się, czy ta funkcja przypadkiem nie łamie jakichś zasad* 🤔
 
-Po zaimplementowaniu powyższych funkcji przejdz do pliku `main.cpp` oraz stwórz automatyczny obiekt typu `HoleyString`. Wykonaj na nim funkcję `assign` ze stringiem `"hello"` oraz hide z `"world"`. Po wykonaniu każdej z tych dwóch operacji wykonaj funkcję `print` oraz wypisz pamięć zajmowaną przez obiekt funkcją `dump_memory`.
+Po zaimplementowaniu powyższych funkcji przejdz do pliku `main.cpp` oraz stwórz automatyczny obiekt typu `HoleyString`. Wykonaj na nim funkcję `holey_string_assign` ze stringiem `"hello"` oraz `holey_string_hide` z `"world"`. Po wykonaniu każdej z tych dwóch operacji wykonaj funkcję `holey_string_print` oraz wypisz pamięć zajmowaną przez obiekt funkcją `dump_memory`.
 
 
 ### Etap 5: Manipulacja pamięcią
@@ -135,6 +132,8 @@ Obydwie służą do przekopiowania bloku pamięci ze wskazanego adresu do docelo
 Różni je jednak bardzo subtelny szczegół: fakt nachodzenia się bloków źródłowego oraz docelowego.
 Funkcja `memcpy` zakłada, że podane bloki nie nachodzą na siebie, a `memmove` dopuszcza, aby bloki nachodziły na siebie.
 Zachęcam do przeczytania instrukcji dla standardowej biblioteki, aby zapoznać się z funkcjami (`man 3p memcpy` oraz `mam 3p memmove`).
+
+**Uwaga o typie `size_t`**: W sygnaturach tych funkcji używany jest typ `size_t`, który służy do reprezentowania rozmiarów obiektów w pamięci. Jest to typ **bez znaku** (w przeciwieństwie do `int`, który może być ujemny), specjalnie zaprojektowany do przechowywania maksymalnego rozmiaru dowolnego obiektu. Różni się od `unsigned int` tym, że jego rozmiar odpowiada maksymalnemu rozmiarowi obiektu na danej platformie (32 lub 64 bity), co gwarantuje przenośność kodu.
 
 Twoim zadaniem jest zaimplementować obydwie funkcje w pliku `memory_manipulation.cpp`.
 W celu sprawdzenia implementacji w pliku `main.cpp` wykonaj następujące przekształcenia:
