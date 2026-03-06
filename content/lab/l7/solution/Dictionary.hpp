@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <string>
+#include <optional>
+#include <array>
 #include "Hash.hpp"
 
 template<typename K, typename V>
@@ -16,7 +18,7 @@ struct KeyValuePair {
 template<typename K, typename V, int Capacity = 128>
 class Dictionary {
 private:
-    KeyValuePair<K, V>* table[Capacity];
+    std::array<KeyValuePair<K, V>*, Capacity> table;
 
     size_t hash(const K& key) const;
 
@@ -25,17 +27,17 @@ public:
     ~Dictionary();
 
     void insert(const K& key, const V& value);
-    bool get(const K& key, V& value) const;
+    std::optional<V> get(const K& key) const;
     bool remove(const K& key);
     V& operator[](const K& key);
 
-    template <typename _K, typename _V>
-    friend std::ostream& operator<<(std::ostream& os, const Dictionary<_K,_V>& d);
+    template <typename _K, typename _V, int _Capacity>
+    friend std::ostream& operator<<(std::ostream& os, const Dictionary<_K,_V, _Capacity>& d);
 
     Dictionary intersect(const Dictionary& other) const;
 
-    template <typename _K, typename _V>
-    friend Dictionary<_K, _V> operator+(const Dictionary<_K,_V>& d1, const Dictionary<_K,_V>& d2);
+    template <typename _K, typename _V, int _Capacity>
+    friend Dictionary<_K, _V, _Capacity> operator+(const Dictionary<_K,_V, _Capacity>& d1, const Dictionary<_K,_V, _Capacity>& d2);
 
 };
 
@@ -90,20 +92,17 @@ void Dictionary<K, V, Capacity>::insert(const K& key, const V& value) {
 }
 
 template<typename K, typename V, int Capacity>
-bool Dictionary<K, V, Capacity>::get(const K& key, V& value) const {
+std::optional<V> Dictionary<K, V, Capacity>::get(const K& key) const {
     size_t index = hash(key);
     KeyValuePair<K, V>* entry = table[index];
 
     while (entry != nullptr) {
         if (entry->key == key) {
-            value = entry->value;
-            return true;
+            return entry->value;
         }
         entry = entry->next;
     }
-    // Part 7
-    throw std::runtime_error("Trying to get non-existing value!");
-    return false;
+    return std::nullopt;
 }
 
 template<typename K, typename V, int Capacity>
@@ -118,8 +117,6 @@ bool Dictionary<K, V, Capacity>::remove(const K& key) {
     }
 
     if (entry == nullptr) {
-
-        throw std::runtime_error("Trying to delete non-existing value!");
         return false;
     }
     else {
@@ -161,7 +158,7 @@ V& Dictionary<K, V, Capacity>::operator[](const K& key) {
 }
 
 template<typename K, typename V, int Capacity>
-std::ostream& operator<<(std::ostream& os, const Dictionary<K, V>& d)
+std::ostream& operator<<(std::ostream& os, const Dictionary<K, V, Capacity>& d)
 {
     for (int i = 0; i < Capacity; ++i) {
         KeyValuePair<K, V>* entry = d.table[i];
@@ -180,15 +177,9 @@ inline Dictionary<K, V, Capacity> Dictionary<K, V, Capacity>::intersect(const Di
     for (int i = 0; i < Capacity; ++i) {
         KeyValuePair<K, V>* entry = other.table[i];
         while (entry) {
-            V value;
-            // Part 7
-            try {
-                if (get(entry->key, value))
-                    d.insert(entry->key, value);
-            }
-            catch (std::exception &e){
-                std::cout << "Handled exception: " << e.what() << std::endl;
-            }
+            auto value = get(entry->key);
+            if (value.has_value())
+                d.insert(entry->key, value.value());
             entry = entry->next;
         }
     }
@@ -196,17 +187,17 @@ inline Dictionary<K, V, Capacity> Dictionary<K, V, Capacity>::intersect(const Di
 }
 
 template<typename K, typename V, int Capacity>
-Dictionary<K, V, Capacity> operator+(const Dictionary<K, V>& d1, const Dictionary<K, V>& d2)
+Dictionary<K, V, Capacity> operator+(const Dictionary<K, V, Capacity>& d1, const Dictionary<K, V, Capacity>& d2)
 {
     Dictionary<K, V> d;
-    for (int i = 0; i < d1.TABLE_SIZE; ++i) {
+    for (int i = 0; i < Capacity; ++i) {
         KeyValuePair<K, V>* entry = d1.table[i];
         while (entry) {
             d.insert(entry->key, entry->value);
             entry = entry->next;
         }
     }
-    for (int i = 0; i < d2.TABLE_SIZE; ++i) {
+    for (int i = 0; i < Capacity; ++i) {
         KeyValuePair<K, V>* entry = d2.table[i];
         while (entry) {
             d.insert(entry->key, entry->value);

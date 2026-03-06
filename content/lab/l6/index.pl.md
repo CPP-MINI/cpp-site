@@ -36,8 +36,8 @@ W pliku `Character.hpp` zdefiniuj abstrakcyjną klasę bazową `Character`. Powi
   
 **Metody**:
 * `getName()`, `getHealth()`, `isAlive()` - gettery na pola klasy
-* `takeDamage(int)` - metoda do zadawania obrażeń
-* `heal(int)` - metoda do leczenia postaci
+* `takeDamage(int)` - metoda do zadawania obrażeń (wypisuje informację o otrzymanych obrażeniach i pozostałym życiu oraz o pokonaniu postaci, jeśli nastąpiło)
+* `heal(int)` - metoda do leczenia postaci (wypisuje informację o ilości wyleczonego życia i pozostałym życiu)
 * `attack(Character* target)` - wirtualna metoda
   
 Ponieważ jest to klasa abstrakcyjna, pamiętaj również o zadeklarowaniu wirtualnego destruktora!
@@ -55,7 +55,7 @@ W klasie `Mage` dodaj prywatne pole `int spellDamage` oraz konstruktor przyjmuj�
 * `int mana`, domyślnie wartość 150
 * `int damage`, domyślnie wartość 20
 
-Dla każdej z tych klas zaimplementuj metodę `attack`, w której zadawane są odpowiednio obrażenia przeciwnikowi o wartościach `meleeDamage` oraz `spellDamage`.
+Dla każdej z tych klas zaimplementuj metodę `attack`, w której zadawane są odpowiednio obrażenia przeciwnikowi o wartościach `meleeDamage` oraz `spellDamage`. Metody powinny wypisywać odpowiednie komunikaty o akcjach postaci (np. informacje o ataku, zadanych obrażeniach).
 
 ### Etap 2: Wielodziedziczenie i Wyjątki
 
@@ -69,15 +69,15 @@ Klasa `CanCastSpells` posiada dwa pola:
   
 Oraz metody:
 * `getMana()` - getter dla many
-* `addMana(int amount)` - metoda dodaje wskazaną ilość many zachowując limit `maxMana`
-* `useMana(int amount)` - metoda zużywa wskazaną ilość many. W przypadku zbyt małej ilość powinna rzucać wyjątek `NoManaException`
+* `addMana(int amount)` - metoda dodaje wskazaną ilość many zachowując limit `maxMana` (wypisuje informację o dodanej many i aktualnym stanie)
+* `useMana(int amount)` - metoda zużywa wskazaną ilość many (wypisuje informację o zużytej many i pozostałej ilości). W przypadku zbyt małej ilości powinna rzucać wyjątek `NoManaException`
 * `castSpell(Character* target)` - metoda czysto wirtualna, będziemy ją później implementować w klasie postaci
 
 Klasa `CanUseMelee` posiada jedynie metodę:
 * `performMeleeAttack(Character* target)` - tak samo jak `castSpell`, metoda czysto wirtualna
 
 
-Dodaj do klas `Warrior` oraz `Mage` odpowiednio dziedziczenie po `CanUseMelee` oraz `CanCastSpells` i zaimplementuj wymagane metody. Zmodyfikuj metody `attack()` tak by używały metod `castSpell` oraz `performMeleeAttack`. Rzucenie zaklęcia powinno zabierać 10 many. 
+Dodaj do klas `Warrior` oraz `Mage` odpowiednio dziedziczenie po `CanUseMelee` oraz `CanCastSpells` i zaimplementuj wymagane metody. Zmodyfikuj metody `attack()` tak by używały metod `castSpell` oraz `performMeleeAttack`. Rzucenie zaklęcia powinno zabierać 10 many. Metody powinny wypisywać komunikaty o wykonywanych akcjach (przygotowanie do ataku, wykonany atak z obrażeniami, informacje o zużyciu many). 
 
 Zdefiniuj klasę `BattleMage` dziedziczącą po `Character`, `CanCastSpells`, `CanUseMelee`.
 Zaimplementuj konstruktor `BattleMage`:
@@ -87,7 +87,7 @@ Zaimplementuj konstruktor `BattleMage`:
 * `int meleeDmg`, domyślnie 10
 * `int spellDmg` domyślnie 15
 
-Zaimplementuj polimorficzną metodę `attack()` w `BattleMage`. Wewnątrz tej metody losuj, czy użyć magii czy ataku fizycznego. Obsłuż potencjalny `NoManaException` wewnątrz metody attack, w przypadku braku many wykonaj atak wręcz `performMeleeAttack`. Załóż, że rzucenia zaklęcia zużywa 8 many (`castSpell`).
+Zaimplementuj polimorficzną metodę `attack()` w `BattleMage`. Wewnątrz tej metody losuj, czy użyć magii czy ataku fizycznego. Obsłuż potencjalny `NoManaException` wewnątrz metody attack, w przypadku braku many wykonaj atak wręcz `performMeleeAttack`. Załóż, że rzucenia zaklęcia zużywa 8 many (`castSpell`). Metoda powinna wypisywać komunikaty o wykonywanych akcjach.
 
 
 ### Etap 3: RTTI (`typeid`, `dynamic_cast`)
@@ -103,11 +103,11 @@ Konstruktor przyjmuje:
 * `int basicDmg`, domyślnie 12
 * `int backstabDmg` domyślnie 30
   
-Zmodyfikuj metodę `attack()` w `Mage` aby używała dynamicznego rzutowania do sprawdzenia, czy cel jest Wojownikiem lub posiada zdolności walki wręcz, zadając bonusowe obrażenia w takim przypadku (+10).
+Zmodyfikuj metodę `attack()` w `Mage` aby używała dynamicznego rzutowania do sprawdzenia, czy cel jest Wojownikiem lub posiada zdolności walki wręcz, zadając bonusowe obrażenia w takim przypadku (+10). Metoda powinna wypisać informację o bonusowych obrażeniach, jeśli występują.
 
-Zaimplementuj specjalną metodę `backstab(Character* target)` w klasie `Rogue`. Użyj mechanizmu RTTI, aby sprawdzić, czy cel nie jest Magiem/Czarującym. Jeśli warunek spełniony, zadaj duże obrażenia (`backstabDamage`). W przeciwnym razie, wypisz komunikat, że dźgnięcie w plecy (backstab) się nie powiódł.
+Zaimplementuj specjalną metodę `backstab(Character* target)` w klasie `Rogue`. Użyj mechanizmu RTTI, aby sprawdzić, czy cel nie jest Magiem/Czarującym. Jeśli warunek spełniony, zadaj duże obrażenia (`backstabDamage`). W przeciwnym razie, wypisz komunikat, że dźgnięcie w plecy (backstab) się nie powiódł. Metoda powinna wypisywać komunikaty o próbie dźgnięcia oraz jego wyniku (sukces z obrażeniami lub porażka).
 
-Zaimplementuj polimorficzną metodę `attack()` w klasie `Rogue`. Wewnątrz tej metody losuj, czy użyć zwykłego ataku wręcz czy spróbować wykonać dźgnięcie w plecy.
+Zaimplementuj polimorficzną metodę `attack()` w klasie `Rogue`. Wewnątrz tej metody losuj, czy użyć zwykłego ataku wręcz czy spróbować wykonać dźgnięcie w plecy. Metoda powinna wypisywać komunikaty o podejmowanej akcji.
 
 ### Rozwiązanie
 
