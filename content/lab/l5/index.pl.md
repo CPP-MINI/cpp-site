@@ -1,7 +1,7 @@
 ---
 title: "L5"
 date: 2025-04-19T17:00:00+02:00
-weight: 50
+weight: 60
 ---
 
 # Laboratorium 5
