@@ -33,12 +33,12 @@ Piątki, godz. 10:15 - 12:00
 | 27.02.2026 | L0 - Środowisko                                                 |        |
 | 06.03.2026 | L1 - Podstawy (warsztaty)                                       |        |
 | 13.03.2026 | L1 - Podstawy (oceniane)                                        | 10 pkt |
-| 20.03.2026 | [L2 - Translacja (warsztaty) ]({{< ref "lab/l1" >}})            |        |
-| 27.03.2026 | [L2 - Translacja (oceniane) ]({{< ref "lab/l1" >}})             | 15 pkt |
-| 10.04.2026 | [L3 - Pamięć (warsztaty) ]({{< ref "lab/l2" >}})                |        |
-| 17.04.2026 | [L3 - Pamięć (oceniane) ]({{< ref "lab/l2" >}})                 | 15 pkt |
-| 24.04.2026 | [L4 - Klasy (warsztaty) ]({{< ref "lab/l3" >}})                 |        |
-| 27.04.2026 | [L4 - Klasy (oceniane) ]({{< ref "lab/l3" >}})                  | 15 pkt |
+| 20.03.2026 | [L2 - Translacja (warsztaty) ]({{< ref "lab/l2" >}})            |        |
+| 27.03.2026 | [L2 - Translacja (oceniane) ]({{< ref "lab/l2" >}})             | 15 pkt |
+| 10.04.2026 | [L3 - Pamięć (warsztaty) ]({{< ref "lab/l3" >}})                |        |
+| 17.04.2026 | [L3 - Pamięć (oceniane) ]({{< ref "lab/l3" >}})                 | 15 pkt |
+| 24.04.2026 | [L4 - Klasy (warsztaty) ]({{< ref "lab/l4" >}})                 |        |
+| 27.04.2026 | [L4 - Klasy (oceniane) ]({{< ref "lab/l4" >}})                  | 15 pkt |
 | 08.05.2026 | [L5 - STL (warsztaty) ]({{< ref "lab/l5" >}})                   |        |
 | 12.05.2026 | [L5 - STL (oceniane) ]({{< ref "lab/l5" >}})                    | 15 pkt |
 | 22.05.2026 | [L6 - Polimorfizm i Wyjątki (warsztaty) ]({{< ref "lab/l6" >}}) |        |
