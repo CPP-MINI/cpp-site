@@ -140,3 +140,7 @@ Zbuduj `program_2` i go uruchom.
 Pamiętaj, że przy uruchamianiu programu linkującego bibliotekę dynamiczną, będzie on jej szukał domyślnie w katalogach systemowych. U nas jednak jest ona w obecnym katalogu. Można to zmienić modyfikując zmienną środowiskową `LD_LIBRARY_PATH`, która zawiera listę dodatkowych katalogów do przeszukania w tym celu.
 
 Rozwiązanie: [Makefile](solution/Makefile) [greeter.cpp](solution/greeter.cpp) [greeter.hpp](solution/greeter.hpp) [rome.cpp](solution/rome.cpp) [rome.hpp](solution/rome.hpp) [program_1.cpp](solution/program_1.cpp) [vars.cpp](solution/vars.cpp) [vars.hpp](solution/vars.hpp) [program_2.cpp](solution/program_2.cpp).
+
+## Zadania z poprzednich lat
+
+- [2025](./previous-years/2025/)

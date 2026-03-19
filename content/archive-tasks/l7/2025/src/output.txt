@@ -1,0 +1,101 @@
+--- Stage 1: Matrix template class definition, constructor, operator<< ---
+Matrix 3x3 of char from {{'a', 'b', 'c'}, {'d', 'e', 'f'}, {'g', 'h', 'i'}}:
+---------
+a b c 
+d e f 
+g h i 
+---------
+Matrix 1x2 of int from {{1001, 1002}}:
+---------
+1001 1002 
+---------
+Matrix 3x1 of float from {{1.1f}, {2.2f}, {3.3f}}:
+---------
+1.1 
+2.2 
+3.3 
+---------
+Matrix int 3x3 from {{1, 2, 3}, {4, 5, 6, 7}, {8, 9}, {2}}:
+---------
+1 2 3 
+4 5 6 
+8 9 0 
+---------
+Matrix char 3x2 from {{'a', 'b', 'c'}, {'d'}}:
+---------
+a b 
+d   
+    
+---------
+
+--- Stage 2: Matrix operator[], operator+, operator -, transpose() ---
+Matrix m1:
+---------
+1 2 10 
+4 5 2 
+---------
+Element of index (0, 2) of Matrix m1: 10
+Matrix m1 after change:
+---------
+1 2 3 
+4 5 2 
+---------
+Element of index (0, 2) of Matrix m1 after change: 3
+Matrix m2:
+---------
+1 0 -1 
+0 -1 2 
+---------
+Element of index (1, 2) of Matrix m2: 2
+Operator+ (m1+m2):
+------------------------------
+1 2 3       1 0 -1       2 2 2 
+4 5 2   +   0 -1 2   =   4 4 4 
+Operator- (m1-m2):
+------------------------------
+1 2 3       1 0 -1       0 2 4 
+4 5 2   -   0 -1 2   =   4 6 0 
+Transpose of m_result matrix:
+---------
+0 4 
+2 6 
+4 0 
+---------
+
+--- Stage 3: SquareMatrix derived class, calculateDeterminant(), getDet(), identity() ---
+Square matrix sq_3: 
+---------
+2 4 1 
+4 0 8 
+6 4 2 
+---------
+Matrix sq_3 determinant: 112
+Matrix sq_3 transpose: 
+---------
+2 4 6 
+4 0 4 
+1 8 2 
+---------
+Square matrix 3x3 identity: 
+---------
+1 0 0 
+0 1 0 
+0 0 1 
+
+--- Stage 4: SquareMatrix specialization for 2x2 matrices ---
+Calculating determinant in 2x2 square matrix class specialization
+Square matrix sq_2: 
+---------
+1 2 
+4 5 
+---------
+Matrix sq_2 determinant: -3
+Matrix sq_2 transpose: 
+---------
+1 4 
+2 5 
+---------
+Square matrix 2x2 identity: 
+---------
+1 0 
+0 1 
