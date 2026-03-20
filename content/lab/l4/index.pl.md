@@ -210,3 +210,7 @@ E destroyed
 [main.cpp](solution/main.cpp)
 
 [Makefile](solution/Makefile)
+
+## Zadania z poprzednich lat
+
+- [2025](./previous-years/2025/)

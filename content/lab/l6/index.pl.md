@@ -115,3 +115,7 @@ Zaimplementuj polimorficzną metodę `attack()` w klasie `Rogue`. Wewnątrz tej 
 [Character.cpp](solution/Character.cpp)  
 [main.cpp](solution/main.cpp)  
 [Makefile](solution/Makefile)  
+
+## Zadania z poprzednich lat
+
+- [2025](./previous-years/2025/)

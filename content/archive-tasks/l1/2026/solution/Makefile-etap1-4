@@ -1,0 +1,11 @@
+COMPILER=g++
+
+.PHONY: all
+all: main
+
+main: main.cpp
+	${COMPILER} main.cpp -o main
+
+.PHONY: clean
+clean:
+	rm -f main

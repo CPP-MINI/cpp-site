@@ -270,3 +270,7 @@ Description: Pastel chaos and fancy mustaches.
 [MovieCollection.cpp](solution/MovieCollection.cpp)  
 [main.cpp](solution/main.cpp)  
 [Makefile](solution/Makefile)  
+
+## Zadania z poprzednich lat
+
+- [2025](./previous-years/2025/)

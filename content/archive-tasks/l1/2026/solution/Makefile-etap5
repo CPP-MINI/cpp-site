@@ -1,0 +1,11 @@
+COMPILER=g++
+
+.PHONY: all
+all: main
+
+main: main-etap5.cpp haker-etap5.cpp
+	${COMPILER} main-etap5.cpp haker-etap5.cpp -o main
+
+.PHONY: clean
+clean:
+	rm -f main

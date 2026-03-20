@@ -153,3 +153,7 @@ Zabronione jest użycie funkcji `std::memcpy` oraz `std::memmove` w implementacj
 [holey_string.hpp](solution/holey_string.hpp) [holey_string.cpp](solution/holey_string.cpp) 
 
 [memory_manipulation.hpp](solution/memory_manipulation.hpp) [memory_manipulation.cpp](solution/memory_manipulation.cpp)
+
+## Zadania z poprzednich lat
+
+- [2025](./previous-years/2025/)

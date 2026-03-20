@@ -7,7 +7,6 @@ weight: 20
 # Laboratorium 1
 ## System budowania i podstawowe elementy biblioteki standardowej
 
-
 ### Biblioteka standardowa
 
 W języku C++ programista ma dostęp do **biblioteki standardowej C++**.
@@ -283,3 +282,6 @@ Wtedy program zbuduje się prawidłowo, ponieważ będzie posiadał wszystkie **
 
 [bounded_buffer.cpp](solution/bounded_buffer.cpp)
 
+## Zadania z poprzednich lat
+
+- [2026](./previous-years/2026/)
